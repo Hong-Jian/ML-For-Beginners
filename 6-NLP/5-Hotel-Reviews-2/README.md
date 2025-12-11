@@ -79,14 +79,13 @@ CO_OP_TRANSLATOR_METADATA:
    2. 将 `Total_Number_of_Reviews` 替换为数据集中该酒店实际的评论总数
 
    3. 用我们自己计算的分数替换 `Average_Score`
-
-      ```python
-  # Drop `Additional_Number_of_Scoring`
-  df.drop(["Additional_Number_of_Scoring"], axis = 1, inplace=True)
-  # Replace `Total_Number_of_Reviews` and `Average_Score` with our own calculated values
-  df.Total_Number_of_Reviews = df.groupby('Hotel_Name').transform('count')
-  df.Average_Score = round(df.groupby('Hotel_Name').Reviewer_Score.transform('mean'), 1)
-  ```
+   ```python
+   # Drop `Additional_Number_of_Scoring`
+   df.drop(["Additional_Number_of_Scoring"], axis = 1, inplace=True)
+   # Replace `Total_Number_of_Reviews` and `Average_Score` with our own calculated values
+   df.Total_Number_of_Reviews = df.groupby('Hotel_Name').transform('count')
+   df.Average_Score = round(df.groupby('Hotel_Name').Reviewer_Score.transform('mean'), 1)
+   ```
 
 3. 处理评论列
 
