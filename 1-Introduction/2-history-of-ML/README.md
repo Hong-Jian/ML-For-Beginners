@@ -9,7 +9,7 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 机器学习的历史
 
-![机器学习历史的概述草图](../../../../sketchnotes/ml-history.png)
+![机器学习历史的概述草图](../../sketchnotes/ml-history.png)
 > 草图由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制
 
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
@@ -71,14 +71,14 @@ CO_OP_TRANSLATOR_METADATA:
 
 * [Shakey机器人](https://wikipedia.org/wiki/Shakey_the_robot)，它能够“智能地”移动并决定如何执行任务。
 
-    ![Shakey，一个智能机器人](../../../../1-Introduction/2-history-of-ML/images/shakey.jpg)
+    ![Shakey，一个智能机器人](../../1-Introduction/2-history-of-ML/images/shakey.jpg)
     > 1972年的Shakey
 
 ---
 
 * Eliza，一个早期的“聊天机器人”，能够与人对话并充当一个原始的“治疗师”。你将在自然语言处理课程中进一步了解Eliza。
 
-    ![Eliza，一个机器人](../../../../1-Introduction/2-history-of-ML/images/eliza.png)
+    ![Eliza，一个机器人](../../1-Introduction/2-history-of-ML/images/eliza.png)
     > Eliza的一个版本，一个聊天机器人
 
 ---

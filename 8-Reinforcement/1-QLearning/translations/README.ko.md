@@ -1,6 +1,6 @@
 # Reinforcement Learning과 Q-Learning 소개하기
 
-![Summary of reinforcement in machine learning in a sketchnote](../../../sketchnotes/ml-reinforcement.png)
+![Summary of reinforcement in machine learning in a sketchnote](../sketchnotes/ml-reinforcement.png)
 > Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
 
 Reinforcement learning에는 3가지 중요한 컨셉이 섞여있습니다: agent, 일부 states, 그리고 state 당 actions 세트. 특정 상황에서 행동하면 agent에게 보상이 주어집니다. Super Mario 게임을 다시 상상해봅니다. 마리오가 되어서, 게임 레벨에 진입하고, 구덩이 옆에 있습니다. 그 위에 동전이 있습니다. 게임 레벨에서, 특정 위치에 있는, 마리오가 됩니다 ... 이게 state 입니다. 한 단계 오른쪽으로 이동하면 (action) 구덩이를 빠져서, 낮은 점수를 받습니다. 그러나, 점프 버튼을 누르면 점수를 얻고 살아남을 수 있습니다. 긍정적인 결과이며, 긍정적인 점수를 줘야 합니다.

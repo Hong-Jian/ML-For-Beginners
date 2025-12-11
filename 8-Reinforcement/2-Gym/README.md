@@ -19,7 +19,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 > **问题**：如果彼得想要逃离狼的追捕，他需要能够移动得更快。我们将看到彼得如何通过 Q-Learning 学习滑行，特别是保持平衡。
 
-![伟大的逃亡！](../../../../8-Reinforcement/2-Gym/images/escape.png)
+![伟大的逃亡！](../../8-Reinforcement/2-Gym/images/escape.png)
 
 > 彼得和他的朋友们发挥创意逃离狼的追捕！图片由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
@@ -81,7 +81,7 @@ import random
 
     你应该会看到类似于以下图片的内容：
 
-    ![未平衡的 CartPole](../../../../8-Reinforcement/2-Gym/images/cartpole-nobalance.gif)
+    ![未平衡的 CartPole](../../8-Reinforcement/2-Gym/images/cartpole-nobalance.gif)
 
 1. 在模拟过程中，我们需要获取观察值以决定如何行动。实际上，`step` 函数会返回当前的观察值、奖励函数以及一个表示是否继续模拟的完成标志：（代码块 4）
 
@@ -283,7 +283,7 @@ import random
 plt.plot(rewards)
 ```
 
-![原始进度](../../../../8-Reinforcement/2-Gym/images/train_progress_raw.png)
+![原始进度](../../8-Reinforcement/2-Gym/images/train_progress_raw.png)
 
 从这个图表中无法看出任何信息，因为由于随机训练过程的性质，训练会话的长度变化很大。为了让这个图表更有意义，我们可以计算一系列实验的**运行平均值**，比如 100 次。这可以使用 `np.convolve` 方便地完成：（代码块 12）
 
@@ -294,7 +294,7 @@ def running_average(x,window):
 plt.plot(running_average(rewards,100))
 ```
 
-![训练进度](../../../../8-Reinforcement/2-Gym/images/train_progress_runav.png)
+![训练进度](../../8-Reinforcement/2-Gym/images/train_progress_runav.png)
 
 ## 调整超参数
 
@@ -324,7 +324,7 @@ env.close()
 
 你应该会看到类似这样的画面：
 
-![一个保持平衡的Cartpole](../../../../8-Reinforcement/2-Gym/images/cartpole-balance.gif)
+![一个保持平衡的Cartpole](../../8-Reinforcement/2-Gym/images/cartpole-balance.gif)
 
 ---
 

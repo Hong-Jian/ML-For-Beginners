@@ -9,7 +9,7 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 强化学习与Q学习简介
 
-![机器学习中强化学习的总结图](../../../../sketchnotes/ml-reinforcement.png)
+![机器学习中强化学习的总结图](../../sketchnotes/ml-reinforcement.png)
 > Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
 
 强化学习涉及三个重要概念：代理、状态和每个状态的一组动作。通过在指定状态下执行一个动作，代理会获得奖励。想象一下电脑游戏《超级马里奥》。你是马里奥，处于一个游戏关卡中，站在悬崖边上。你的上方有一个金币。你作为马里奥，处于游戏关卡中的特定位置……这就是你的状态。向右移动一步（一个动作）会让你掉下悬崖，这会给你一个较低的数值分数。然而，按下跳跃按钮会让你得分并保持存活。这是一个积极的结果，应该奖励你一个正数分数。
@@ -40,7 +40,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 为了简化，我们将彼得的世界设定为一个大小为 `width` x `height` 的方形棋盘，如下所示：
 
-![彼得的环境](../../../../8-Reinforcement/1-QLearning/images/environment.png)
+![彼得的环境](../../8-Reinforcement/1-QLearning/images/environment.png)
 
 棋盘中的每个单元格可以是：
 
@@ -138,7 +138,7 @@ action_idx = { a : i for i,a in enumerate(actions.keys()) }
 
     你还可以看到彼得在随机游走中的移动情况：
 
-    ![彼得的随机游走](../../../../8-Reinforcement/1-QLearning/images/random_walk.gif)
+    ![彼得的随机游走](../../8-Reinforcement/1-QLearning/images/random_walk.gif)
 
 ## 奖励函数
 
@@ -177,7 +177,7 @@ Q = np.ones((width,height,len(actions)),dtype=np.float)*1.0/len(actions)
 
 注意，我们将 Q表的所有值初始化为相等值，在我们的例子中为 0.25。这对应于“随机游走”策略，因为每个状态中的所有动作都同样好。我们可以将 Q表传递给 `plot` 函数，以便在棋盘上可视化表格：`m.plot(Q)`。
 
-![彼得的环境](../../../../8-Reinforcement/1-QLearning/images/env_init.png)
+![彼得的环境](../../8-Reinforcement/1-QLearning/images/env_init.png)
 
 每个单元格的中心有一个“箭头”，指示移动的优选方向。由于所有方向都相等，显示的是一个点。
 

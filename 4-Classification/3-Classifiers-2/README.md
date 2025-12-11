@@ -25,7 +25,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 之前，您已经了解了使用微软的速查表对数据进行分类的各种选项。Scikit-learn 提供了一个类似但更详细的速查表，可以进一步帮助您缩小选择范围（分类器的另一种说法是估计器）：
 
-![Scikit-learn 的机器学习地图](../../../../4-Classification/3-Classifiers-2/images/map.png)
+![Scikit-learn 的机器学习地图](../../4-Classification/3-Classifiers-2/images/map.png)
 > 提示：[在线访问此地图](https://scikit-learn.org/stable/tutorial/machine_learning_map/)，点击路径以阅读相关文档。
 
 ### 计划

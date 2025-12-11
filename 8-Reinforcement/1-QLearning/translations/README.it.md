@@ -1,6 +1,6 @@
 # Introduzione a Reinforcement Learning e  Q-Learning
 
-![Riepilogo di reinforcement in machine learning in uno sketchnote](../../../sketchnotes/ml-reinforcement.png)
+![Riepilogo di reinforcement in machine learning in uno sketchnote](../sketchnotes/ml-reinforcement.png)
 > Sketchnote di [Tomomi Imura](https://www.twitter.com/girlie_mac)
 
 Il reinforcement learning (apprendimento per rinforzo) coinvolge tre concetti importanti: l'agente, alcuni stati e un insieme di azioni per stato. Eseguendo un'azione in uno stato specifico, l'agente riceve una ricompensa. Si immagini di nuovo il gioco per computer Super Mario. Si è Mario, ci si trova in un livello di gioco, in piedi accanto a un dirupo. Sopra a Mario c'è una moneta. L'essere Mario, in un livello di gioco, in una posizione specifica... questo è il proprio stato. Spostarsi di un passo a destra (un'azione) porterebbe Mario oltre il limite e questo darebbe un punteggio numerico basso. Tuttavia, premendo il pulsante di salto si farà segnare un punto e si rimarrà vivi. Questo è un risultato positivo e dovrebbe assegnare un punteggio numerico positivo.

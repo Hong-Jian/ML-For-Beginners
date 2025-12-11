@@ -107,7 +107,7 @@ Scikit-learn将分类归类为监督学习，在这一类别中，您会发现�
 
 那么，应该选择哪个分类器呢？通常，可以尝试多个分类器并寻找效果较好的结果。Scikit-learn提供了一个[并排比较](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)，在一个创建的数据集上比较了KNeighbors、SVC两种方式、GaussianProcessClassifier、DecisionTreeClassifier、RandomForestClassifier、MLPClassifier、AdaBoostClassifier、GaussianNB和QuadraticDiscrinationAnalysis，并以可视化方式展示结果：
 
-![分类器比较](../../../../4-Classification/2-Classifiers-1/images/comparison.png)
+![分类器比较](../../4-Classification/2-Classifiers-1/images/comparison.png)
 > 图表来自Scikit-learn文档
 
 > AutoML可以通过在云端运行这些比较来轻松解决这个问题，帮助您选择最适合数据的算法。试试[这里](https://docs.microsoft.com/learn/modules/automate-model-selection-with-azure-automl/?WT.mc_id=academic-77952-leestott)
@@ -116,7 +116,7 @@ Scikit-learn将分类归类为监督学习，在这一类别中，您会发现�
 
 比盲目猜测更好的方法是参考这个可下载的[机器学习备忘单](https://docs.microsoft.com/azure/machine-learning/algorithm-cheat-sheet?WT.mc_id=academic-77952-leestott)。在这里，我们发现对于我们的多分类问题，有一些选择：
 
-![多分类问题备忘单](../../../../4-Classification/2-Classifiers-1/images/cheatsheet.png)
+![多分类问题备忘单](../../4-Classification/2-Classifiers-1/images/cheatsheet.png)
 > 微软算法备忘单的一部分，详细说明了多分类选项
 
 ✅ 下载这个备忘单，打印出来，挂在墙上！
@@ -147,7 +147,7 @@ Scikit-learn将分类归类为监督学习，在这一类别中，您会发现�
 
 Scikit-learn提供了这个表格来解释求解器如何处理不同数据结构带来的挑战：
 
-![求解器](../../../../4-Classification/2-Classifiers-1/images/solvers.png)
+![求解器](../../4-Classification/2-Classifiers-1/images/solvers.png)
 
 ## 练习 - 划分数据
 

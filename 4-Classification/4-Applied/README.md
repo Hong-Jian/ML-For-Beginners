@@ -152,7 +152,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 Onnx 模型在 Visual Studio Code 中不太直观，但有一个非常好的免费软件，许多研究人员使用它来可视化模型，以确保模型构建正确。下载 [Netron](https://github.com/lutzroeder/Netron) 并打开您的 model.onnx 文件。您可以看到您的简单模型被可视化，包含 380 个输入和分类器：
 
-![Netron 可视化](../../../../4-Classification/4-Applied/images/netron.png)
+![Netron 可视化](../../4-Classification/4-Applied/images/netron.png)
 
 Netron 是一个查看模型的有用工具。
 
@@ -221,7 +221,7 @@ Netron 是一个查看模型的有用工具。
             </div> 
     ```
 
-    注意，每个复选框都被赋予了一个值。这反映了食材在数据集中的索引位置。例如，苹果在这个按字母顺序排列的列表中占据第五列，因此其值为 '4'（因为我们从 0 开始计数）。您可以查阅 [ingredients spreadsheet](../../../../4-Classification/data/ingredient_indexes.csv) 来找到某个食材的索引。
+    注意，每个复选框都被赋予了一个值。这反映了食材在数据集中的索引位置。例如，苹果在这个按字母顺序排列的列表中占据第五列，因此其值为 '4'（因为我们从 0 开始计数）。您可以查阅 [ingredients spreadsheet](../../4-Classification/data/ingredient_indexes.csv) 来找到某个食材的索引。
 
     继续在 index.html 文件中工作，在最后一个关闭的 `</div>` 后添加一个脚本块，其中调用了模型。
 
@@ -301,13 +301,13 @@ Netron 是一个查看模型的有用工具。
 
 在存放 index.html 文件的文件夹中打开 Visual Studio Code 的终端会话。确保您已全局安装 [http-server](https://www.npmjs.com/package/http-server)，然后在提示符下输入 `http-server`。一个本地主机将打开，您可以查看您的网页应用。根据各种食材检查推荐的美食：
 
-![食材网页应用](../../../../4-Classification/4-Applied/images/web-app.png)
+![食材网页应用](../../4-Classification/4-Applied/images/web-app.png)
 
 恭喜，您已经创建了一个带有几个字段的“推荐”网页应用。花点时间完善这个系统吧！
 
 ## 🚀挑战
 
-您的网页应用非常简约，因此请继续使用 [ingredient_indexes](../../../../4-Classification/data/ingredient_indexes.csv) 数据中的食材及其索引来完善它。哪些风味组合可以制作出某种国家菜肴？
+您的网页应用非常简约，因此请继续使用 [ingredient_indexes](../../4-Classification/data/ingredient_indexes.csv) 数据中的食材及其索引来完善它。哪些风味组合可以制作出某种国家菜肴？
 
 ## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 

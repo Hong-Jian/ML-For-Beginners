@@ -23,7 +23,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 根据游戏规则修改上述奖励函数，运行强化学习算法以学习赢得游戏的最佳策略，并将随机游走的结果与您的算法进行比较，比较赢得和输掉的游戏数量。
 
-> **Note**: 在您的新世界中，状态更加复杂，除了人的位置，还包括疲劳和能量水平。您可以选择将状态表示为一个元组 (Board,energy,fatigue)，或者为状态定义一个类（您可能还希望从 `Board` 派生），甚至修改原始的 `Board` 类（位于 [rlboard.py](../../../../8-Reinforcement/1-QLearning/rlboard.py) 中）。
+> **Note**: 在您的新世界中，状态更加复杂，除了人的位置，还包括疲劳和能量水平。您可以选择将状态表示为一个元组 (Board,energy,fatigue)，或者为状态定义一个类（您可能还希望从 `Board` 派生），甚至修改原始的 `Board` 类（位于 [rlboard.py](../../8-Reinforcement/1-QLearning/rlboard.py) 中）。
 
 在您的解决方案中，请保留负责随机游走策略的代码，并在最后将您的算法结果与随机游走进行比较。
 

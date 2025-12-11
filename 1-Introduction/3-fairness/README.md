@@ -9,7 +9,7 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 构建负责任的人工智能的机器学习解决方案
 
-![机器学习中负责任人工智能的概要图](../../../../sketchnotes/ml-fairness.png)
+![机器学习中负责任人工智能的概要图](../../sketchnotes/ml-fairness.png)
 > 由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制的概要图
 
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
@@ -51,10 +51,10 @@ CO_OP_TRANSLATOR_METADATA:
 - **过度或不足代表**：某些群体在某些职业中未被看到，而任何继续推广这种现象的服务或功能都在助长危害。
 - **刻板印象**：将某个群体与预先分配的属性联系起来。例如，英语和土耳其语之间的语言翻译系统可能因与性别相关的刻板印象而出现不准确。
 
-![翻译成土耳其语](../../../../1-Introduction/3-fairness/images/gender-bias-translate-en-tr.png)
+![翻译成土耳其语](../../1-Introduction/3-fairness/images/gender-bias-translate-en-tr.png)
 > 翻译成土耳其语
 
-![翻译回英语](../../../../1-Introduction/3-fairness/images/gender-bias-translate-tr-en.png)
+![翻译回英语](../../1-Introduction/3-fairness/images/gender-bias-translate-tr-en.png)
 > 翻译回英语
 
 在设计和测试人工智能系统时，我们需要确保人工智能是公平的，并且不会被编程为做出偏见或歧视性的决策，这些决策也是人类被禁止做出的。确保人工智能和机器学习的公平性仍然是一个复杂的社会技术挑战。
@@ -97,7 +97,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 设计和部署人工智能系统的人必须对其系统的运行负责。责任感对于敏感技术的使用尤其重要，例如面部识别技术。最近，面部识别技术的需求不断增长，尤其是执法机构，他们看到了该技术在寻找失踪儿童等用途上的潜力。然而，这些技术可能会被政府用于威胁公民的基本自由，例如对特定个人进行持续监控。因此，数据科学家和组织需要对其人工智能系统对个人或社会的影响负责。
 
-[![领先的人工智能研究人员警告面部识别可能导致大规模监控](../../../../1-Introduction/3-fairness/images/accountability.png)](https://www.youtube.com/watch?v=Wldt8P5V6D0 "微软的负责任人工智能方法")
+[![领先的人工智能研究人员警告面部识别可能导致大规模监控](../../1-Introduction/3-fairness/images/accountability.png)](https://www.youtube.com/watch?v=Wldt8P5V6D0 "微软的负责任人工智能方法")
 
 > 🎥 点击上方图片观看视频：面部识别可能导致大规模监控的警告
 

@@ -11,7 +11,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 在这四节课中，你将探索经典机器学习的一个核心主题——_分类_。我们将使用一个关于亚洲和印度各种美食的数据集，逐步学习如何使用不同的分类算法。希望你已经准备好大快朵颐了！
 
-![just a pinch!](../../../../4-Classification/1-Introduction/images/pinch.png)
+![just a pinch!](../../4-Classification/1-Introduction/images/pinch.png)
 
 > 在这些课程中，庆祝泛亚洲美食吧！图片由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
@@ -30,7 +30,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [本课程也提供 R 版本！](../../../../4-Classification/1-Introduction/solution/R/lesson_10.html)
+> ### [本课程也提供 R 版本！](../../4-Classification/1-Introduction/solution/R/lesson_10.html)
 
 ### 简介
 
@@ -38,7 +38,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 用更科学的方式表述，你的分类方法会创建一个预测模型，使你能够将输入变量与输出变量之间的关系映射出来。
 
-![二元分类 vs. 多类分类](../../../../4-Classification/1-Introduction/images/binary-multiclass.png)
+![二元分类 vs. 多类分类](../../4-Classification/1-Introduction/images/binary-multiclass.png)
 
 > 分类算法处理二元问题和多类问题的对比。信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
@@ -134,7 +134,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     df.cuisine.value_counts().plot.barh()
     ```
 
-    ![美食数据分布](../../../../4-Classification/1-Introduction/images/cuisine-dist.png)
+    ![美食数据分布](../../4-Classification/1-Introduction/images/cuisine-dist.png)
 
     美食的种类是有限的，但数据分布不均匀。你可以解决这个问题！在此之前，先多探索一下。
 
@@ -188,7 +188,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     thai_ingredient_df.head(10).plot.barh()
     ```
 
-    ![泰国](../../../../4-Classification/1-Introduction/images/thai.png)
+    ![泰国](../../4-Classification/1-Introduction/images/thai.png)
 
 1. 对日本美食数据做同样的操作：
 
@@ -197,7 +197,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     japanese_ingredient_df.head(10).plot.barh()
     ```
 
-    ![日本](../../../../4-Classification/1-Introduction/images/japanese.png)
+    ![日本](../../4-Classification/1-Introduction/images/japanese.png)
 
 1. 接下来是中国美食的食材：
 
@@ -206,7 +206,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     chinese_ingredient_df.head(10).plot.barh()
     ```
 
-    ![中国](../../../../4-Classification/1-Introduction/images/chinese.png)
+    ![中国](../../4-Classification/1-Introduction/images/chinese.png)
 
 1. 绘制印度美食的食材：
 
@@ -215,7 +215,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     indian_ingredient_df.head(10).plot.barh()
     ```
 
-    ![印度](../../../../4-Classification/1-Introduction/images/indian.png)
+    ![印度](../../4-Classification/1-Introduction/images/indian.png)
 
 1. 最后，绘制韩国美食的食材：
 
@@ -224,7 +224,7 @@ Scikit-learn 提供了多种算法来分类数据，具体取决于你想解决�
     korean_ingredient_df.head(10).plot.barh()
     ```
 
-    ![韩国](../../../../4-Classification/1-Introduction/images/korean.png)
+    ![韩国](../../4-Classification/1-Introduction/images/korean.png)
 
 1. 现在，通过调用 `drop()` 删除那些在不同美食之间造成混淆的最常见食材：
 
