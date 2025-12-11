@@ -9,13 +9,13 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 使用 Python 和 Scikit-learn 构建回归模型
 
-![回归模型的简要概述](../../../../sketchnotes/ml-regression.png)
+![回归模型的简要概述](../../sketchnotes/ml-regression.png)
 
 > 由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制的手绘笔记
 
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [本课程也提供 R 版本！](../../../../2-Regression/1-Tools/solution/R/lesson_1.html)
+> ### [本课程也提供 R 版本！](../../2-Regression/1-Tools/solution/R/lesson_1.html)
 
 ## 简介
 
@@ -81,7 +81,7 @@ CO_OP_TRANSLATOR_METADATA:
     hello notebook
     ```
 
-![在 VS Code 中打开的笔记本](../../../../2-Regression/1-Tools/images/notebook.jpg)
+![在 VS Code 中打开的笔记本](../../2-Regression/1-Tools/images/notebook.jpg)
 
 您可以在代码中插入注释，以便自我记录笔记本内容。
 
@@ -211,7 +211,7 @@ Scikit-learn 使构建模型并评估其使用变得简单。它主要专注于�
     plt.show()
     ```
 
-   ![显示糖尿病数据点的散点图](../../../../2-Regression/1-Tools/images/scatterplot.png)
+   ![显示糖尿病数据点的散点图](../../2-Regression/1-Tools/images/scatterplot.png)
 ✅ 想一想这里发生了什么。一条直线穿过许多小数据点，但它究竟在做什么？你能看出如何利用这条线来预测一个新的、未见过的数据点在图表的 y 轴上的位置吗？试着用语言描述这个模型的实际用途。
 
 恭喜你！你已经构建了第一个线性回归模型，用它进行了预测，并将结果显示在图表中！

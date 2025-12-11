@@ -114,7 +114,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![训练和测试数据](../../../../7-TimeSeries/2-ARIMA/images/train-test.png)
+    ![训练和测试数据](../../7-TimeSeries/2-ARIMA/images/train-test.png)
 
     因此，使用一个相对较小的时间窗口来训练数据应该是足够的。
 
@@ -157,11 +157,11 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![原始数据](../../../../7-TimeSeries/2-ARIMA/images/original.png)
+    ![原始数据](../../7-TimeSeries/2-ARIMA/images/original.png)
 
     > 原始数据
 
-    ![缩放数据](../../../../7-TimeSeries/2-ARIMA/images/scaled.png)
+    ![缩放数据](../../7-TimeSeries/2-ARIMA/images/scaled.png)
 
     > 缩放数据
 
@@ -320,7 +320,7 @@ CO_OP_TRANSLATOR_METADATA:
 通过测试所有预测的平均绝对百分比误差 (MAPE) 来检查模型的准确性。
 > **🧮 展示数学公式**
 >
-> ![MAPE](../../../../7-TimeSeries/2-ARIMA/images/mape.png)
+> ![MAPE](../../7-TimeSeries/2-ARIMA/images/mape.png)
 >
 > [MAPE](https://www.linkedin.com/pulse/what-mape-mad-msd-time-series-allameh-statistics/) 用于以上述公式定义的比率显示预测准确性。实际值与预测值之间的差异除以实际值。
 >
@@ -381,7 +381,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![时间序列模型](../../../../7-TimeSeries/2-ARIMA/images/accuracy.png)
+    ![时间序列模型](../../7-TimeSeries/2-ARIMA/images/accuracy.png)
 
 🏆 非常棒的图表，展示了一个具有良好准确性的模型。干得好！
 

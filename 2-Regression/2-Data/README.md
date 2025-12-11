@@ -9,13 +9,13 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 使用 Scikit-learn 构建回归模型：准备和可视化数据
 
-![数据可视化信息图](../../../../2-Regression/2-Data/images/data-visualization.png)
+![数据可视化信息图](../../2-Regression/2-Data/images/data-visualization.png)
 
 信息图作者：[Dasani Madipalli](https://twitter.com/dasani_decoded)
 
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [本课程也提供 R 版本！](../../../../2-Regression/2-Data/solution/R/lesson_2.html)
+> ### [本课程也提供 R 版本！](../../2-Regression/2-Data/solution/R/lesson_2.html)
 
 ## 简介
 
@@ -183,7 +183,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![一个显示价格与月份关系的散点图](../../../../2-Regression/2-Data/images/scatterplot.png)
+    ![一个显示价格与月份关系的散点图](../../2-Regression/2-Data/images/scatterplot.png)
 
     这是一个有用的图表吗？它是否让你感到惊讶？
 
@@ -200,7 +200,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.ylabel("Pumpkin Price")
     ```
 
-    ![一个显示价格与月份关系的柱状图](../../../../2-Regression/2-Data/images/barchart.png)
+    ![一个显示价格与月份关系的柱状图](../../2-Regression/2-Data/images/barchart.png)
 
     这是一个更有用的数据可视化！它似乎表明南瓜的最高价格出现在九月和十月。这符合你的预期吗？为什么？
 

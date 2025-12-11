@@ -57,9 +57,9 @@ CO_OP_TRANSLATOR_METADATA:
 - **长描述示例。** “一个人从夜晚草地上的一道光束中出现，跑向德州仪器的停车场。”
 - **短描述示例。** “灯光追逐我们。”
 
-[ufos.csv](../../../../3-Web-App/1-Web-App/data/ufos.csv) 表格包含关于目击发生的 `city`（城市）、`state`（州）和 `country`（国家），物体的 `shape`（形状），以及其 `latitude`（纬度）和 `longitude`（经度）的列。
+[ufos.csv](../../3-Web-App/1-Web-App/data/ufos.csv) 表格包含关于目击发生的 `city`（城市）、`state`（州）和 `country`（国家），物体的 `shape`（形状），以及其 `latitude`（纬度）和 `longitude`（经度）的列。
 
-在本课提供的空白 [notebook](../../../../3-Web-App/1-Web-App/notebook.ipynb) 中：
+在本课提供的空白 [notebook](../../3-Web-App/1-Web-App/notebook.ipynb) 中：
 
 1. 像之前的课程一样，导入 `pandas`、`matplotlib` 和 `numpy`，并导入ufos表格。你可以查看数据集的样本：
 

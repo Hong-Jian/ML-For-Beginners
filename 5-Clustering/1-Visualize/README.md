@@ -70,7 +70,7 @@ CO_OP_TRANSLATOR_METADATA:
 >
 >'平面'在此上下文中指的是欧几里得几何（部分内容被称为“平面”几何），而非平面指的是非欧几里得几何。几何与机器学习有什么关系？作为两个都根植于数学的领域，必须有一种通用方法来测量簇中点之间的距离，这可以根据数据的性质以“平面”或“非平面”的方式完成。[欧几里得距离](https://wikipedia.org/wiki/Euclidean_distance)是通过两点之间线段的长度来测量的。[非欧几里得距离](https://wikipedia.org/wiki/Non-Euclidean_geometry)则沿曲线测量。如果你的数据在可视化时似乎不在平面上，你可能需要使用专门的算法来处理它。
 >
-![平面与非平面几何信息图](../../../../5-Clustering/1-Visualize/images/flat-nonflat.png)
+![平面与非平面几何信息图](../../5-Clustering/1-Visualize/images/flat-nonflat.png)
 > 信息图由[Dasani Madipalli](https://twitter.com/dasani_decoded)制作
 > 
 > 🎓 ['距离'](https://web.stanford.edu/class/cs345a/slides/12-clustering.pdf)
@@ -93,12 +93,12 @@ CO_OP_TRANSLATOR_METADATA:
 
 - **层次聚类**。如果一个对象根据其与附近对象的接近程度而被分类，而不是与更远的对象，簇是基于其成员与其他对象的距离形成的。Scikit-learn的凝聚聚类是层次聚类。
 
-   ![层次聚类信息图](../../../../5-Clustering/1-Visualize/images/hierarchical.png)
+   ![层次聚类信息图](../../5-Clustering/1-Visualize/images/hierarchical.png)
    > 信息图由[Dasani Madipalli](https://twitter.com/dasani_decoded)制作
 
 - **质心聚类**。这种流行的算法需要选择“k”，即要形成的簇数量，然后算法确定簇的中心点并围绕该点收集数据。[K均值聚类](https://wikipedia.org/wiki/K-means_clustering)是质心聚类的一种流行版本。中心点由最近的平均值确定，因此得名。簇的平方距离被最小化。
 
-   ![质心聚类信息图](../../../../5-Clustering/1-Visualize/images/centroid.png)
+   ![质心聚类信息图](../../5-Clustering/1-Visualize/images/centroid.png)
    > 信息图由[Dasani Madipalli](https://twitter.com/dasani_decoded)制作
 
 - **基于分布的聚类**。基于统计建模，分布式聚类的核心是确定数据点属于某个簇的概率，并据此分配。高斯混合方法属于这一类型。
@@ -234,7 +234,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.title('Top genres',color = 'blue')
     ```
 
-    ![最受欢迎](../../../../5-Clustering/1-Visualize/images/popular.png)
+    ![最受欢迎](../../5-Clustering/1-Visualize/images/popular.png)
 
 ✅ 如果你想看到更多的前几项，可以将 `[:5]` 改为更大的值，或者移除它以查看全部。
 
@@ -253,7 +253,7 @@ CO_OP_TRANSLATOR_METADATA:
 
     现在重新检查音乐类型：
 
-    ![所有音乐类型](../../../../5-Clustering/1-Visualize/images/all-genres.png)
+    ![所有音乐类型](../../5-Clustering/1-Visualize/images/all-genres.png)
 
 1. 显然，前三种音乐类型在这个数据集中占据主导地位。让我们专注于 `afro dancehall`、`afropop` 和 `nigerian pop`，并进一步过滤数据，移除流行度为 0 的数据（这意味着它在数据集中没有被分类为流行度，可以被视为噪声）：
 
@@ -275,7 +275,7 @@ CO_OP_TRANSLATOR_METADATA:
     sns.heatmap(corrmat, vmax=.8, square=True)
     ```
 
-    ![相关性](../../../../5-Clustering/1-Visualize/images/correlation.png)
+    ![相关性](../../5-Clustering/1-Visualize/images/correlation.png)
 
     唯一强相关的是 `energy` 和 `loudness`，这并不令人惊讶，因为响亮的音乐通常很有活力。除此之外，相关性相对较弱。看看聚类算法如何处理这些数据会很有趣。
 
@@ -307,7 +307,7 @@ CO_OP_TRANSLATOR_METADATA:
 
     总体而言，这三种音乐类型在流行度和舞蹈性方面大致对齐。确定这些松散对齐数据中的聚类将是一个挑战：
 
-    ![分布](../../../../5-Clustering/1-Visualize/images/distribution.png)
+    ![分布](../../5-Clustering/1-Visualize/images/distribution.png)
 
 1. 创建一个散点图：
 
@@ -319,7 +319,7 @@ CO_OP_TRANSLATOR_METADATA:
 
     同一轴上的散点图显示了类似的收敛模式
 
-    ![Facetgrid](../../../../5-Clustering/1-Visualize/images/facetgrid.png)
+    ![Facetgrid](../../5-Clustering/1-Visualize/images/facetgrid.png)
 
 通常，对于聚类，你可以使用散点图来显示数据的聚类，因此掌握这种可视化类型非常有用。在下一课中，我们将使用 k-means 聚类来探索这些数据中有趣的重叠群组。
 

@@ -71,7 +71,7 @@ CO_OP_TRANSLATOR_METADATA:
    plt.show()
    ```
 
-   ![完整数据](../../../../7-TimeSeries/3-SVR/images/full-data.png)
+   ![完整数据](../../7-TimeSeries/3-SVR/images/full-data.png)
 
    现在，让我们构建 SVR 模型。
 
@@ -97,7 +97,7 @@ CO_OP_TRANSLATOR_METADATA:
    plt.show()
    ```
 
-   ![训练集和测试集数据](../../../../7-TimeSeries/3-SVR/images/train-test.png)
+   ![训练集和测试集数据](../../7-TimeSeries/3-SVR/images/train-test.png)
 
 ### 准备训练数据
 
@@ -273,7 +273,7 @@ plt.title("Training data prediction")
 plt.show()
 ```
 
-![训练数据预测](../../../../7-TimeSeries/3-SVR/images/train-data-predict.png)
+![训练数据预测](../../7-TimeSeries/3-SVR/images/train-data-predict.png)
 
 打印训练数据的 MAPE：
 
@@ -296,7 +296,7 @@ plt.xlabel('Timestamp')
 plt.show()
 ```
 
-![测试数据预测](../../../../7-TimeSeries/3-SVR/images/test-data-predict.png)
+![测试数据预测](../../7-TimeSeries/3-SVR/images/test-data-predict.png)
 
 打印测试数据的 MAPE：
 
@@ -352,7 +352,7 @@ plt.xlabel('Timestamp')
 plt.show()
 ```
 
-![完整数据预测](../../../../7-TimeSeries/3-SVR/images/full-data-predict.png)
+![完整数据预测](../../7-TimeSeries/3-SVR/images/full-data-predict.png)
 
 ```python
 print('MAPE: ', mape(Y_pred, Y)*100, '%')

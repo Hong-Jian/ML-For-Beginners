@@ -56,7 +56,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 例如，当英语短语 `I have no money` 被字面翻译成法语时，它可能变成 `Je n'ai pas de monnaie`。“Monnaie” 是一个棘手的法语“假同源词”，因为“money”和“monnaie”并不是同义词。一个人类可能会做出更好的翻译，即 `Je n'ai pas d'argent`，因为它更好地传达了你没有钱的意思（而不是“零钱”，这是“monnaie”的意思）。
 
-![monnaie](../../../../6-NLP/3-Translation-Sentiment/images/monnaie.png)
+![monnaie](../../6-NLP/3-Translation-Sentiment/images/monnaie.png)
 
 > 图片由 [Jen Looper](https://twitter.com/jenlooper) 提供
 

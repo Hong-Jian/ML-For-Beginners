@@ -28,23 +28,23 @@ CO_OP_TRANSLATOR_METADATA:
 
 作为前提条件，请先查看[开发者的负责任AI工具](https://www.microsoft.com/ai/ai-lab-responsible-ai-dashboard)
 
-> ![负责任AI工具的动图](../../../../9-Real-World/2-Debugging-ML-Models/images/rai-overview.gif)
+> ![负责任AI工具的动图](../../9-Real-World/2-Debugging-ML-Models/images/rai-overview.gif)
 
 ## 错误分析
 
 用于衡量准确性的传统模型性能指标通常基于正确与错误预测的计算。例如，确定一个模型89%的时间是准确的，误差损失为0.001，可以被认为是良好的性能。然而，错误通常不会在您的基础数据集中均匀分布。您可能获得89%的模型准确率，但发现模型在某些数据区域的失败率高达42%。这些特定数据群体的失败模式可能导致公平性或可靠性问题。因此，了解模型表现良好或不佳的区域至关重要。模型中错误率较高的数据区域可能是重要的数据群体。
 
-![分析和调试模型错误](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-error-distribution.png)
+![分析和调试模型错误](../../9-Real-World/2-Debugging-ML-Models/images/ea-error-distribution.png)
 
 RAI仪表板上的错误分析组件通过树形可视化展示模型失败在不同群体中的分布情况。这有助于识别数据集中错误率较高的特征或区域。通过查看模型大部分错误的来源，您可以开始调查根本原因。您还可以创建数据群体以进行分析。这些数据群体有助于调试过程，以确定为什么模型在一个群体中表现良好，而在另一个群体中却出现错误。
 
-![错误分析](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-error-cohort.png)
+![错误分析](../../9-Real-World/2-Debugging-ML-Models/images/ea-error-cohort.png)
 
 树形图上的视觉指示器可以更快地定位问题区域。例如，树节点的红色阴影越深，错误率越高。
 
 热图是另一种可视化功能，用户可以使用它通过一个或两个特征调查错误率，以发现整个数据集或群体中导致模型错误的因素。
 
-![错误分析热图](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-heatmap.png)
+![错误分析热图](../../9-Real-World/2-Debugging-ML-Models/images/ea-heatmap.png)
 
 使用错误分析时，您可以：
 
@@ -57,11 +57,11 @@ RAI仪表板上的错误分析组件通过树形可视化展示模型失败在�
 
 RAI仪表板的模型概览组件不仅有助于分析数据群体中的性能指标，还为用户提供了比较模型在不同群体中的行为的能力。
 
-![数据群体 - RAI仪表板中的模型概览](../../../../9-Real-World/2-Debugging-ML-Models/images/model-overview-dataset-cohorts.png)
+![数据群体 - RAI仪表板中的模型概览](../../9-Real-World/2-Debugging-ML-Models/images/model-overview-dataset-cohorts.png)
 
 组件的基于特征的分析功能允许用户缩小特定特征内的数据子群体，以更细粒度地识别异常。例如，仪表板具有内置智能，可以自动为用户选择的特征生成群体（例如，*"time_in_hospital < 3"* 或 *"time_in_hospital >= 7"*）。这使用户能够从较大的数据组中隔离特定特征，以查看它是否是模型错误结果的关键影响因素。
 
-![特征群体 - RAI仪表板中的模型概览](../../../../9-Real-World/2-Debugging-ML-Models/images/model-overview-feature-cohorts.png)
+![特征群体 - RAI仪表板中的模型概览](../../9-Real-World/2-Debugging-ML-Models/images/model-overview-feature-cohorts.png)
 
 模型概览组件支持两类差异指标：
 
@@ -85,7 +85,7 @@ RAI仪表板的模型概览组件不仅有助于分析数据群体中的性能�
 
 RAI仪表板上的数据分析组件有助于识别数据集中过度和不足代表的区域。它帮助用户诊断由于数据不平衡或缺乏特定数据群体代表性而引入的错误和公平性问题。这使用户能够根据预测和实际结果、错误群体以及特定特征可视化数据集。有时发现一个代表性不足的数据群体也可能揭示模型学习效果不佳，从而导致高错误率。一个具有数据偏差的模型不仅是一个公平性问题，还表明模型不够包容或可靠。
 
-![RAI仪表板上的数据分析组件](../../../../9-Real-World/2-Debugging-ML-Models/images/dataanalysis-cover.png)
+![RAI仪表板上的数据分析组件](../../9-Real-World/2-Debugging-ML-Models/images/dataanalysis-cover.png)
 
 使用数据分析时，您可以：
 
@@ -104,14 +104,14 @@ RAI仪表板上的数据分析组件有助于识别数据集中过度和不足�
 
 RAI仪表板的特征重要性组件帮助您调试并全面了解模型如何做出预测。它也是机器学习专业人士和决策者解释和展示影响模型行为的特征证据的有用工具，以满足法规要求。接下来，用户可以探索全局和局部解释，验证哪些特征驱动模型的预测。全局解释列出影响模型整体预测的主要特征。局部解释显示哪些特征导致模型对个别案例的预测。评估局部解释的能力在调试或审计特定案例时也很有帮助，以更好地理解和解释模型为何做出准确或不准确的预测。
 
-![RAI仪表板的特征重要性组件](../../../../9-Real-World/2-Debugging-ML-Models/images/9-feature-importance.png)
+![RAI仪表板的特征重要性组件](../../9-Real-World/2-Debugging-ML-Models/images/9-feature-importance.png)
 
 * 全局解释：例如，哪些特征影响糖尿病患者入院模型的整体行为？
 * 局部解释：例如，为什么一位年龄超过60岁且有过住院记录的糖尿病患者被预测为会或不会在30天内再次入院？
 
 在调试模型性能的过程中，特征重要性显示了特征在不同群体中的影响程度。它有助于揭示比较特征对模型错误预测的影响程度时的异常情况。特征重要性组件可以显示特征中的哪些值对模型结果产生了正面或负面影响。例如，如果模型做出了错误预测，该组件使您能够深入分析并确定哪些特征或特征值驱动了预测。这种细节不仅有助于调试，还在审计情况下提供了透明性和责任性。最后，该组件可以帮助您识别公平性问题。例如，如果种族或性别等敏感特征在驱动模型预测中具有高度影响力，这可能表明模型存在种族或性别偏见。
 
-![特征重要性](../../../../9-Real-World/2-Debugging-ML-Models/images/9-features-influence.png)
+![特征重要性](../../9-Real-World/2-Debugging-ML-Models/images/9-features-influence.png)
 
 使用可解释性时，您可以：
 

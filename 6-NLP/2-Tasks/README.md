@@ -23,14 +23,14 @@ CO_OP_TRANSLATOR_METADATA:
 
 大多数自然语言处理算法的第一步可能是将文本分解为词或标记。虽然这听起来很简单，但考虑到标点符号以及不同语言的词和句子的分隔符，这可能会变得复杂。你可能需要使用多种方法来确定分界点。
 
-![分词](../../../../6-NLP/2-Tasks/images/tokenization.png)
+![分词](../../6-NLP/2-Tasks/images/tokenization.png)
 > 从**傲慢与偏见**中分词的示例。信息图由 [Jen Looper](https://twitter.com/jenlooper) 制作
 
 ### 嵌入
 
 [词嵌入](https://wikipedia.org/wiki/Word_embedding)是一种将文本数据转换为数值的方式。嵌入的方式使得具有相似意义或经常一起使用的词汇聚集在一起。
 
-![词嵌入](../../../../6-NLP/2-Tasks/images/embedding.png)
+![词嵌入](../../6-NLP/2-Tasks/images/embedding.png)
 > “我对你的神经非常尊重，它们是我的老朋友。” - **傲慢与偏见**中的一句话的词嵌入。信息图由 [Jen Looper](https://twitter.com/jenlooper) 制作
 
 ✅ 尝试[这个有趣的工具](https://projector.tensorflow.org/)来实验词嵌入。点击一个词可以显示类似词的聚类，例如“toy”与“disney”、“lego”、“playstation”和“console”聚类在一起。
@@ -39,7 +39,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 每个被分词的词都可以标注为词性，例如名词、动词或形容词。句子`the quick red fox jumped over the lazy brown dog`可能会被词性标注为：fox = 名词，jumped = 动词。
 
-![解析](../../../../6-NLP/2-Tasks/images/parse.png)
+![解析](../../6-NLP/2-Tasks/images/parse.png)
 
 > **傲慢与偏见**中的一句话解析示例。信息图由 [Jen Looper](https://twitter.com/jenlooper) 制作
 
@@ -89,7 +89,7 @@ He travels the fastest who travels alone.
 7.   the quick red fox jumped over <u>**the lazy brown**</u> dog
 8.   the quick red fox jumped over the **<u>lazy brown dog</u>**
 
-![n-grams滑动窗口](../../../../6-NLP/2-Tasks/images/n-grams.gif)
+![n-grams滑动窗口](../../6-NLP/2-Tasks/images/n-grams.gif)
 
 > N-gram值为3：信息图由 [Jen Looper](https://twitter.com/jenlooper) 制作
 

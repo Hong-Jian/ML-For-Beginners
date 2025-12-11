@@ -26,7 +26,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 这些聚类可以通过 [Voronoi 图](https://wikipedia.org/wiki/Voronoi_diagram) 来可视化，其中包括一个点（或“种子”）及其对应的区域。
 
-![voronoi diagram](../../../../5-Clustering/2-K-Means/images/voronoi.png)
+![voronoi diagram](../../5-Clustering/2-K-Means/images/voronoi.png)
 
 > 信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
@@ -91,7 +91,7 @@ K-Means 聚类过程[通过三步流程执行](https://scikit-learn.org/stable/m
 
     这些数据有点噪声：通过观察每一列的箱线图，您可以看到异常值。
 
-    ![outliers](../../../../5-Clustering/2-K-Means/images/boxplots.png)
+    ![outliers](../../5-Clustering/2-K-Means/images/boxplots.png)
 
 您可以遍历数据集并删除这些异常值，但这样会使数据变得非常有限。
 
@@ -187,7 +187,7 @@ K-Means 聚类过程[通过三步流程执行](https://scikit-learn.org/stable/m
 
     使用您在上一步中构建的 `wcss` 变量创建一个图表，显示肘部的“弯曲”位置，这表明最佳聚类数量。也许确实是 **3**！
 
-    ![elbow method](../../../../5-Clustering/2-K-Means/images/elbow.png)
+    ![elbow method](../../5-Clustering/2-K-Means/images/elbow.png)
 
 ## 练习 - 显示聚类
 
@@ -218,13 +218,13 @@ K-Means 聚类过程[通过三步流程执行](https://scikit-learn.org/stable/m
 
     该模型的准确性不太高，聚类的形状给了您一个提示原因。
 
-    ![clusters](../../../../5-Clustering/2-K-Means/images/clusters.png)
+    ![clusters](../../5-Clustering/2-K-Means/images/clusters.png)
 
     这些数据过于不平衡，相关性太低，并且列值之间的方差太大，无法很好地聚类。事实上，形成的聚类可能受到我们上面定义的三个流派类别的严重影响或偏斜。这是一个学习过程！
 
     在 Scikit-learn 的文档中，您可以看到像这样的模型，聚类划分不太清晰，存在“方差”问题：
 
-    ![problem models](../../../../5-Clustering/2-K-Means/images/problems.png)
+    ![problem models](../../5-Clustering/2-K-Means/images/problems.png)
     > 信息图来自 Scikit-learn
 
 ## 方差

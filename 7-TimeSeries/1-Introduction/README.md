@@ -9,7 +9,7 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 时间序列预测简介
 
-![时间序列的概述草图](../../../../sketchnotes/ml-timeseries.png)
+![时间序列的概述草图](../../sketchnotes/ml-timeseries.png)
 
 > 草图由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制
 
@@ -112,7 +112,7 @@ CO_OP_TRANSLATOR_METADATA:
 
 ✅ 这里有一个 [时间序列图示例](https://www.kaggle.com/kashnitsky/topic-9-part-1-time-series-analysis-in-python)，显示了几年来每日游戏内货币消费。你能在这些数据中识别出上述任何特性吗？
 
-![游戏内货币消费](../../../../7-TimeSeries/1-Introduction/images/currency.png)
+![游戏内货币消费](../../7-TimeSeries/1-Introduction/images/currency.png)
 
 ## 练习 - 开始使用电力使用数据
 
@@ -160,7 +160,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![能源图](../../../../7-TimeSeries/1-Introduction/images/energy-plot.png)
+    ![能源图](../../7-TimeSeries/1-Introduction/images/energy-plot.png)
 
 4. 现在，通过提供 `[起始日期]:[结束日期]` 模式的输入，绘制 2014 年 7 月的第一周：
 
@@ -171,7 +171,7 @@ CO_OP_TRANSLATOR_METADATA:
     plt.show()
     ```
 
-    ![七月](../../../../7-TimeSeries/1-Introduction/images/july-2014.png)
+    ![七月](../../7-TimeSeries/1-Introduction/images/july-2014.png)
 
     一个漂亮的图！看看这些图，看看你是否能确定上述列出的任何特性。通过可视化数据，我们可以推测出什么？
 

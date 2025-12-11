@@ -9,7 +9,7 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 后记：机器学习在现实世界中的应用
 
-![现实世界中机器学习的总结图](../../../../sketchnotes/ml-realworld.png)
+![现实世界中机器学习的总结图](../../sketchnotes/ml-realworld.png)
 > 由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制的手绘笔记
 
 在本课程中，你学习了许多准备数据进行训练和创建机器学习模型的方法。你构建了一系列经典的回归、聚类、分类、自然语言处理和时间序列模型。恭喜你！现在，你可能会好奇这些模型的实际用途是什么……它们在现实世界中的应用是什么？
