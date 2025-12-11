@@ -1,53 +1,67 @@
-# Introduction to reinforcement learning
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "20ca019012b1725de956681d036d8b18",
+  "translation_date": "2025-09-03T18:26:49+00:00",
+  "source_file": "8-Reinforcement/README.md",
+  "language_code": "zh"
+}
+-->
+# 强化学习简介
 
-Reinforcement learning, RL, is seen as one of the basic machine learning paradigms, next to supervised learning and unsupervised learning. RL is all about decisions: delivering the right decisions or at least learning from them.
+强化学习（RL）被认为是与监督学习和无监督学习并列的基本机器学习范式之一。RL的核心是决策：做出正确的决策，或者至少从决策中学习。
 
-Imagine you have a simulated environment such as the stock market. What happens if you impose a given regulation? Does it have a positive or negative effect? If something negative happens, you need to take this _negative reinforcement_, learn from it, and change course. If it's a positive outcome, you need to build on that _positive reinforcement_.
+想象一下，你有一个模拟环境，比如股票市场。如果你实施某项规定，会发生什么？它会产生积极还是消极的影响？如果发生了消极的事情，你需要接受这种_负强化_，从中学习并调整方向。如果是积极的结果，你需要基于这种_正强化_继续发展。
 
-![peter and the wolf](images/peter.png)
+![彼得与狼](../../../translated_images/peter.779730f9ba3a8a8d9290600dcf55f2e491c0640c785af7ac0d64f583c49b8864.zh.png)
 
-> Peter and his friends need to escape the hungry wolf! Image by [Jen Looper](https://twitter.com/jenlooper)
+> 彼得和他的朋友们需要逃离饥饿的狼！图片由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
-## Regional topic: Peter and the Wolf (Russia)
+## 地区主题：彼得与狼（俄罗斯）
 
-[Peter and the Wolf](https://en.wikipedia.org/wiki/Peter_and_the_Wolf) is a musical fairy tale written by a Russian composer [Sergei Prokofiev](https://en.wikipedia.org/wiki/Sergei_Prokofiev). It is a story about young pioneer Peter, who bravely goes out of his house to the forest clearing to chase the wolf. In this section, we will train machine learning algorithms that will help Peter:
+[彼得与狼](https://en.wikipedia.org/wiki/Peter_and_the_Wolf) 是由俄罗斯作曲家 [谢尔盖·普罗科菲耶夫](https://en.wikipedia.org/wiki/Sergei_Prokofiev) 创作的一部音乐童话。故事讲述了年轻的先锋彼得勇敢地走出家门，来到森林空地追逐狼。在本节中，我们将训练机器学习算法来帮助彼得：
 
-- **Explore** the surrounding area and build an optimal navigation map
-- **Learn** how to use a skateboard and balance on it, in order to move around faster.
+- **探索**周围区域并构建最佳导航地图
+- **学习**如何使用滑板并保持平衡，以便更快地移动
 
-[![Peter and the Wolf](https://img.youtube.com/vi/Fmi5zHg4QSM/0.jpg)](https://www.youtube.com/watch?v=Fmi5zHg4QSM)
+[![彼得与狼](https://img.youtube.com/vi/Fmi5zHg4QSM/0.jpg)](https://www.youtube.com/watch?v=Fmi5zHg4QSM)
 
-> 🎥 Click the image above to listen to Peter and the Wolf by Prokofiev
+> 🎥 点击上方图片收听普罗科菲耶夫的《彼得与狼》
 
-## Reinforcement learning
+## 强化学习
 
-In previous sections, you have seen two examples of machine learning problems:
+在之前的章节中，你已经看到两种机器学习问题的例子：
 
-- **Supervised**, where we have datasets that suggest sample solutions to the problem we want to solve. [Classification](../4-Classification/README.md) and [regression](../2-Regression/README.md) are supervised learning tasks.
-- **Unsupervised**, in which we do not have labeled training data. The main example of unsupervised learning is [Clustering](../5-Clustering/README.md).
+- **监督学习**，我们有数据集提供问题的样本解决方案。[分类](../4-Classification/README.md) 和 [回归](../2-Regression/README.md) 是监督学习任务。
+- **无监督学习**，我们没有标注的训练数据。无监督学习的主要例子是 [聚类](../5-Clustering/README.md)。
 
-In this section, we will introduce you to a new type of learning problem that does not require labeled training data. There are several types of such problems:
+在本节中，我们将向你介绍一种不需要标注训练数据的新型学习问题。这类问题有几种类型：
 
-- **[Semi-supervised learning](https://wikipedia.org/wiki/Semi-supervised_learning)**, where we have a lot of unlabeled data that can be used to pre-train the model.
-- **[Reinforcement learning](https://wikipedia.org/wiki/Reinforcement_learning)**, in which an agent learns how to behave by performing experiments in some simulated environment.
+- **[半监督学习](https://wikipedia.org/wiki/Semi-supervised_learning)**，我们有大量未标注的数据，可以用来预训练模型。
+- **[强化学习](https://wikipedia.org/wiki/Reinforcement_learning)**，代理通过在某些模拟环境中进行实验来学习如何行动。
 
-### Example - computer game
+### 示例 - 电脑游戏
 
-Suppose you want to teach a computer to play a game, such as chess, or [Super Mario](https://wikipedia.org/wiki/Super_Mario). For the computer to play a game, we need it to predict which move to make in each of the game states. While this may seem like a classification problem, it is not - because we do not have a dataset with states and corresponding actions. While we may have some data like existing chess matches or recording of players playing Super Mario, it is likely that that data will not sufficiently cover a large enough number of possible states.
+假设你想教电脑玩游戏，比如国际象棋或 [超级马里奥](https://wikipedia.org/wiki/Super_Mario)。为了让电脑玩游戏，我们需要它预测在每个游戏状态下应该采取的行动。虽然这看起来像是一个分类问题，但实际上并不是——因为我们没有一个包含状态和对应动作的数据集。虽然我们可能有一些数据，比如现有的国际象棋比赛或玩家玩超级马里奥的录像，但这些数据可能不足以覆盖足够多的可能状态。
 
-Instead of looking for existing game data, **Reinforcement Learning** (RL) is based on the idea of *making the computer play* many times and observing the result. Thus, to apply Reinforcement Learning, we need two things:
+与其寻找现有的游戏数据，**强化学习**（RL）基于一个理念：*让电脑多次玩游戏并观察结果*。因此，要应用强化学习，我们需要两样东西：
 
-- **An environment** and **a simulator** which allow us to play a game many times. This simulator would define all the game rules as well as possible states and actions.
+- **一个环境**和**一个模拟器**，允许我们多次玩游戏。这个模拟器会定义所有的游戏规则以及可能的状态和动作。
 
-- **A reward function**, which would tell us how well we did during each move or game.
+- **一个奖励函数**，告诉我们每次行动或游戏过程中表现得如何。
 
-The main difference between other types of machine learning and RL is that in RL we typically do not know whether we win or lose until we finish the game. Thus, we cannot say whether a certain move alone is good or not - we only receive a reward at the end of the game. And our goal is to design algorithms that will allow us to train a model under  uncertain conditions. We will learn about one RL algorithm called **Q-learning**.
+强化学习与其他类型的机器学习的主要区别在于，在RL中我们通常不知道自己是否赢了或输了，直到游戏结束。因此，我们无法单独判断某个动作是否是好的——我们只有在游戏结束时才会收到奖励。而我们的目标是设计算法，使我们能够在不确定的条件下训练模型。我们将学习一种称为**Q学习**的RL算法。
 
-## Lessons
+## 课程
 
-1. [Introduction to reinforcement learning and Q-Learning](1-QLearning/README.md)
-2. [Using a gym simulation environment](2-Gym/README.md)
+1. [强化学习和Q学习简介](1-QLearning/README.md)
+2. [使用Gym模拟环境](2-Gym/README.md)
 
-## Credits
+## 致谢
 
-"Introduction to Reinforcement Learning" was written with ♥️ by [Dmitry Soshnikov](http://soshnikov.com)
+《强化学习简介》由 [Dmitry Soshnikov](http://soshnikov.com) 倾情创作 ❤️
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

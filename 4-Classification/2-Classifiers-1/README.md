@@ -1,17 +1,26 @@
-# Cuisine classifiers 1
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "1a6e9e46b34a2e559fbbfc1f95397c7b",
+  "translation_date": "2025-09-05T09:06:37+00:00",
+  "source_file": "4-Classification/2-Classifiers-1/README.md",
+  "language_code": "zh"
+}
+-->
+# 美食分类器 1
 
-In this lesson, you will use the dataset you saved from the last lesson full of balanced, clean data all about cuisines.
+在本课中，您将使用上一课保存的数据集，该数据集包含关于美食的平衡且干净的数据。
 
-You will use this dataset with a variety of classifiers to _predict a given national cuisine based on a group of ingredients_. While doing so, you'll learn more about some of the ways that algorithms can be leveraged for classification tasks.
+您将使用这个数据集和多种分类器来_根据一组食材预测某种国家美食_。在此过程中，您将进一步了解算法如何用于分类任务。
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
-# Preparation
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
+# 准备工作
 
-Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a _cleaned_cuisines.csv_ file exists in the root `/data` folder for these four lessons.
+假设您已完成[第1课](../1-Introduction/README.md)，请确保在根目录的`/data`文件夹中存在一个名为_cleaned_cuisines.csv_的文件，以供这四节课使用。
 
-## Exercise - predict a national cuisine
+## 练习 - 预测国家美食
 
-1. Working in this lesson's _notebook.ipynb_ folder, import that file along with the Pandas library:
+1. 在本课的_notebook.ipynb_文件夹中，导入该文件以及Pandas库：
 
     ```python
     import pandas as pd
@@ -19,7 +28,7 @@ Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a
     cuisines_df.head()
     ```
 
-    The data looks like this:
+    数据看起来如下：
 
 |     | Unnamed: 0 | cuisine | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood | yam | yeast | yogurt | zucchini |
 | --- | ---------- | ------- | ------ | -------- | ----- | ---------- | ----- | ------------ | ------- | -------- | --- | ------- | ----------- | ---------- | ----------------------- | ---- | ---- | --- | ----- | ------ | -------- |
@@ -30,7 +39,7 @@ Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a
 | 4   | 4          | indian  | 0      | 0        | 0     | 0          | 0     | 0            | 0       | 0        | ... | 0       | 0           | 0          | 0                       | 0    | 0    | 0   | 0     | 1      | 0        |
   
 
-1. Now, import several more libraries:
+1. 现在，导入更多的库：
 
     ```python
     from sklearn.linear_model import LogisticRegression
@@ -40,14 +49,14 @@ Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a
     import numpy as np
     ```
 
-1. Divide the X and y coordinates into two dataframes for training. `cuisine` can be the labels dataframe:
+1. 将X和y坐标分成两个数据框用于训练。`cuisine`可以作为标签数据框：
 
     ```python
     cuisines_label_df = cuisines_df['cuisine']
     cuisines_label_df.head()
     ```
 
-    It will look like this:
+    它看起来如下：
 
     ```output
     0    indian
@@ -58,14 +67,14 @@ Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a
     Name: cuisine, dtype: object
     ```
 
-1. Drop that `Unnamed: 0` column and the `cuisine` column, calling `drop()`. Save the rest of the data as trainable features:
+1. 使用`drop()`方法删除`Unnamed: 0`列和`cuisine`列，并将剩余的数据保存为可训练的特征：
 
     ```python
     cuisines_feature_df = cuisines_df.drop(['Unnamed: 0', 'cuisine'], axis=1)
     cuisines_feature_df.head()
     ```
 
-    Your features look like this:
+    您的特征看起来如下：
 
 |      | almond | angelica | anise | anise_seed | apple | apple_brandy | apricot | armagnac | artemisia | artichoke |  ... | whiskey | white_bread | white_wine | whole_grain_wheat_flour | wine | wood |  yam | yeast | yogurt | zucchini |
 | ---: | -----: | -------: | ----: | ---------: | ----: | -----------: | ------: | -------: | --------: | --------: | ---: | ------: | ----------: | ---------: | ----------------------: | ---: | ---: | ---: | ----: | -----: | -------: |
@@ -75,85 +84,85 @@ Assuming you completed [Lesson 1](../1-Introduction/README.md), make sure that a
 |    3 |      0 |        0 |     0 |          0 |     0 |            0 |       0 |        0 |         0 |         0 |  ... |       0 |           0 |          0 |                       0 |    0 |    0 |    0 |     0 |      0 |        0 | 0 |
 |    4 |      0 |        0 |     0 |          0 |     0 |            0 |       0 |        0 |         0 |         0 |  ... |       0 |           0 |          0 |                       0 |    0 |    0 |    0 |     0 |      1 |        0 | 0 |
 
-Now you are ready to train your model!
+现在您可以开始训练模型了！
 
-## Choosing your classifier
+## 选择分类器
 
-Now that your data is clean and ready for training, you have to decide which algorithm to use for the job. 
+现在数据已经清理完毕并准备好训练，您需要决定使用哪种算法来完成任务。
 
-Scikit-learn groups classification under Supervised Learning, and in that category you will find many ways to classify. [The variety](https://scikit-learn.org/stable/supervised_learning.html) is quite bewildering at first sight. The following methods all include classification techniques:
+Scikit-learn将分类归类为监督学习，在这一类别中，您会发现许多分类方法。[种类繁多](https://scikit-learn.org/stable/supervised_learning.html)，初看可能会让人眼花缭乱。以下方法都包含分类技术：
 
-- Linear Models
-- Support Vector Machines
-- Stochastic Gradient Descent
-- Nearest Neighbors
-- Gaussian Processes
-- Decision Trees
-- Ensemble methods (voting Classifier)
-- Multiclass and multioutput algorithms (multiclass and multilabel classification, multiclass-multioutput classification)
+- 线性模型
+- 支持向量机
+- 随机梯度下降
+- 最近邻
+- 高斯过程
+- 决策树
+- 集成方法（投票分类器）
+- 多分类和多输出算法（多分类和多标签分类，多分类-多输出分类）
 
-> You can also use [neural networks to classify data](https://scikit-learn.org/stable/modules/neural_networks_supervised.html#classification), but that is outside the scope of this lesson.
+> 您也可以使用[神经网络进行数据分类](https://scikit-learn.org/stable/modules/neural_networks_supervised.html#classification)，但这超出了本课的范围。
 
-### What classifier to go with?
+### 选择哪个分类器？
 
-So, which classifier should you choose? Often, running through several and looking for a good result is a way to test. Scikit-learn offers a [side-by-side comparison](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html) on a created dataset, comparing KNeighbors, SVC two ways, GaussianProcessClassifier, DecisionTreeClassifier, RandomForestClassifier, MLPClassifier, AdaBoostClassifier, GaussianNB and QuadraticDiscrinationAnalysis, showing the results visualized: 
+那么，应该选择哪个分类器呢？通常，可以尝试多个分类器并寻找效果较好的结果。Scikit-learn提供了一个[并排比较](https://scikit-learn.org/stable/auto_examples/classification/plot_classifier_comparison.html)，在一个创建的数据集上比较了KNeighbors、SVC两种方式、GaussianProcessClassifier、DecisionTreeClassifier、RandomForestClassifier、MLPClassifier、AdaBoostClassifier、GaussianNB和QuadraticDiscrinationAnalysis，并以可视化方式展示结果：
 
-![comparison of classifiers](images/comparison.png)
-> Plots generated on Scikit-learn's documentation
+![分类器比较](../../../../4-Classification/2-Classifiers-1/images/comparison.png)
+> 图表来自Scikit-learn文档
 
-> AutoML solves this problem neatly by running these comparisons in the cloud, allowing you to choose the best algorithm for your data. Try it [here](https://docs.microsoft.com/learn/modules/automate-model-selection-with-azure-automl/?WT.mc_id=academic-77952-leestott)
+> AutoML可以通过在云端运行这些比较来轻松解决这个问题，帮助您选择最适合数据的算法。试试[这里](https://docs.microsoft.com/learn/modules/automate-model-selection-with-azure-automl/?WT.mc_id=academic-77952-leestott)
 
-### A better approach
+### 更好的方法
 
-A better way than wildly guessing, however, is to follow the ideas on this downloadable [ML Cheat sheet](https://docs.microsoft.com/azure/machine-learning/algorithm-cheat-sheet?WT.mc_id=academic-77952-leestott). Here, we discover that, for our multiclass problem, we have some choices:
+比盲目猜测更好的方法是参考这个可下载的[机器学习备忘单](https://docs.microsoft.com/azure/machine-learning/algorithm-cheat-sheet?WT.mc_id=academic-77952-leestott)。在这里，我们发现对于我们的多分类问题，有一些选择：
 
-![cheatsheet for multiclass problems](images/cheatsheet.png)
-> A section of Microsoft's Algorithm Cheat Sheet, detailing multiclass classification options
+![多分类问题备忘单](../../../../4-Classification/2-Classifiers-1/images/cheatsheet.png)
+> 微软算法备忘单的一部分，详细说明了多分类选项
 
-✅ Download this cheat sheet, print it out, and hang it on your wall!
+✅ 下载这个备忘单，打印出来，挂在墙上！
 
-### Reasoning
+### 推理
 
-Let's see if we can reason our way through different approaches given the constraints we have:
+让我们看看是否可以根据现有约束推理出不同的解决方法：
 
-- **Neural networks are too heavy**. Given our clean, but minimal dataset, and the fact that we are running training locally via notebooks, neural networks are too heavyweight for this task.
-- **No two-class classifier**. We do not use a two-class classifier, so that rules out one-vs-all. 
-- **Decision tree or logistic regression could work**. A decision tree might work, or logistic regression for multiclass data. 
-- **Multiclass Boosted Decision Trees solve a different problem**. The multiclass boosted decision tree is most suitable for nonparametric tasks, e.g. tasks designed to build rankings, so it is not useful for us.
+- **神经网络过于复杂**。考虑到我们的数据集虽然干净但规模较小，并且我们通过本地笔记本运行训练，神经网络对于这个任务来说过于复杂。
+- **不使用二分类器**。我们不使用二分类器，因此排除了一对多（one-vs-all）。
+- **决策树或逻辑回归可能有效**。决策树可能有效，或者逻辑回归适用于多分类数据。
+- **多分类增强决策树解决不同问题**。多分类增强决策树最适合非参数任务，例如设计排名任务，因此对我们来说没有用。
 
-### Using Scikit-learn 
+### 使用Scikit-learn 
 
-We will be using Scikit-learn to analyze our data. However, there are many ways to use logistic regression in Scikit-learn. Take a look at the [parameters to pass](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html?highlight=logistic%20regressio#sklearn.linear_model.LogisticRegression).  
+我们将使用Scikit-learn来分析数据。然而，在Scikit-learn中有许多方法可以使用逻辑回归。查看[可传递的参数](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html?highlight=logistic%20regressio#sklearn.linear_model.LogisticRegression)。  
 
-Essentially there are two important parameters - `multi_class` and `solver` - that we need to specify, when we ask Scikit-learn to perform a logistic regression. The `multi_class` value applies a certain behavior. The value of the solver is what algorithm to use. Not all solvers can be paired with all `multi_class` values.
+基本上有两个重要参数——`multi_class`和`solver`——需要指定，当我们要求Scikit-learn执行逻辑回归时。`multi_class`值应用某种行为。`solver`值决定使用哪种算法。并非所有的`solver`都可以与所有的`multi_class`值配对。
 
-According to the docs, in the multiclass case, the training algorithm:
+根据文档，在多分类情况下，训练算法：
 
-- **Uses the one-vs-rest (OvR) scheme**, if the `multi_class` option is set to `ovr`
-- **Uses the cross-entropy loss**, if the `multi_class` option is set to `multinomial`. (Currently the `multinomial` option is supported only by the ‘lbfgs’, ‘sag’, ‘saga’ and ‘newton-cg’ solvers.)"
+- **使用一对多（OvR）方案**，如果`multi_class`选项设置为`ovr`
+- **使用交叉熵损失**，如果`multi_class`选项设置为`multinomial`。（目前`multinomial`选项仅支持‘lbfgs’、‘sag’、‘saga’和‘newton-cg’求解器。）
 
-> 🎓 The 'scheme' here can either be 'ovr' (one-vs-rest) or 'multinomial'. Since logistic regression is really designed to support binary classification, these schemes allow it to better handle multiclass classification tasks. [source](https://machinelearningmastery.com/one-vs-rest-and-one-vs-one-for-multi-class-classification/)
+> 🎓 这里的“方案”可以是“ovr”（一对多）或“multinomial”。由于逻辑回归实际上是为支持二分类设计的，这些方案使其能够更好地处理多分类任务。[来源](https://machinelearningmastery.com/one-vs-rest-and-one-vs-one-for-multi-class-classification/)
 
-> 🎓 The 'solver' is defined as "the algorithm to use in the optimization problem". [source](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html?highlight=logistic%20regressio#sklearn.linear_model.LogisticRegression).
+> 🎓 “求解器”定义为“用于优化问题的算法”。[来源](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html?highlight=logistic%20regressio#sklearn.linear_model.LogisticRegression)。
 
-Scikit-learn offers this table to explain how solvers handle different challenges presented by different kinds of data structures:
+Scikit-learn提供了这个表格来解释求解器如何处理不同数据结构带来的挑战：
 
-![solvers](images/solvers.png)
+![求解器](../../../../4-Classification/2-Classifiers-1/images/solvers.png)
 
-## Exercise - split the data
+## 练习 - 划分数据
 
-We can focus on logistic regression for our first training trial since you recently learned about the latter in a previous lesson.
-Split your data into training and testing groups by calling `train_test_split()`:
+我们可以专注于逻辑回归作为我们的第一次训练尝试，因为您在上一课中刚刚学习了它。
+通过调用`train_test_split()`将数据划分为训练组和测试组：
 
 ```python
 X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisines_label_df, test_size=0.3)
 ```
 
-## Exercise - apply logistic regression
+## 练习 - 应用逻辑回归
 
-Since you are using the multiclass case, you need to choose what _scheme_ to use and what _solver_ to set. Use LogisticRegression with a multiclass setting and the **liblinear** solver to train.
+由于您使用的是多分类情况，您需要选择使用什么_方案_以及设置什么_求解器_。使用LogisticRegression并设置多分类选项和**liblinear**求解器进行训练。
 
-1. Create a logistic regression with multi_class set to `ovr` and the solver set to `liblinear`:
+1. 创建一个逻辑回归，multi_class设置为`ovr`，solver设置为`liblinear`：
 
     ```python
     lr = LogisticRegression(multi_class='ovr',solver='liblinear')
@@ -163,29 +172,27 @@ Since you are using the multiclass case, you need to choose what _scheme_ to use
     print ("Accuracy is {}".format(accuracy))
     ```
 
-    ✅ Try a different solver like `lbfgs`, which is often set as default
+    ✅ 尝试使用其他求解器，例如默认设置的`lbfgs`
+> 注意，在需要时可以使用 Pandas [`ravel`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.ravel.html) 函数来展平数据。
+准确率超过 **80%**！
 
-    > Note, use Pandas [`ravel`](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.ravel.html) function to flatten your data when needed.
-
-    The accuracy is good at over **80%**!
-
-1. You can see this model in action by testing one row of data (#50):
+1. 你可以通过测试一行数据（#50）来查看此模型的实际效果：
 
     ```python
     print(f'ingredients: {X_test.iloc[50][X_test.iloc[50]!=0].keys()}')
     print(f'cuisine: {y_test.iloc[50]}')
     ```
 
-    The result is printed:
+    结果打印如下：
 
    ```output
    ingredients: Index(['cilantro', 'onion', 'pea', 'potato', 'tomato', 'vegetable_oil'], dtype='object')
    cuisine: indian
    ```
 
-   ✅ Try a different row number and check the results
+   ✅ 尝试不同的行号并检查结果
 
-1. Digging deeper, you can check for the accuracy of this prediction:
+1. 更深入地分析，你可以检查此预测的准确性：
 
     ```python
     test= X_test.iloc[50].values.reshape(-1, 1).T
@@ -197,7 +204,7 @@ Since you are using the multiclass case, you need to choose what _scheme_ to use
     topPrediction.head()
     ```
 
-    The result is printed - Indian cuisine is its best guess, with good probability:
+    结果打印如下 - 印度菜是模型的最佳猜测，且概率较高：
 
     |          |        0 |
     | -------: | -------: |
@@ -207,9 +214,9 @@ Since you are using the multiclass case, you need to choose what _scheme_ to use
     |   korean | 0.017277 |
     |     thai | 0.007634 |
 
-    ✅ Can you explain why the model is pretty sure this is an Indian cuisine?
+    ✅ 你能解释为什么模型非常确定这是印度菜吗？
 
-1. Get more detail by printing a classification report, as you did in the regression lessons:
+1. 通过打印分类报告获取更多细节，就像你在回归课程中所做的一样：
 
     ```python
     y_pred = model.predict(X_test)
@@ -227,15 +234,20 @@ Since you are using the multiclass case, you need to choose what _scheme_ to use
     | macro avg    | 0.80      | 0.80   | 0.80     | 1199    |
     | weighted avg | 0.80      | 0.80   | 0.80     | 1199    |
 
-## 🚀Challenge
+## 🚀挑战
 
-In this lesson, you used your cleaned data to build a machine learning model that can predict a national cuisine based on a series of ingredients. Take some time to read through the many options Scikit-learn provides to classify data. Dig deeper into the concept of 'solver' to understand what goes on behind the scenes.
+在本课中，你使用清理后的数据构建了一个机器学习模型，可以根据一系列食材预测国家菜系。花点时间阅读 Scikit-learn 提供的多种分类数据选项。深入了解“solver”的概念，理解其背后的工作原理。
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-Dig a little more into the math behind logistic regression in [this lesson](https://people.eecs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf)
-## Assignment 
+深入学习逻辑回归背后的数学原理：[这篇课件](https://people.eecs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf)
+## 作业
 
-[Study the solvers](assignment.md)
+[研究 solvers](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。虽然我们尽力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于重要信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

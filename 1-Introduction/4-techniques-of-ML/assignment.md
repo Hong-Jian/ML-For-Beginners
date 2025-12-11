@@ -1,11 +1,25 @@
-# Interview a data scientist
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "70d65aeddc06170bc1aed5b27805f930",
+  "translation_date": "2025-09-03T17:45:24+00:00",
+  "source_file": "1-Introduction/4-techniques-of-ML/assignment.md",
+  "language_code": "zh"
+}
+-->
+# 采访数据科学家
 
-## Instructions
+## 指导说明
 
-In your company, in a user group, or among your friends or fellow students, talk to someone who works professionally as a data scientist. Write a short paper (500 words) about their daily occupations. Are they specialists, or do they work 'full stack'?
+在你的公司、用户组、朋友或同学中，找一位专业从事数据科学工作的人员进行交流。撰写一篇简短的文章（500字），描述他们的日常工作内容。他们是专攻某一领域，还是从事“全栈”工作？
 
-## Rubric
+## 评分标准
 
-| Criteria | Exemplary                                                                            | Adequate                                                           | Needs Improvement     |
-| -------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------ | --------------------- |
-|          | An essay of the correct length, with attributed sources, is presented as a .doc file | The essay is poorly attributed or shorter than the required length | No essay is presented |
+| 标准     | 卓越表现                                                                 | 合格表现                                                       | 需要改进             |
+| -------- | ----------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------- |
+|          | 提交一篇符合字数要求、带有明确来源的文章，并以 .doc 文件形式呈现         | 文章来源不明确或字数少于要求                                   | 未提交文章           |
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

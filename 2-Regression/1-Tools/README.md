@@ -1,121 +1,129 @@
-# Get started with Python and Scikit-learn for regression models
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "fa81d226c71d5af7a2cade31c1c92b88",
+  "translation_date": "2025-09-05T08:58:09+00:00",
+  "source_file": "2-Regression/1-Tools/README.md",
+  "language_code": "zh"
+}
+-->
+# 使用 Python 和 Scikit-learn 构建回归模型
 
-![Summary of regressions in a sketchnote](../../sketchnotes/ml-regression.png)
+![回归模型的简要概述](../../../../sketchnotes/ml-regression.png)
 
-> Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
+> 由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制的手绘笔记
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [This lesson is available in R!](./solution/R/lesson_1.html)
+> ### [本课程也提供 R 版本！](../../../../2-Regression/1-Tools/solution/R/lesson_1.html)
 
-## Introduction
+## 简介
 
-In these four lessons, you will discover how to build regression models. We will discuss what these are for shortly. But before you do anything, make sure you have the right tools in place to start the process!
+在这四节课中，您将学习如何构建回归模型。我们很快会讨论这些模型的用途。但在开始之前，请确保您已准备好正确的工具来进行学习！
 
-In this lesson, you will learn how to:
+在本课中，您将学习：
 
-- Configure your computer for local machine learning tasks.
-- Work with Jupyter notebooks.
-- Use Scikit-learn, including installation.
-- Explore linear regression with a hands-on exercise.
+- 配置您的计算机以进行本地机器学习任务。
+- 使用 Jupyter 笔记本。
+- 安装并使用 Scikit-learn。
+- 通过动手练习探索线性回归。
 
-## Installations and configurations
+## 安装和配置
 
-[![ML for beginners - Setup your tools ready to build Machine Learning models](https://img.youtube.com/vi/-DfeD2k2Kj0/0.jpg)](https://youtu.be/-DfeD2k2Kj0 "ML for beginners -Setup your tools ready to build Machine Learning models")
+[![机器学习入门 - 配置工具以构建机器学习模型](https://img.youtube.com/vi/-DfeD2k2Kj0/0.jpg)](https://youtu.be/-DfeD2k2Kj0 "机器学习入门 - 配置工具以构建机器学习模型")
 
-> 🎥 Click the image above for a short video working through configuring your computer for ML.
+> 🎥 点击上方图片观看短视频，了解如何配置您的计算机以进行机器学习。
 
-1. **Install Python**. Ensure that [Python](https://www.python.org/downloads/) is installed on your computer. You will use Python for many data science and machine learning tasks. Most computer systems already include a Python installation. There are useful [Python Coding Packs](https://code.visualstudio.com/learn/educators/installers?WT.mc_id=academic-77952-leestott) available as well, to ease the setup for some users.
+1. **安装 Python**。确保您的计算机上已安装 [Python](https://www.python.org/downloads/)。您将使用 Python 来完成许多数据科学和机器学习任务。大多数计算机系统已经预装了 Python。此外，还有一些有用的 [Python 编码包](https://code.visualstudio.com/learn/educators/installers?WT.mc_id=academic-77952-leestott)，可以简化某些用户的设置过程。
 
-   Some usages of Python, however, require one version of the software, whereas others require a different version. For this reason, it's useful to work within a [virtual environment](https://docs.python.org/3/library/venv.html).
+   不过，某些 Python 的使用场景可能需要不同版本的软件。因此，建议您使用 [虚拟环境](https://docs.python.org/3/library/venv.html)。
 
-2. **Install Visual Studio Code**. Make sure you have Visual Studio Code installed on your computer. Follow these instructions to [install Visual Studio Code](https://code.visualstudio.com/) for the basic installation. You are going to use Python in Visual Studio Code in this course, so you might want to brush up on how to [configure Visual Studio Code](https://docs.microsoft.com/learn/modules/python-install-vscode?WT.mc_id=academic-77952-leestott) for Python development.
+2. **安装 Visual Studio Code**。确保您的计算机上已安装 Visual Studio Code。按照这些说明完成 [Visual Studio Code 的安装](https://code.visualstudio.com/)。在本课程中，您将使用 Python 在 Visual Studio Code 中进行开发，因此您可能需要了解如何 [配置 Visual Studio Code](https://docs.microsoft.com/learn/modules/python-install-vscode?WT.mc_id=academic-77952-leestott) 以进行 Python 开发。
 
-   > Get comfortable with Python by working through this collection of [Learn modules](https://docs.microsoft.com/users/jenlooper-2911/collections/mp1pagggd5qrq7?WT.mc_id=academic-77952-leestott)
+   > 通过学习这组 [模块](https://docs.microsoft.com/users/jenlooper-2911/collections/mp1pagggd5qrq7?WT.mc_id=academic-77952-leestott)，熟悉 Python。
    >
-   > [![Setup Python with Visual Studio Code](https://img.youtube.com/vi/yyQM70vi7V8/0.jpg)](https://youtu.be/yyQM70vi7V8 "Setup Python with Visual Studio Code")
+   > [![使用 Visual Studio Code 设置 Python](https://img.youtube.com/vi/yyQM70vi7V8/0.jpg)](https://youtu.be/yyQM70vi7V8 "使用 Visual Studio Code 设置 Python")
    >
-   > 🎥 Click the image above for a video: using Python within VS Code.
+   > 🎥 点击上方图片观看视频：在 VS Code 中使用 Python。
 
-3. **Install Scikit-learn**, by following [these instructions](https://scikit-learn.org/stable/install.html). Since you need to ensure that you use Python 3, it's recommended that you use a virtual environment. Note, if you are installing this library on a M1 Mac, there are special instructions on the page linked above.
+3. **安装 Scikit-learn**，按照 [这些说明](https://scikit-learn.org/stable/install.html) 进行安装。由于需要确保使用 Python 3，建议您使用虚拟环境。如果您在 M1 Mac 上安装此库，请参考上述页面中的特殊说明。
 
-1. **Install Jupyter Notebook**. You will need to [install the Jupyter package](https://pypi.org/project/jupyter/).
+4. **安装 Jupyter Notebook**。您需要 [安装 Jupyter 包](https://pypi.org/project/jupyter/)。
 
-## Your ML authoring environment
+## 您的机器学习开发环境
 
-You are going to use **notebooks** to develop your Python code and create machine learning models. This type of file is a common tool for data scientists, and they can be identified by their suffix or extension `.ipynb`.
+您将使用 **笔记本** 来开发 Python 代码并创建机器学习模型。这种文件类型是数据科学家常用的工具，其文件后缀为 `.ipynb`。
 
-Notebooks are an interactive environment that allow the developer to both code and add notes and write documentation around the code which is quite helpful for experimental or research-oriented projects.
+笔记本是一种交互式环境，允许开发者编写代码并添加注释和文档，非常适合实验或研究项目。
 
-[![ML for beginners - Set up Jupyter Notebooks to start building regression models](https://img.youtube.com/vi/7E-jC8FLA2E/0.jpg)](https://youtu.be/7E-jC8FLA2E "ML for beginners - Set up Jupyter Notebooks to start building regression models")
+[![机器学习入门 - 设置 Jupyter 笔记本以开始构建回归模型](https://img.youtube.com/vi/7E-jC8FLA2E/0.jpg)](https://youtu.be/7E-jC8FLA2E "机器学习入门 - 设置 Jupyter 笔记本以开始构建回归模型")
 
-> 🎥 Click the image above for a short video working through this exercise.
+> 🎥 点击上方图片观看短视频，了解如何完成此练习。
 
-### Exercise - work with a notebook
+### 练习 - 使用笔记本
 
-In this folder, you will find the file _notebook.ipynb_.
+在此文件夹中，您会找到文件 _notebook.ipynb_。
 
-1. Open _notebook.ipynb_ in Visual Studio Code.
+1. 在 Visual Studio Code 中打开 _notebook.ipynb_。
 
-   A Jupyter server will start with Python 3+ started. You will find areas of the notebook that can be `run`, pieces of code. You can run a code block, by selecting the icon that looks like a play button.
+   一个 Jupyter 服务器将启动，并使用 Python 3+。您会发现笔记本中可以运行的代码块。您可以通过选择播放按钮图标运行代码块。
 
-1. Select the `md` icon and add a bit of markdown, and the following text **# Welcome to your notebook**.
+2. 选择 `md` 图标并添加一些 markdown，输入以下文本 **# 欢迎来到您的笔记本**。
 
-   Next, add some Python code.
+   接下来，添加一些 Python 代码。
 
-1. Type **print('hello notebook')** in the code block.
-1. Select the arrow to run the code.
+3. 在代码块中输入 **print('hello notebook')**。
+4. 选择箭头运行代码。
 
-   You should see the printed statement:
+   您应该会看到打印的结果：
 
     ```output
     hello notebook
     ```
 
-![VS Code with a notebook open](images/notebook.jpg)
+![在 VS Code 中打开的笔记本](../../../../2-Regression/1-Tools/images/notebook.jpg)
 
-You can interleaf your code with comments to self-document the notebook.
+您可以在代码中插入注释，以便自我记录笔记本内容。
 
-✅ Think for a minute how different a web developer's working environment is versus that of a data scientist.
+✅ 思考一下，网页开发者的工作环境与数据科学家的工作环境有何不同。
 
-## Up and running with Scikit-learn
+## 使用 Scikit-learn 入门
 
-Now that Python is set up in your local environment, and you are comfortable with Jupyter notebooks, let's get equally comfortable with Scikit-learn (pronounce it `sci` as in `science`). Scikit-learn provides an [extensive API](https://scikit-learn.org/stable/modules/classes.html#api-ref) to help you perform ML tasks.
+现在，Python 已在您的本地环境中设置完毕，并且您已经熟悉了 Jupyter 笔记本，接下来让我们熟悉一下 Scikit-learn（发音为 `sci`，像 `science`）。Scikit-learn 提供了一个 [广泛的 API](https://scikit-learn.org/stable/modules/classes.html#api-ref)，帮助您完成机器学习任务。
 
-According to their [website](https://scikit-learn.org/stable/getting_started.html), "Scikit-learn is an open source machine learning library that supports supervised and unsupervised learning. It also provides various tools for model fitting, data preprocessing, model selection and evaluation, and many other utilities."
+根据其 [官网](https://scikit-learn.org/stable/getting_started.html) 的介绍，“Scikit-learn 是一个开源机器学习库，支持监督学习和无监督学习。它还提供了各种工具，用于模型拟合、数据预处理、模型选择和评估，以及许多其他实用功能。”
 
-In this course, you will use Scikit-learn and other tools to build machine learning models to perform what we call 'traditional machine learning' tasks. We have deliberately avoided neural networks and deep learning, as they are better covered in our forthcoming 'AI for Beginners' curriculum.
+在本课程中，您将使用 Scikit-learn 和其他工具构建机器学习模型，以完成我们称为“传统机器学习”的任务。我们特意避开了神经网络和深度学习，因为这些内容将在即将推出的“AI 入门”课程中详细介绍。
 
-Scikit-learn makes it straightforward to build models and evaluate them for use. It is primarily focused on using numeric data and contains several ready-made datasets for use as learning tools. It also includes pre-built models for students to try. Let's explore the process of loading prepackaged data and using a built in estimator  first ML model with Scikit-learn with some basic data.
+Scikit-learn 使构建模型并评估其使用变得简单。它主要专注于使用数值数据，并包含几个现成的数据集供学习使用。它还包括一些预构建的模型供学生尝试。让我们探索加载预打包数据并使用内置估算器构建第一个机器学习模型的过程。
 
-## Exercise - your first Scikit-learn notebook
+## 练习 - 您的第一个 Scikit-learn 笔记本
 
-> This tutorial was inspired by the [linear regression example](https://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py) on Scikit-learn's web site.
+> 本教程的灵感来源于 Scikit-learn 网站上的 [线性回归示例](https://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html#sphx-glr-auto-examples-linear-model-plot-ols-py)。
 
+[![机器学习入门 - 您的第一个 Python 线性回归项目](https://img.youtube.com/vi/2xkXL5EUpS0/0.jpg)](https://youtu.be/2xkXL5EUpS0 "机器学习入门 - 您的第一个 Python 线性回归项目")
 
-[![ML for beginners - Your First Linear Regression Project in Python](https://img.youtube.com/vi/2xkXL5EUpS0/0.jpg)](https://youtu.be/2xkXL5EUpS0 "ML for beginners - Your First Linear Regression Project in Python")
+> 🎥 点击上方图片观看短视频，了解如何完成此练习。
 
-> 🎥 Click the image above for a short video working through this exercise.
+在与本课相关的 _notebook.ipynb_ 文件中，按下“垃圾桶”图标清空所有单元格。
 
-In the _notebook.ipynb_ file associated to this lesson, clear out all the cells by pressing the 'trash can' icon.
+在本节中，您将使用 Scikit-learn 中内置的一个关于糖尿病的小型数据集进行学习。假设您想测试一种针对糖尿病患者的治疗方法。机器学习模型可能会帮助您根据变量的组合确定哪些患者对治疗的反应更好。即使是一个非常基础的回归模型，当可视化时，也可能显示有关变量的信息，帮助您组织理论临床试验。
 
-In this section, you will work with a small dataset about diabetes that is built into Scikit-learn for learning purposes. Imagine that you wanted to test a treatment for diabetic patients. Machine Learning models might help you determine which patients would respond better to the treatment, based on combinations of variables. Even a very basic regression model, when visualized, might show information about variables that would help you organize your theoretical clinical trials.
+✅ 回归方法有很多种，选择哪一种取决于您想要回答的问题。如果您想预测某个年龄段的人的可能身高，您可以使用线性回归，因为您在寻找一个 **数值**。如果您想确定某种菜肴是否应该被归类为素食，您在寻找一个 **类别分配**，因此您可以使用逻辑回归。稍后您将学习更多关于逻辑回归的内容。思考一下，您可以向数据提出哪些问题，以及哪种方法更适合回答这些问题。
 
-✅ There are many types of regression methods, and which one you pick depends on the answer you're looking for. If you want to predict the probable height for a person of a given age, you'd use linear regression, as you're seeking a **numeric value**. If you're interested in discovering whether a type of cuisine should be considered vegan or not, you're looking for a **category assignment** so you would use logistic regression. You'll learn more about logistic regression later. Think a bit about some questions you can ask of data, and which of these methods would be more appropriate.
+让我们开始这个任务。
 
-Let's get started on this task.
+### 导入库
 
-### Import libraries
+在此任务中，我们将导入一些库：
 
-For this task we will import some libraries:
+- **matplotlib**。这是一个有用的 [绘图工具](https://matplotlib.org/)，我们将用它来创建折线图。
+- **numpy**。 [numpy](https://numpy.org/doc/stable/user/whatisnumpy.html) 是一个处理 Python 数值数据的有用库。
+- **sklearn**。这是 [Scikit-learn](https://scikit-learn.org/stable/user_guide.html) 库。
 
-- **matplotlib**. It's a useful [graphing tool](https://matplotlib.org/) and we will use it to create a line plot.
-- **numpy**. [numpy](https://numpy.org/doc/stable/user/whatisnumpy.html) is a useful library for handling numeric data in Python.
-- **sklearn**. This is the [Scikit-learn](https://scikit-learn.org/stable/user_guide.html) library.
+导入一些库以帮助完成任务。
 
-Import some libraries to help with your tasks.
-
-1. Add imports by typing the following code:
+1. 通过输入以下代码添加导入：
 
    ```python
    import matplotlib.pyplot as plt
@@ -123,26 +131,26 @@ Import some libraries to help with your tasks.
    from sklearn import datasets, linear_model, model_selection
    ```
 
-   Above you are importing `matplotlib`, `numpy` and you are importing `datasets`, `linear_model` and `model_selection` from `sklearn`. `model_selection` is used for splitting data into training and test sets.
+   上述代码导入了 `matplotlib` 和 `numpy`，并从 `sklearn` 中导入了 `datasets`、`linear_model` 和 `model_selection`。`model_selection` 用于将数据分割为训练集和测试集。
 
-### The diabetes dataset
+### 糖尿病数据集
 
-The built-in [diabetes dataset](https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset) includes 442 samples of data around diabetes, with 10 feature variables, some of which include:
+内置的 [糖尿病数据集](https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset) 包括 442 个关于糖尿病的数据样本，包含 10 个特征变量，其中一些包括：
 
-- age: age in years
-- bmi: body mass index
-- bp: average blood pressure
-- s1 tc: T-Cells (a type of white blood cells)
+- age：年龄（以年为单位）
+- bmi：身体质量指数
+- bp：平均血压
+- s1 tc：T 细胞（白细胞的一种）
 
-✅ This dataset includes the concept of 'sex' as a feature variable important to research around diabetes. Many medical datasets include this type of binary classification. Think a bit about how categorizations such as this might exclude certain parts of a population from treatments.
+✅ 此数据集包含“性别”这一特征变量，这在糖尿病研究中很重要。许多医学数据集都包含这种二元分类。思考一下，这种分类可能会如何将某些群体排除在治疗之外。
 
-Now, load up the X and y data.
+现在，加载 X 和 y 数据。
 
-> 🎓 Remember, this is supervised learning, and we need a named 'y' target.
+> 🎓 请记住，这是监督学习，我们需要一个名为“y”的目标变量。
 
-In a new code cell, load the diabetes dataset by calling `load_diabetes()`. The input `return_X_y=True` signals that `X` will be a data matrix, and `y` will be the regression target.
+在新的代码单元中，通过调用 `load_diabetes()` 加载糖尿病数据集。输入参数 `return_X_y=True` 表示 `X` 将是数据矩阵，而 `y` 将是回归目标。
 
-1. Add some print commands to show the shape of the data matrix and its first element:
+1. 添加一些打印命令以显示数据矩阵的形状及其第一个元素：
 
     ```python
     X, y = datasets.load_diabetes(return_X_y=True)
@@ -150,9 +158,9 @@ In a new code cell, load the diabetes dataset by calling `load_diabetes()`. The 
     print(X[0])
     ```
 
-    What you are getting back as a response, is a tuple. What you are doing is to assign the two first values of the tuple to `X` and `y` respectively. Learn more [about tuples](https://wikipedia.org/wiki/Tuple).
+    您得到的响应是一个元组。您将元组的前两个值分别赋给 `X` 和 `y`。了解更多 [关于元组](https://wikipedia.org/wiki/Tuple)。
 
-    You can see that this data has 442 items shaped in arrays of 10 elements:
+    您可以看到这些数据有 442 个项目，每个项目是包含 10 个元素的数组：
 
     ```text
     (442, 10)
@@ -160,39 +168,39 @@ In a new code cell, load the diabetes dataset by calling `load_diabetes()`. The 
     -0.04340085 -0.00259226  0.01990842 -0.01764613]
     ```
 
-    ✅ Think a bit about the relationship between the data and the regression target. Linear regression predicts relationships between feature X and target variable y. Can you find the [target](https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset) for the diabetes dataset in the documentation? What is this dataset demonstrating, given that target?
+    ✅ 思考一下数据与回归目标之间的关系。线性回归预测特征 X 和目标变量 y 之间的关系。您能在文档中找到糖尿病数据集的 [目标](https://scikit-learn.org/stable/datasets/toy_dataset.html#diabetes-dataset) 吗？这个数据集展示了什么？
 
-2. Next, select a portion of this dataset to plot by selecting the 3rd column of the dataset. You can do this by using the `:` operator to select all rows, and then selecting the 3rd column using the index (2). You can also reshape the data to be a 2D array - as required for plotting - by using `reshape(n_rows, n_columns)`. If one of the parameter is -1, the corresponding dimension is calculated automatically.
+2. 接下来，通过选择数据集的第 3 列来绘制部分数据。您可以使用 `:` 操作符选择所有行，然后使用索引（2）选择第 3 列。您还可以使用 `reshape(n_rows, n_columns)` 将数据重塑为二维数组（绘图所需）。如果其中一个参数为 -1，则对应的维度会自动计算。
 
    ```python
    X = X[:, 2]
    X = X.reshape((-1,1))
    ```
 
-   ✅ At any time, print out the data to check its shape.
+   ✅ 随时打印数据以检查其形状。
 
-3. Now that you have data ready to be plotted, you can see if a machine can help determine a logical split between the numbers in this dataset. To do this, you need to split both the data (X) and the target (y) into test and training sets. Scikit-learn has a straightforward way to do this; you can split your test data at a given point.
+3. 现在您已经准备好绘制数据，可以看看机器是否能帮助确定数据集中的逻辑分割。为此，您需要将数据（X）和目标（y）分割为测试集和训练集。Scikit-learn 提供了一种简单的方法，您可以在给定点分割测试数据。
 
    ```python
    X_train, X_test, y_train, y_test = model_selection.train_test_split(X, y, test_size=0.33)
    ```
 
-4. Now you are ready to train your model! Load up the linear regression model and train it with your X and y training sets using `model.fit()`:
+4. 现在您可以训练模型了！加载线性回归模型，并使用 `model.fit()` 用 X 和 y 训练集训练模型：
 
     ```python
     model = linear_model.LinearRegression()
     model.fit(X_train, y_train)
     ```
 
-    ✅ `model.fit()` is a function you'll see in many ML libraries such as TensorFlow
+    ✅ `model.fit()` 是一个您会在许多机器学习库（如 TensorFlow）中看到的函数。
 
-5. Then, create a prediction using test data, using the function `predict()`. This will be used to draw the line between data groups
+5. 然后，使用测试数据创建预测，使用 `predict()` 函数。这将用于绘制数据组之间的分割线。
 
     ```python
     y_pred = model.predict(X_test)
     ```
 
-6. Now it's time to show the data in a plot. Matplotlib is a very useful tool for this task. Create a scatterplot of all the X and y test data, and use the prediction to draw a line in the most appropriate place, between the model's data groupings.
+6. 现在是时候用图表展示数据了。Matplotlib 是一个非常有用的工具。创建一个所有 X 和 y 测试数据的散点图，并使用预测结果在数据组之间绘制一条最合适的线。
 
     ```python
     plt.scatter(X_test, y_test,  color='black')
@@ -203,24 +211,29 @@ In a new code cell, load the diabetes dataset by calling `load_diabetes()`. The 
     plt.show()
     ```
 
-   ![a scatterplot showing datapoints around diabetes](./images/scatterplot.png)
+   ![显示糖尿病数据点的散点图](../../../../2-Regression/1-Tools/images/scatterplot.png)
+✅ 想一想这里发生了什么。一条直线穿过许多小数据点，但它究竟在做什么？你能看出如何利用这条线来预测一个新的、未见过的数据点在图表的 y 轴上的位置吗？试着用语言描述这个模型的实际用途。
 
-   ✅ Think a bit about what's going on here. A straight line is running through many small dots of data, but what is it doing exactly? Can you see how you should be able to use this line to predict where a new, unseen data point should fit in relationship to the plot's y axis? Try to put into words the practical use of this model.
-
-Congratulations, you built your first linear regression model, created a prediction with it, and displayed it in a plot!
+恭喜你！你已经构建了第一个线性回归模型，用它进行了预测，并将结果显示在图表中！
 
 ---
-## 🚀Challenge
+## 🚀挑战
 
-Plot a different variable from this dataset. Hint: edit this line: `X = X[:,2]`. Given this dataset's target, what are you able to discover about the progression of diabetes as a disease?
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+绘制该数据集中不同变量的图表。提示：编辑这行代码：`X = X[:,2]`。根据该数据集的目标，你能发现关于糖尿病作为一种疾病的进展的什么信息？
 
-## Review & Self Study
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-In this tutorial, you worked with simple linear regression, rather than univariate or multiple linear regression. Read a little about the differences between these methods, or take a look at [this video](https://www.coursera.org/lecture/quantifying-relationships-regression-models/linear-vs-nonlinear-categorical-variables-ai2Ef)
+## 复习与自学
 
-Read more about the concept of regression and think about what kinds of questions can be answered by this technique. Take this [tutorial](https://docs.microsoft.com/learn/modules/train-evaluate-regression-models?WT.mc_id=academic-77952-leestott) to deepen your understanding.
+在本教程中，你使用了简单线性回归，而不是单变量或多变量线性回归。阅读一些关于这些方法之间差异的内容，或者观看[这个视频](https://www.coursera.org/lecture/quantifying-relationships-regression-models/linear-vs-nonlinear-categorical-variables-ai2Ef)。
 
-## Assignment
+阅读更多关于回归的概念，并思考这种技术可以回答哪些类型的问题。通过[这个教程](https://docs.microsoft.com/learn/modules/train-evaluate-regression-models?WT.mc_id=academic-77952-leestott)来加深你的理解。
 
-[A different dataset](assignment.md)
+## 作业
+
+[一个不同的数据集](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。因使用本翻译而导致的任何误解或误读，我们概不负责。

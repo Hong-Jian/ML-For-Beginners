@@ -1,44 +1,53 @@
-# K-Means clustering
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "7cdd17338d9bbd7e2171c2cd462eb081",
+  "translation_date": "2025-09-05T09:02:01+00:00",
+  "source_file": "5-Clustering/2-K-Means/README.md",
+  "language_code": "zh"
+}
+-->
+# K-Means 聚类
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-In this lesson, you will learn how to create clusters using Scikit-learn and the Nigerian music dataset you imported earlier. We will cover the basics of K-Means for Clustering. Keep in mind that, as you learned in the earlier lesson, there are many ways to work with clusters and the method you use depends on your data. We will try K-Means as it's the most common clustering technique. Let's get started!
+在本课中，您将学习如何使用 Scikit-learn 和之前导入的尼日利亚音乐数据集创建聚类。我们将介绍 K-Means 聚类的基础知识。请记住，正如您在之前的课程中学到的那样，有许多方法可以处理聚类，您使用的方法取决于您的数据。我们将尝试 K-Means，因为它是最常见的聚类技术。让我们开始吧！
 
-Terms you will learn about:
+您将学习的术语：
 
-- Silhouette scoring
-- Elbow method
-- Inertia
-- Variance
+- Silhouette评分
+- 肘部法则
+- 惯性
+- 方差
 
-## Introduction
+## 简介
 
-[K-Means Clustering](https://wikipedia.org/wiki/K-means_clustering) is a method derived from the domain of signal processing. It is used to divide and partition groups of data into 'k' clusters using a series of observations. Each observation works to group a given datapoint closest to its nearest 'mean', or the center point of a cluster.
+[K-Means 聚类](https://wikipedia.org/wiki/K-means_clustering) 是一种源自信号处理领域的方法。它用于通过一系列观察将数据分组并划分为“k”个聚类。每次观察都将数据点分配到离其最近的“均值”或聚类中心点。
 
-The clusters can be visualized as [Voronoi diagrams](https://wikipedia.org/wiki/Voronoi_diagram), which include a point (or 'seed') and its corresponding region. 
+这些聚类可以通过 [Voronoi 图](https://wikipedia.org/wiki/Voronoi_diagram) 来可视化，其中包括一个点（或“种子”）及其对应的区域。
 
-![voronoi diagram](images/voronoi.png)
+![voronoi diagram](../../../../5-Clustering/2-K-Means/images/voronoi.png)
 
-> infographic by [Jen Looper](https://twitter.com/jenlooper)
+> 信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
-The K-Means clustering process [executes in a three-step process](https://scikit-learn.org/stable/modules/clustering.html#k-means):
+K-Means 聚类过程[通过三步流程执行](https://scikit-learn.org/stable/modules/clustering.html#k-means)：
 
-1. The algorithm selects k-number of center points by sampling from the dataset. After this, it loops:
-    1. It assigns each sample to the nearest centroid.
-    2. It creates new centroids by taking the mean value of all of the samples assigned to the previous centroids.
-    3. Then, it calculates the difference between the new and old centroids and repeats until the centroids are stabilized.
+1. 算法通过从数据集中采样选择 k 个中心点。之后进入循环：
+    1. 将每个样本分配到最近的质心。
+    2. 通过计算分配到之前质心的所有样本的平均值来创建新的质心。
+    3. 然后计算新旧质心之间的差异，并重复直到质心稳定。
 
-One drawback of using K-Means includes the fact that you will need to establish 'k', that is the number of centroids. Fortunately the  'elbow method' helps to estimate a good starting value for 'k'. You'll try it in a minute.
+使用 K-Means 的一个缺点是您需要确定“k”，即质心的数量。幸运的是，“肘部法则”可以帮助估算一个好的起始值。您马上就会尝试。
 
-## Prerequisite
+## 前提条件
 
-You will work in this lesson's [_notebook.ipynb_](https://github.com/microsoft/ML-For-Beginners/blob/main/5-Clustering/2-K-Means/notebook.ipynb) file that includes the data import and preliminary cleaning you did in the last lesson.
+您将在本课的 [_notebook.ipynb_](https://github.com/microsoft/ML-For-Beginners/blob/main/5-Clustering/2-K-Means/notebook.ipynb) 文件中工作，其中包括您在上一课中完成的数据导入和初步清理。
 
-## Exercise - preparation
+## 练习 - 准备工作
 
-Start by taking another look at the songs data.
+首先再次查看歌曲数据。
 
-1. Create a boxplot, calling `boxplot()` for each column:
+1. 为每一列调用 `boxplot()` 创建一个箱线图：
 
     ```python
     plt.figure(figsize=(20,20), dpi=200)
@@ -80,13 +89,13 @@ Start by taking another look at the songs data.
     sns.boxplot(x = 'release_date', data = df)
     ```
 
-    This data is a little noisy: by observing each column as a boxplot, you can see outliers.
+    这些数据有点噪声：通过观察每一列的箱线图，您可以看到异常值。
 
-    ![outliers](images/boxplots.png)
+    ![outliers](../../../../5-Clustering/2-K-Means/images/boxplots.png)
 
-You could go through the dataset and remove these outliers, but that would make the data pretty minimal.
+您可以遍历数据集并删除这些异常值，但这样会使数据变得非常有限。
 
-1. For now, choose which columns you will use for your clustering exercise. Pick ones with similar ranges and encode the `artist_top_genre` column as numeric data:
+1. 目前，选择您将用于聚类练习的列。选择范围相似的列，并将 `artist_top_genre` 列编码为数值数据：
 
     ```python
     from sklearn.preprocessing import LabelEncoder
@@ -101,7 +110,7 @@ You could go through the dataset and remove these outliers, but that would make 
     y = le.transform(y)
     ```
 
-1. Now you need to pick how many clusters to target. You know there are 3 song genres that we carved out of the dataset, so let's try 3:
+1. 现在您需要选择目标聚类的数量。您知道数据集中有 3 个歌曲流派，因此我们尝试 3：
 
     ```python
     from sklearn.cluster import KMeans
@@ -118,9 +127,9 @@ You could go through the dataset and remove these outliers, but that would make 
     y_cluster_kmeans
     ```
 
-You see an array printed out with predicted clusters (0, 1,or 2) for each row of the dataframe.
+您会看到一个数组打印出来，其中包含数据框每一行的预测聚类（0、1 或 2）。
 
-1. Use this array to calculate a 'silhouette score':
+1. 使用此数组计算“Silhouette评分”：
 
     ```python
     from sklearn import metrics
@@ -128,15 +137,15 @@ You see an array printed out with predicted clusters (0, 1,or 2) for each row of
     score
     ```
 
-## Silhouette score
+## Silhouette评分
 
-Look for a silhouette score closer to 1. This score varies from -1 to 1, and if the score is 1, the cluster is dense and well-separated from other clusters. A value near 0 represents overlapping clusters with samples very close to the decision boundary of the neighboring clusters. [(Source)](https://dzone.com/articles/kmeans-silhouette-score-explained-with-python-exam)
+寻找接近 1 的 Silhouette评分。此评分范围从 -1 到 1，如果评分为 1，则聚类密集且与其他聚类分离良好。接近 0 的值表示聚类重叠，样本非常接近邻近聚类的决策边界。[（来源）](https://dzone.com/articles/kmeans-silhouette-score-explained-with-python-exam)
 
-Our score is **.53**, so right in the middle. This indicates that our data is not particularly well-suited to this type of clustering, but let's continue.
+我们的评分是 **0.53**，处于中间位置。这表明我们的数据不太适合这种类型的聚类，但我们继续。
 
-### Exercise - build a model
+### 练习 - 构建模型
 
-1. Import `KMeans` and start the clustering process.
+1. 导入 `KMeans` 并开始聚类过程。
 
     ```python
     from sklearn.cluster import KMeans
@@ -149,23 +158,23 @@ Our score is **.53**, so right in the middle. This indicates that our data is no
     
     ```
 
-    There are a few parts here that warrant explaining.
+    这里有几个部分需要解释。
 
-    > 🎓 range: These are the iterations of the clustering process
+    > 🎓 range：这些是聚类过程的迭代次数
 
-    > 🎓 random_state: "Determines random number generation for centroid initialization." [Source](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans)
+    > 🎓 random_state：“确定质心初始化的随机数生成。”[来源](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html#sklearn.cluster.KMeans)
 
-    > 🎓 WCSS: "within-cluster sums of squares" measures the squared average distance of all the points within a cluster to the cluster centroid. [Source](https://medium.com/@ODSC/unsupervised-learning-evaluating-clusters-bd47eed175ce). 
+    > 🎓 WCSS：“聚类内平方和”衡量聚类内所有点到质心的平均平方距离。[来源](https://medium.com/@ODSC/unsupervised-learning-evaluating-clusters-bd47eed175ce)
 
-    > 🎓 Inertia: K-Means algorithms attempt to choose centroids to minimize 'inertia', "a measure of how internally coherent clusters are." [Source](https://scikit-learn.org/stable/modules/clustering.html). The value is appended to the wcss variable on each iteration.
+    > 🎓 惯性：K-Means 算法尝试选择质心以最小化“惯性”，“惯性是衡量聚类内部一致性的一种方法。”[来源](https://scikit-learn.org/stable/modules/clustering.html)。该值在每次迭代中附加到 wcss 变量。
 
-    > 🎓 k-means++: In [Scikit-learn](https://scikit-learn.org/stable/modules/clustering.html#k-means) you can use the 'k-means++' optimization, which "initializes the centroids to be (generally) distant from each other, leading to probably better results than random initialization.
+    > 🎓 k-means++：在 [Scikit-learn](https://scikit-learn.org/stable/modules/clustering.html#k-means) 中，您可以使用“k-means++”优化，“初始化质心使其（通常）彼此距离较远，从而可能比随机初始化获得更好的结果。”
 
-### Elbow method
+### 肘部法则
 
-Previously, you surmised that, because you have targeted 3 song genres, you should choose 3 clusters. But is that the case?
+之前，您推测因为您针对 3 个歌曲流派，所以应该选择 3 个聚类。但真的是这样吗？
 
-1. Use the 'elbow method' to make sure.
+1. 使用“肘部法则”确认。
 
     ```python
     plt.figure(figsize=(10,5))
@@ -176,13 +185,13 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
     plt.show()
     ```
 
-    Use the `wcss` variable that you built in the previous step to create a chart showing where the 'bend' in the elbow is, which indicates the optimum number of clusters. Maybe it **is** 3!
+    使用您在上一步中构建的 `wcss` 变量创建一个图表，显示肘部的“弯曲”位置，这表明最佳聚类数量。也许确实是 **3**！
 
-    ![elbow method](images/elbow.png)
+    ![elbow method](../../../../5-Clustering/2-K-Means/images/elbow.png)
 
-## Exercise - display the clusters
+## 练习 - 显示聚类
 
-1. Try the process again, this time setting three clusters, and display the clusters as a scatterplot:
+1. 再次尝试该过程，这次设置三个聚类，并将聚类显示为散点图：
 
     ```python
     from sklearn.cluster import KMeans
@@ -195,7 +204,7 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
     plt.show()
     ```
 
-1. Check the model's accuracy:
+1. 检查模型的准确性：
 
     ```python
     labels = kmeans.labels_
@@ -207,41 +216,46 @@ Previously, you surmised that, because you have targeted 3 song genres, you shou
     print('Accuracy score: {0:0.2f}'. format(correct_labels/float(y.size)))
     ```
 
-    This model's accuracy is not very good, and the shape of the clusters gives you a hint why. 
+    该模型的准确性不太高，聚类的形状给了您一个提示原因。
 
-    ![clusters](images/clusters.png)
+    ![clusters](../../../../5-Clustering/2-K-Means/images/clusters.png)
 
-    This data is too imbalanced, too little correlated and there is too much variance between the column values to cluster well. In fact, the clusters that form are probably heavily influenced or skewed by the three genre categories we defined above. That was a learning process!
+    这些数据过于不平衡，相关性太低，并且列值之间的方差太大，无法很好地聚类。事实上，形成的聚类可能受到我们上面定义的三个流派类别的严重影响或偏斜。这是一个学习过程！
 
-    In Scikit-learn's documentation, you can see that a model like this one, with clusters not very well demarcated, has a 'variance' problem:
+    在 Scikit-learn 的文档中，您可以看到像这样的模型，聚类划分不太清晰，存在“方差”问题：
 
-    ![problem models](images/problems.png)
-    > Infographic from Scikit-learn
+    ![problem models](../../../../5-Clustering/2-K-Means/images/problems.png)
+    > 信息图来自 Scikit-learn
 
-## Variance
+## 方差
 
-Variance is defined as "the average of the squared differences from the Mean" [(Source)](https://www.mathsisfun.com/data/standard-deviation.html). In the context of this clustering problem, it refers to data that the numbers of our dataset tend to diverge a bit too much from the mean. 
+方差定义为“与均值的平方差的平均值”[（来源）](https://www.mathsisfun.com/data/standard-deviation.html)。在此聚类问题的背景下，它指的是数据集中数值偏离均值的程度。
 
-✅ This is a great moment to think about all the ways you could correct this issue. Tweak the data a bit more? Use different columns? Use a different algorithm? Hint: Try [scaling your data](https://www.mygreatlearning.com/blog/learning-data-science-with-k-means-clustering/) to normalize it and test other columns.
+✅ 这是一个很好的时机来思考所有可能的解决方法。进一步调整数据？使用不同的列？使用不同的算法？提示：尝试[缩放数据](https://www.mygreatlearning.com/blog/learning-data-science-with-k-means-clustering/)以进行归一化并测试其他列。
 
-> Try this '[variance calculator](https://www.calculatorsoup.com/calculators/statistics/variance-calculator.php)' to understand the concept a bit more.
+> 尝试这个“[方差计算器](https://www.calculatorsoup.com/calculators/statistics/variance-calculator.php)”来更好地理解这个概念。
 
 ---
 
-## 🚀Challenge
+## 🚀挑战
 
-Spend some time with this notebook, tweaking parameters. Can you improve the accuracy of the model by cleaning  the data more (removing outliers, for example)? You can use weights to give more weight to given data samples. What else can you do to create better clusters?
+花一些时间在这个 notebook 上，调整参数。通过进一步清理数据（例如删除异常值），您能否提高模型的准确性？您可以使用权重为某些数据样本赋予更大的权重。还有什么方法可以创建更好的聚类？
 
-Hint: Try to scale your data. There's commented code in the notebook that adds standard scaling to make the data columns resemble each other more closely in terms of range. You'll find that while the silhouette score goes down, the 'kink' in the elbow graph smooths out. This is because leaving the data unscaled allows data with less variance to carry more weight. Read a bit more on this problem [here](https://stats.stackexchange.com/questions/21222/are-mean-normalization-and-feature-scaling-needed-for-k-means-clustering/21226#21226).
+提示：尝试缩放数据。notebook 中有注释代码，添加了标准缩放以使数据列在范围上更接近。您会发现虽然 Silhouette评分下降了，但肘部图中的“弯曲”变得更平滑。这是因为未缩放的数据允许方差较小的数据具有更大的权重。阅读更多关于此问题的内容[这里](https://stats.stackexchange.com/questions/21222/are-mean-normalization-and-feature-scaling-needed-for-k-means-clustering/21226#21226)。
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-Take a look at a K-Means Simulator [such as this one](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/). You can use this tool to visualize sample data points and determine its centroids. You can edit the data's randomness, numbers of clusters and numbers of centroids. Does this help you get an idea of how the data can be grouped?
+查看一个 K-Means 模拟器[例如这个](https://user.ceng.metu.edu.tr/~akifakkus/courses/ceng574/k-means/)。您可以使用此工具可视化样本数据点并确定其质心。您可以编辑数据的随机性、聚类数量和质心数量。这是否帮助您更好地理解数据如何分组？
 
-Also, take a look at [this handout on K-Means](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html) from Stanford.
+此外，查看 [斯坦福的 K-Means 手册](https://stanford.edu/~cpiech/cs221/handouts/kmeans.html)。
 
-## Assignment
+## 作业
 
-[Try different clustering methods](assignment.md)
+[尝试不同的聚类方法](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。因使用本翻译而导致的任何误解或误读，我们概不负责。

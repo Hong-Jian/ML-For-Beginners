@@ -1,11 +1,25 @@
-# Research other visualizations for clustering
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "589fa015a5e7d9e67bd629f7d47b53de",
+  "translation_date": "2025-09-03T17:16:31+00:00",
+  "source_file": "5-Clustering/1-Visualize/assignment.md",
+  "language_code": "zh"
+}
+-->
+# 研究其他用于聚类的可视化方法
 
-## Instructions
+## 说明
 
-In this lesson, you have worked with some visualization techniques to get a grasp on plotting your data in preparation for clustering it. Scatterplots, in particular are useful for finding groups of objects. Research different ways and different libraries to create scatterplots and document your work in a notebook. You can use the data from this lesson, other lessons, or data you source yourself (please credit its source, however, in your notebook). Plot some data using scatterplots and explain what you discover.
+在本课中，你已经学习了一些可视化技术，以便在进行聚类之前对数据进行绘图。散点图尤其适合用于发现对象的分组。研究创建散点图的不同方法和不同库，并在笔记本中记录你的研究成果。你可以使用本课的数据、其他课程的数据，或者自己找到的数据（不过，请在笔记本中注明数据来源）。使用散点图绘制一些数据，并解释你的发现。
 
-## Rubric
+## 评分标准
 
-| Criteria | Exemplary                                                      | Adequate                                                                                 | Needs Improvement                   |
+| 标准     | 卓越表现                                                      | 合格表现                                                                                 | 需要改进                   |
 | -------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
-|          | A notebook is presented with five well-documented scatterplots | A notebook is presented with fewer than five scatterplots and it is less well documented | An incomplete notebook is presented |
+|          | 提交的笔记本包含五个记录详尽的散点图                          | 提交的笔记本包含少于五个散点图，且记录不够详尽                                          | 提交的笔记本不完整         |
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

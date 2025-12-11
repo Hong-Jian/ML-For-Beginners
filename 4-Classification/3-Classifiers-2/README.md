@@ -1,44 +1,53 @@
-# Cuisine classifiers 2
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "49047911108adc49d605cddfb455749c",
+  "translation_date": "2025-09-05T09:07:46+00:00",
+  "source_file": "4-Classification/3-Classifiers-2/README.md",
+  "language_code": "zh"
+}
+-->
+# 美食分类器 2
 
-In this second classification lesson, you will explore more ways to classify numeric data. You will also learn about the ramifications for choosing one classifier over the other.
+在第二节分类课程中，您将探索更多分类数值数据的方法。同时，您还将了解选择不同分类器的影响。
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-### Prerequisite
+### 前提条件
 
-We assume that you have completed the previous lessons and have a cleaned dataset in your `data` folder called _cleaned_cuisines.csv_ in the root of this 4-lesson folder.
+我们假设您已经完成了之前的课程，并在本四节课程的根目录中的 `data` 文件夹中准备了一个名为 _cleaned_cuisines.csv_ 的清理过的数据集。
 
-### Preparation
+### 准备工作
 
-We have loaded your _notebook.ipynb_ file with the cleaned dataset and have divided it into X and y dataframes, ready for the model building process.
+我们已经将清理过的数据集加载到您的 _notebook.ipynb_ 文件中，并将其分为 X 和 y 数据框，准备进行模型构建。
 
-## A classification map
+## 分类地图
 
-Previously, you learned about the various options you have when classifying data using Microsoft's cheat sheet. Scikit-learn offers a similar, but more granular cheat sheet that can further help narrow down your estimators (another term for classifiers):
+之前，您已经了解了使用微软的速查表对数据进行分类的各种选项。Scikit-learn 提供了一个类似但更详细的速查表，可以进一步帮助您缩小选择范围（分类器的另一种说法是估计器）：
 
-![ML Map from Scikit-learn](images/map.png)
-> Tip: [visit this map online](https://scikit-learn.org/stable/tutorial/machine_learning_map/) and click along the path to read documentation.
+![Scikit-learn 的机器学习地图](../../../../4-Classification/3-Classifiers-2/images/map.png)
+> 提示：[在线访问此地图](https://scikit-learn.org/stable/tutorial/machine_learning_map/)，点击路径以阅读相关文档。
 
-### The plan
+### 计划
 
-This map is very helpful once you have a clear grasp of your data, as you can 'walk' along its paths to a decision:
+一旦您对数据有了清晰的理解，这张地图就非常有用，您可以沿着它的路径做出决策：
 
-- We have >50 samples
-- We want to predict a category
-- We have labeled data
-- We have fewer than 100K samples
-- ✨ We can choose a Linear SVC
-- If that doesn't work, since we have numeric data
-    - We can try a ✨ KNeighbors Classifier 
-      - If that doesn't work, try ✨ SVC and ✨ Ensemble Classifiers
+- 我们有 >50 个样本
+- 我们希望预测一个类别
+- 我们有标记数据
+- 我们的样本少于 100K
+- ✨ 我们可以选择一个线性 SVC
+- 如果这不起作用，因为我们有数值数据
+    - 我们可以尝试 ✨ KNeighbors 分类器
+      - 如果这不起作用，可以尝试 ✨ SVC 和 ✨ 集成分类器
 
-This is a very helpful trail to follow.
+这是一条非常有帮助的路径。
 
-## Exercise - split the data
+## 练习 - 划分数据
 
-Following this path, we should start by importing some libraries to use.
+按照这条路径，我们应该先导入一些需要使用的库。
 
-1. Import the needed libraries:
+1. 导入所需的库：
 
     ```python
     from sklearn.neighbors import KNeighborsClassifier
@@ -50,21 +59,21 @@ Following this path, we should start by importing some libraries to use.
     import numpy as np
     ```
 
-1. Split your training and test data:
+1. 划分训练数据和测试数据：
 
     ```python
     X_train, X_test, y_train, y_test = train_test_split(cuisines_feature_df, cuisines_label_df, test_size=0.3)
     ```
 
-## Linear SVC classifier
+## 线性 SVC 分类器
 
-Support-Vector clustering (SVC) is a child of the Support-Vector machines family of ML techniques (learn more about these below). In this method, you can choose a 'kernel' to decide how to cluster the labels. The 'C' parameter refers to 'regularization' which regulates the influence of parameters. The kernel can be one of [several](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC); here we set it to 'linear' to ensure that we leverage linear SVC. Probability defaults to 'false'; here we set it to 'true' to gather probability estimates. We set the random state to '0' to shuffle the data to get probabilities.
+支持向量聚类（SVC）是支持向量机（SVM）机器学习技术家族的一部分（下面可以了解更多）。在这种方法中，您可以选择一个“核函数”来决定如何聚类标签。“C”参数指的是“正则化”，用于调节参数的影响。核函数可以是[多种选项](https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC)之一；这里我们将其设置为“线性”，以确保我们使用线性 SVC。概率默认值为“false”；这里我们将其设置为“true”，以获取概率估计。我们将随机状态设置为“0”，以打乱数据以获取概率。
 
-### Exercise - apply a linear SVC
+### 练习 - 应用线性 SVC
 
-Start by creating an array of classifiers. You will add progressively to this array as we test. 
+首先创建一个分类器数组。随着测试的进行，您将逐步向该数组添加内容。
 
-1. Start with a Linear SVC:
+1. 从线性 SVC 开始：
 
     ```python
     C = 10
@@ -74,7 +83,7 @@ Start by creating an array of classifiers. You will add progressively to this ar
     }
     ```
 
-2. Train your model using the Linear SVC and print out a report:
+2. 使用线性 SVC 训练您的模型并打印报告：
 
     ```python
     n_classifiers = len(classifiers)
@@ -88,7 +97,7 @@ Start by creating an array of classifiers. You will add progressively to this ar
         print(classification_report(y_test,y_pred))
     ```
 
-    The result is pretty good:
+    结果相当不错：
 
     ```output
     Accuracy (train) for Linear SVC: 78.6% 
@@ -105,21 +114,21 @@ Start by creating an array of classifiers. You will add progressively to this ar
     weighted avg       0.79      0.79      0.79      1199
     ```
 
-## K-Neighbors classifier
+## K-Neighbors 分类器
 
-K-Neighbors is part of the "neighbors" family of ML methods, which can be used for both supervised and unsupervised learning. In this method, a predefined number of points is created and data are gathered around these points such that generalized labels can be predicted for the data.
+K-Neighbors 是机器学习方法中“邻居”家族的一部分，可用于监督学习和非监督学习。在这种方法中，创建了预定义数量的点，并围绕这些点收集数据，以便预测数据的通用标签。
 
-### Exercise - apply the K-Neighbors classifier
+### 练习 - 应用 K-Neighbors 分类器
 
-The previous classifier was good, and worked well with the data, but maybe we can get better accuracy. Try a K-Neighbors classifier.
+之前的分类器表现不错，适合数据，但也许我们可以获得更好的准确性。尝试使用 K-Neighbors 分类器。
 
-1. Add a line to your classifier array (add a comma after the Linear SVC item):
+1. 在分类器数组中添加一行（在线性 SVC 项目后添加逗号）：
 
     ```python
     'KNN classifier': KNeighborsClassifier(C),
     ```
 
-    The result is a little worse:
+    结果稍差一些：
 
     ```output
     Accuracy (train) for KNN classifier: 73.8% 
@@ -136,23 +145,23 @@ The previous classifier was good, and worked well with the data, but maybe we ca
     weighted avg       0.76      0.74      0.74      1199
     ```
 
-    ✅ Learn about [K-Neighbors](https://scikit-learn.org/stable/modules/neighbors.html#neighbors)
+    ✅ 了解 [K-Neighbors](https://scikit-learn.org/stable/modules/neighbors.html#neighbors)
 
-## Support Vector Classifier
+## 支持向量分类器
 
-Support-Vector classifiers are part of the [Support-Vector Machine](https://wikipedia.org/wiki/Support-vector_machine) family of ML methods that are used for classification and regression tasks. SVMs "map training examples to points in space" to maximize the distance between two categories. Subsequent data is mapped into this space so their category can be predicted.
+支持向量分类器是[支持向量机](https://wikipedia.org/wiki/Support-vector_machine)机器学习方法家族的一部分，可用于分类和回归任务。SVM 将“训练样本映射到空间中的点”，以最大化两个类别之间的距离。后续数据被映射到该空间，以预测其类别。
 
-### Exercise - apply a Support Vector Classifier
+### 练习 - 应用支持向量分类器
 
-Let's try for a little better accuracy with a Support Vector Classifier.
+让我们尝试使用支持向量分类器获得更好的准确性。
 
-1. Add a comma after the K-Neighbors item, and then add this line:
+1. 在 K-Neighbors 项目后添加逗号，然后添加以下行：
 
     ```python
     'SVC': SVC(),
     ```
 
-    The result is quite good!
+    结果非常好！
 
     ```output
     Accuracy (train) for SVC: 83.2% 
@@ -169,18 +178,18 @@ Let's try for a little better accuracy with a Support Vector Classifier.
     weighted avg       0.84      0.83      0.83      1199
     ```
 
-    ✅ Learn about [Support-Vectors](https://scikit-learn.org/stable/modules/svm.html#svm)
+    ✅ 了解 [支持向量](https://scikit-learn.org/stable/modules/svm.html#svm)
 
-## Ensemble Classifiers
+## 集成分类器
 
-Let's follow the path to the very end, even though the previous test was quite good. Let's try some 'Ensemble Classifiers, specifically Random Forest and AdaBoost:
+让我们沿着路径走到最后，尽管之前的测试结果已经非常好。尝试一些“集成分类器”，特别是随机森林和 AdaBoost：
 
 ```python
   'RFST': RandomForestClassifier(n_estimators=100),
   'ADA': AdaBoostClassifier(n_estimators=100)
 ```
 
-The result is very good, especially for Random Forest:
+结果非常好，尤其是随机森林：
 
 ```output
 Accuracy (train) for RFST: 84.5% 
@@ -210,26 +219,31 @@ Accuracy (train) for ADA: 72.4%
 weighted avg       0.73      0.72      0.72      1199
 ```
 
-✅ Learn about [Ensemble Classifiers](https://scikit-learn.org/stable/modules/ensemble.html)
+✅ 了解 [集成分类器](https://scikit-learn.org/stable/modules/ensemble.html)
 
-This method of Machine Learning "combines the predictions of several base estimators" to improve the model's quality. In our example, we used Random Trees and AdaBoost. 
+这种机器学习方法“结合多个基础估计器的预测”，以提高模型质量。在我们的示例中，我们使用了随机森林和 AdaBoost。
 
-- [Random Forest](https://scikit-learn.org/stable/modules/ensemble.html#forest), an averaging method, builds a 'forest' of 'decision trees' infused with randomness to avoid overfitting. The n_estimators parameter is set to the number of trees.
+- [随机森林](https://scikit-learn.org/stable/modules/ensemble.html#forest)，一种平均方法，构建了一个随机性注入的“决策树森林”，以避免过拟合。n_estimators 参数设置为树的数量。
 
-- [AdaBoost](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html) fits a classifier to a dataset and then fits copies of that classifier to the same dataset. It focuses on the weights of incorrectly classified items and adjusts the fit for the next classifier to correct.
+- [AdaBoost](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.AdaBoostClassifier.html) 将分类器拟合到数据集，然后将该分类器的副本拟合到同一数据集。它关注错误分类项的权重，并调整下一分类器的拟合以进行纠正。
 
 ---
 
-## 🚀Challenge
+## 🚀挑战
 
-Each of these techniques has a large number of parameters that you can tweak. Research each one's default parameters and think about what tweaking these parameters would mean for the model's quality.
+每种技术都有大量参数可以调整。研究每种技术的默认参数，并思考调整这些参数对模型质量的影响。
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-There's a lot of jargon in these lessons, so take a minute to review [this list](https://docs.microsoft.com/dotnet/machine-learning/resources/glossary?WT.mc_id=academic-77952-leestott) of useful terminology!
+这些课程中有很多术语，因此花点时间复习[这个术语表](https://docs.microsoft.com/dotnet/machine-learning/resources/glossary?WT.mc_id=academic-77952-leestott)，非常有用！
 
-## Assignment 
+## 作业 
 
-[Parameter play](assignment.md)
+[参数调整](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。对于因使用本翻译而引起的任何误解或误读，我们概不负责。

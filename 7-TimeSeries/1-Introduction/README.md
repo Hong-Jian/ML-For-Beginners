@@ -1,119 +1,128 @@
-# Introduction to time series forecasting
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "662b509c39eee205687726636d0a8455",
+  "translation_date": "2025-09-05T08:59:54+00:00",
+  "source_file": "7-TimeSeries/1-Introduction/README.md",
+  "language_code": "zh"
+}
+-->
+# 时间序列预测简介
 
-![Summary of time series in a sketchnote](../../sketchnotes/ml-timeseries.png)
+![时间序列的概述草图](../../../../sketchnotes/ml-timeseries.png)
 
-> Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
+> 草图由 [Tomomi Imura](https://www.twitter.com/girlie_mac) 绘制
 
-In this lesson and the following one, you will learn a bit about time series forecasting, an interesting and valuable part of a ML scientist's repertoire that is a bit less known than other topics. Time series forecasting is a sort of 'crystal ball': based on past performance of a variable such as price, you can predict its future potential value.
+在本课及接下来的课程中，你将学习一些关于时间序列预测的知识。这是机器学习科学家技能库中一个有趣且有价值的部分，虽然它的知名度可能不如其他主题。时间序列预测就像一种“水晶球”：基于某个变量（如价格）的过去表现，你可以预测其未来的潜在价值。
 
-[![Introduction to time series forecasting](https://img.youtube.com/vi/cBojo1hsHiI/0.jpg)](https://youtu.be/cBojo1hsHiI "Introduction to time series forecasting")
+[![时间序列预测简介](https://img.youtube.com/vi/cBojo1hsHiI/0.jpg)](https://youtu.be/cBojo1hsHiI "时间序列预测简介")
 
-> 🎥 Click the image above for a video about time series forecasting
+> 🎥 点击上方图片观看关于时间序列预测的视频
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-It's a useful and interesting field with real value to business, given its direct application to problems of pricing, inventory, and supply chain issues. While deep learning techniques have started to be used to gain more insights to better predict future performance, time series forecasting remains a field greatly informed by classic ML techniques.
+时间序列预测是一个有用且有趣的领域，对商业具有实际价值，因为它可以直接应用于定价、库存和供应链问题。虽然深度学习技术开始被用于更深入地预测未来表现，但时间序列预测仍然是一个主要由经典机器学习技术驱动的领域。
 
-> Penn State's useful time series curriculum can be found [here](https://online.stat.psu.edu/stat510/lesson/1)
+> 宾夕法尼亚州立大学的时间序列课程可以在 [这里](https://online.stat.psu.edu/stat510/lesson/1) 找到
 
-## Introduction
+## 简介
 
-Suppose you maintain an array of smart parking meters that provide data about how often they are used and for how long over time.
+假设你维护了一组智能停车计时器，这些计时器提供关于它们使用频率和使用时长的数据。
 
-> What if you could predict, based on the meter's past performance, its future value according to the laws of supply and demand?
+> 如果你能根据计时器的过去表现，预测其未来价值，并结合供需规律，会怎么样？
 
-Accurately predicting when to act so as to achieve your goal is a challenge that could be tackled by time series forecasting. It wouldn't make folks happy to be charged more in busy times when they're looking for a parking spot, but it would be a sure way to generate revenue to clean the streets!
+准确预测何时采取行动以实现目标是一个挑战，可以通过时间序列预测来解决。虽然在繁忙时段提高停车费可能会让人们不高兴，但这确实是一个增加收入以清洁街道的有效方法！
 
-Let's explore some of the types of time series algorithms and start a notebook to clean and prepare some data. The data you will analyze  is taken from the GEFCom2014 forecasting competition. It consists of 3 years of hourly electricity load and temperature values between 2012 and 2014. Given the historical patterns of electricity load and temperature, you can predict future values of electricity load.
+让我们探索一些时间序列算法，并开始一个笔记本来清理和准备一些数据。你将分析的数据来自 GEFCom2014 预测竞赛，包括 2012 年至 2014 年间 3 年的每小时电力负载和温度值。根据电力负载和温度的历史模式，你可以预测电力负载的未来值。
 
-In this example, you'll learn how to forecast one time step ahead, using historical load data only. Before starting, however, it's useful to understand what's going on behind the scenes.
+在这个例子中，你将学习如何仅使用历史负载数据预测一个时间步长的未来值。然而，在开始之前，了解背后的原理是很有帮助的。
 
-## Some definitions
+## 一些定义
 
-When encountering the term 'time series' you need to understand its use in several different contexts.
+当遇到“时间序列”这个术语时，你需要理解它在不同上下文中的使用。
 
-🎓 **Time series**
+🎓 **时间序列**
 
-In mathematics, "a time series is a series of data points indexed (or listed or graphed) in time order. Most commonly, a time series is a sequence taken at successive equally spaced points in time." An example of a time series is the daily closing value of the [Dow Jones Industrial Average](https://wikipedia.org/wiki/Time_series). The use of time series plots and statistical modeling is frequently encountered in signal processing, weather forecasting, earthquake prediction, and other fields where events occur and data points can be plotted over time.
+在数学中，“时间序列是一系列按时间顺序索引（或列出或绘制）的数据点。最常见的是，时间序列是在连续且等间隔的时间点上获取的序列。” 时间序列的一个例子是 [道琼斯工业平均指数](https://wikipedia.org/wiki/Time_series) 的每日收盘值。时间序列图和统计建模的使用在信号处理、天气预测、地震预测以及其他事件发生并可以随时间绘制数据点的领域中经常出现。
 
-🎓 **Time series analysis**
+🎓 **时间序列分析**
 
-Time series analysis, is the analysis of the above mentioned time series data. Time series data can take distinct forms, including 'interrupted time series' which detects patterns in a time series' evolution before and after an interrupting event. The type of analysis needed for the time series, depends on the nature of the data. Time series data itself can take the form of series of numbers or characters.
+时间序列分析是对上述时间序列数据的分析。时间序列数据可以采取不同的形式，包括“中断时间序列”，它检测时间序列在中断事件前后演变的模式。所需的时间序列分析类型取决于数据的性质。时间序列数据本身可以是数字或字符序列。
 
-The analysis to be performed, uses a variety of methods, including frequency-domain and time-domain, linear and nonlinear, and more. [Learn more](https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc4.htm) about the many ways to analyze this type of data.
+分析使用了多种方法，包括频域和时域、线性和非线性等。[了解更多](https://www.itl.nist.gov/div898/handbook/pmc/section4/pmc4.htm) 关于分析这种数据的多种方法。
 
-🎓 **Time series forecasting**
+🎓 **时间序列预测**
 
-Time series forecasting is the use of a model to predict future values based on patterns displayed by previously gathered data as it occurred in the past. While it is possible to use regression models to explore time series data, with time indices as x variables on a plot, such data is best analyzed using special types of models.
+时间序列预测是使用模型根据过去收集的数据所显示的模式预测未来值。虽然可以使用回归模型来探索时间序列数据，并将时间索引作为图上的 x 变量，但这种数据最好使用特殊类型的模型进行分析。
 
-Time series data is a list of ordered observations, unlike data that can be analyzed by linear regression.   The most common one is ARIMA, an acronym that stands for "Autoregressive Integrated Moving Average".
+时间序列数据是一个有序的观察值列表，与可以通过线性回归分析的数据不同。最常见的模型是 ARIMA，它是“自回归积分移动平均”的缩写。
 
-[ARIMA models](https://online.stat.psu.edu/stat510/lesson/1/1.1) "relate the present value of a series to past values and past prediction errors." They are most appropriate for analyzing time-domain data, where data is ordered over time.
+[ARIMA 模型](https://online.stat.psu.edu/stat510/lesson/1/1.1) “将序列的当前值与过去的值和过去的预测误差联系起来。” 它们最适合分析时间域数据，即数据按时间顺序排列。
 
-> There are several types of ARIMA models, which you can learn about [here](https://people.duke.edu/~rnau/411arim.htm) and which you will touch on in the next lesson.
+> ARIMA 模型有多种类型，你可以在 [这里](https://people.duke.edu/~rnau/411arim.htm) 学习这些类型，并将在下一课中涉及。
 
-In the next lesson, you will build an ARIMA model using [Univariate Time Series](https://itl.nist.gov/div898/handbook/pmc/section4/pmc44.htm), which focuses on one variable that changes its value over time. An example of this type of data is [this dataset](https://itl.nist.gov/div898/handbook/pmc/section4/pmc4411.htm) that records the monthly C02 concentration at the Mauna Loa Observatory:
+在下一课中，你将使用 [单变量时间序列](https://itl.nist.gov/div898/handbook/pmc/section4/pmc44.htm) 构建一个 ARIMA 模型，该模型专注于一个随时间变化的变量。这种数据的一个例子是 [这个数据集](https://itl.nist.gov/div898/handbook/pmc/section4/pmc4411.htm)，记录了 Mauna Loa 天文台的每月 CO2 浓度：
 
-|  CO2   | YearMonth | Year  | Month |
-| :----: | :-------: | :---: | :---: |
-| 330.62 |  1975.04  | 1975  |   1   |
-| 331.40 |  1975.13  | 1975  |   2   |
-| 331.87 |  1975.21  | 1975  |   3   |
-| 333.18 |  1975.29  | 1975  |   4   |
-| 333.92 |  1975.38  | 1975  |   5   |
-| 333.43 |  1975.46  | 1975  |   6   |
-| 331.85 |  1975.54  | 1975  |   7   |
-| 330.01 |  1975.63  | 1975  |   8   |
-| 328.51 |  1975.71  | 1975  |   9   |
-| 328.41 |  1975.79  | 1975  |  10   |
-| 329.25 |  1975.88  | 1975  |  11   |
-| 330.97 |  1975.96  | 1975  |  12   |
+|   CO2   | YearMonth | Year  | Month |
+| :-----: | :-------: | :---: | :---: |
+| 330.62  |  1975.04  | 1975  |   1   |
+| 331.40  |  1975.13  | 1975  |   2   |
+| 331.87  |  1975.21  | 1975  |   3   |
+| 333.18  |  1975.29  | 1975  |   4   |
+| 333.92  |  1975.38  | 1975  |   5   |
+| 333.43  |  1975.46  | 1975  |   6   |
+| 331.85  |  1975.54  | 1975  |   7   |
+| 330.01  |  1975.63  | 1975  |   8   |
+| 328.51  |  1975.71  | 1975  |   9   |
+| 328.41  |  1975.79  | 1975  |  10   |
+| 329.25  |  1975.88  | 1975  |  11   |
+| 330.97  |  1975.96  | 1975  |  12   |
 
-✅ Identify the variable that changes over time in this dataset
+✅ 在这个数据集中，识别随时间变化的变量
 
-## Time Series data characteristics to consider
+## 时间序列数据需要考虑的特性
 
-When looking at time series data, you might notice that it has [certain characteristics](https://online.stat.psu.edu/stat510/lesson/1/1.1) that you need to take into account and mitigate to better understand its patterns. If you consider time series data as potentially providing a 'signal' that you want to analyze, these characteristics can be thought of as 'noise'. You often will need to reduce this 'noise' by offsetting some of these characteristics using some statistical techniques.
+观察时间序列数据时，你可能会注意到它具有一些 [特性](https://online.stat.psu.edu/stat510/lesson/1/1.1)，需要考虑并减轻这些特性以更好地理解其模式。如果你将时间序列数据视为一个你想要分析的“信号”，这些特性可以被视为“噪声”。你通常需要通过使用一些统计技术来减少这些“噪声”。
 
-Here are some concepts you should know to be able to work with time series:
+以下是一些你需要了解的概念，以便能够处理时间序列：
 
-🎓 **Trends**
+🎓 **趋势**
 
-Trends are defined as measurable increases and decreases over time. [Read more](https://machinelearningmastery.com/time-series-trends-in-python). In the context of time series, it's about how to use and, if necessary, remove trends from your time series.
+趋势是指随时间可测量的增长和下降。[阅读更多](https://machinelearningmastery.com/time-series-trends-in-python)。在时间序列的背景下，这涉及如何使用以及（如果必要）移除时间序列中的趋势。
 
-🎓 **[Seasonality](https://machinelearningmastery.com/time-series-seasonality-with-python/)**
+🎓 **[季节性](https://machinelearningmastery.com/time-series-seasonality-with-python/)**
 
-Seasonality is defined as periodic fluctuations, such as holiday rushes that might affect sales, for example. [Take a look](https://itl.nist.gov/div898/handbook/pmc/section4/pmc443.htm) at how different types of plots display seasonality in data.
+季节性是指周期性波动，例如节假日的销售高峰。[看看](https://itl.nist.gov/div898/handbook/pmc/section4/pmc443.htm) 不同类型的图如何显示数据中的季节性。
 
-🎓 **Outliers**
+🎓 **异常值**
 
-Outliers are far away from the standard data variance.
+异常值远离标准数据方差。
 
-🎓 **Long-run cycle**
+🎓 **长期周期**
 
-Independent of seasonality, data might display a long-run cycle such as an economic down-turn that lasts longer than a year.
+独立于季节性，数据可能显示长期周期，例如持续超过一年的经济衰退。
 
-🎓 **Constant variance**
+🎓 **恒定方差**
 
-Over time, some data display constant fluctuations, such as energy usage per day and night.
+随着时间的推移，某些数据显示恒定的波动，例如每天和夜间的能源使用量。
 
-🎓 **Abrupt changes**
+🎓 **突变**
 
-The data might display an abrupt change that might need further analysis. The abrupt shuttering of businesses due to COVID, for example, caused changes in data.
+数据可能显示突变，需要进一步分析。例如，由于 COVID 的突然停业导致数据发生变化。
 
-✅ Here is a [sample time series plot](https://www.kaggle.com/kashnitsky/topic-9-part-1-time-series-analysis-in-python) showing daily in-game currency spent over a few years. Can you identify any of the characteristics listed above in this data?
+✅ 这里有一个 [时间序列图示例](https://www.kaggle.com/kashnitsky/topic-9-part-1-time-series-analysis-in-python)，显示了几年来每日游戏内货币消费。你能在这些数据中识别出上述任何特性吗？
 
-![In-game currency spend](./images/currency.png)
+![游戏内货币消费](../../../../7-TimeSeries/1-Introduction/images/currency.png)
 
-## Exercise - getting started with power usage data
+## 练习 - 开始使用电力使用数据
 
-Let's get started creating a time series model to predict future power usage given past usage.
+让我们开始创建一个时间序列模型，根据过去的使用情况预测未来的电力使用。
 
-> The data in this example is taken from the GEFCom2014 forecasting competition. It consists of 3 years of hourly electricity load and temperature values between 2012 and 2014.
+> 本例中的数据来自 GEFCom2014 预测竞赛，包括 2012 年至 2014 年间 3 年的每小时电力负载和温度值。
 >
-> Tao Hong, Pierre Pinson, Shu Fan, Hamidreza Zareipour, Alberto Troccoli and Rob J. Hyndman, "Probabilistic energy forecasting: Global Energy Forecasting Competition 2014 and beyond", International Journal of Forecasting, vol.32, no.3, pp 896-913, July-September, 2016.
+> Tao Hong, Pierre Pinson, Shu Fan, Hamidreza Zareipour, Alberto Troccoli 和 Rob J. Hyndman，“概率能源预测：全球能源预测竞赛 2014 及未来”，《国际预测杂志》，第 32 卷，第 3 期，第 896-913 页，2016 年 7 月至 9 月。
 
-1. In the `working` folder of this lesson, open the _notebook.ipynb_ file. Start by adding libraries that will help you load and visualize data
+1. 在本课的 `working` 文件夹中，打开 _notebook.ipynb_ 文件。首先添加一些库以帮助加载和可视化数据：
 
     ```python
     import os
@@ -122,9 +131,9 @@ Let's get started creating a time series model to predict future power usage giv
     %matplotlib inline
     ```
 
-    Note, you are using the files from the included `common` folder which set up your environment and handle downloading the data.
+    注意，你正在使用包含的 `common` 文件夹中的文件，这些文件设置了你的环境并处理数据下载。
 
-2. Next, examine the data as a dataframe calling `load_data()` and `head()`:
+2. 接下来，通过调用 `load_data()` 和 `head()` 检查数据作为数据框：
 
     ```python
     data_dir = './data'
@@ -132,7 +141,7 @@ Let's get started creating a time series model to predict future power usage giv
     energy.head()
     ```
 
-    You can see that there are two columns representing date and load:
+    你可以看到有两列分别表示日期和负载：
 
     |                     |  load  |
     | :-----------------: | :----: |
@@ -142,7 +151,7 @@ Let's get started creating a time series model to predict future power usage giv
     | 2012-01-01 03:00:00 | 2402.0 |
     | 2012-01-01 04:00:00 | 2403.0 |
 
-3. Now, plot the data calling `plot()`:
+3. 现在，通过调用 `plot()` 绘制数据：
 
     ```python
     energy.plot(y='load', subplots=True, figsize=(15, 8), fontsize=12)
@@ -151,9 +160,9 @@ Let's get started creating a time series model to predict future power usage giv
     plt.show()
     ```
 
-    ![energy plot](images/energy-plot.png)
+    ![能源图](../../../../7-TimeSeries/1-Introduction/images/energy-plot.png)
 
-4. Now, plot the first week of July 2014, by providing it as input to the `energy` in `[from date]: [to date]` pattern:
+4. 现在，通过提供 `[起始日期]:[结束日期]` 模式的输入，绘制 2014 年 7 月的第一周：
 
     ```python
     energy['2014-07-01':'2014-07-07'].plot(y='load', subplots=True, figsize=(15, 8), fontsize=12)
@@ -162,24 +171,29 @@ Let's get started creating a time series model to predict future power usage giv
     plt.show()
     ```
 
-    ![july](images/july-2014.png)
+    ![七月](../../../../7-TimeSeries/1-Introduction/images/july-2014.png)
 
-    A beautiful plot! Take a look at these plots and see if you can determine any of the characteristics listed above. What can we surmise by visualizing the data?
+    一个漂亮的图！看看这些图，看看你是否能确定上述列出的任何特性。通过可视化数据，我们可以推测出什么？
 
-In the next lesson, you will create an ARIMA model to create some forecasts.
+在下一课中，你将创建一个 ARIMA 模型来进行一些预测。
 
 ---
 
-## 🚀Challenge
+## 🚀挑战
 
-Make a list of all the industries and areas of inquiry you can think of that would benefit from time series forecasting. Can you think of an application of these techniques in the arts? In Econometrics? Ecology? Retail? Industry? Finance? Where else?
+列出你能想到的所有可能受益于时间序列预测的行业和研究领域。你能想到这些技术在艺术领域的应用吗？在计量经济学、生态学、零售业、工业、金融领域呢？还有哪些领域？
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-Although we won't cover them here, neural networks are sometimes used to enhance classic methods of time series forecasting. Read more about them [in this article](https://medium.com/microsoftazure/neural-networks-for-forecasting-financial-and-economic-time-series-6aca370ff412)
+虽然我们不会在这里讨论，但有时会使用神经网络来增强经典的时间序列预测方法。[阅读更多](https://medium.com/microsoftazure/neural-networks-for-forecasting-financial-and-economic-time-series-6aca370ff412) 关于它们的内容。
 
-## Assignment
+## 作业
 
-[Visualize some more time series](assignment.md)
+[可视化更多时间序列](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。因使用本翻译而导致的任何误解或误读，我们概不负责。
