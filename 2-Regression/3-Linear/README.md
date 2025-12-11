@@ -9,11 +9,11 @@ CO_OP_TRANSLATOR_METADATA:
 -->
 # 使用 Scikit-learn 构建回归模型：四种回归方法
 
-![线性回归与多项式回归信息图](../../2-Regression/3-Linear/images/linear-polynomial.png)
+![线性回归与多项式回归信息图](../../../../2-Regression/3-Linear/images/linear-polynomial.png)
 > 信息图由 [Dasani Madipalli](https://twitter.com/dasani_decoded) 提供
 ## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [本课程也提供 R 版本！](../../2-Regression/3-Linear/solution/R/lesson_3.html)
+> ### [本课程也提供 R 版本！](../../../../2-Regression/3-Linear/solution/R/lesson_3.html)
 ### 介绍
 
 到目前为止，您已经通过南瓜定价数据集的样本数据了解了什么是回归，并使用 Matplotlib 对其进行了可视化。
@@ -67,13 +67,13 @@ CO_OP_TRANSLATOR_METADATA:
 >
 > `X` 是“解释变量”。`Y` 是“因变量”。线的斜率是 `b`，而 `a` 是 y 截距，表示当 `X = 0` 时 `Y` 的值。
 >
->![计算斜率](../../2-Regression/3-Linear/images/slope.png)
+>![计算斜率](../../../../2-Regression/3-Linear/images/slope.png)
 >
 > 首先，计算斜率 `b`。信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 >
 > 换句话说，参考我们南瓜数据的原始问题：“根据月份预测每蒲式耳南瓜的价格”，`X` 表示价格，`Y` 表示销售月份。
 >
->![完成公式](../../2-Regression/3-Linear/images/calculation.png)
+>![完成公式](../../../../2-Regression/3-Linear/images/calculation.png)
 >
 > 计算 `Y` 的值。如果您支付大约 $4，那一定是四月！信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 >
@@ -99,7 +99,7 @@ ID | Month | DayOfYear | Variety | City | Package | Low Price | High Price | Pri
 73 | 10 | 274 | PIE TYPE | BALTIMORE | 1 1/9 bushel cartons | 17.0 | 17.0 | 15.454545
 74 | 10 | 281 | PIE TYPE | BALTIMORE | 1 1/9 bushel cartons | 15.0 | 15.0 | 13.636364
 
-> 清理数据的代码可在 [`notebook.ipynb`](../../2-Regression/3-Linear/notebook.ipynb) 中找到。我们执行了与上一课相同的清理步骤，并使用以下表达式计算了 `DayOfYear` 列：
+> 清理数据的代码可在 [`notebook.ipynb`](../../../../2-Regression/3-Linear/notebook.ipynb) 中找到。我们执行了与上一课相同的清理步骤，并使用以下表达式计算了 `DayOfYear` 列：
 
 ```python
 day_of_year = pd.to_datetime(pumpkins['Date']).apply(lambda dt: (dt-datetime(dt.year,1,1)).days)
