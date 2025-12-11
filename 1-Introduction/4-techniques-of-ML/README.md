@@ -1,118 +1,132 @@
-# Techniques of Machine Learning
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "9d91f3af3758fdd4569fb410575995ef",
+  "translation_date": "2025-09-05T09:04:44+00:00",
+  "source_file": "1-Introduction/4-techniques-of-ML/README.md",
+  "language_code": "zh"
+}
+-->
+# 机器学习技术
 
-The process of building, using, and maintaining machine learning models and the data they use is a very different process from many other development workflows. In this lesson, we will demystify the process, and outline the main techniques you need to know. You will:
+构建、使用和维护机器学习模型及其所需数据的过程，与许多其他开发工作流有很大的不同。在本课中，我们将揭开这一过程的神秘面纱，并概述您需要了解的主要技术。您将：
 
-- Understand the processes underpinning machine learning at a high level.
-- Explore base concepts such as 'models', 'predictions', and 'training data'.
+- 从高层次理解机器学习的基本流程。
+- 探索诸如“模型”、“预测”和“训练数据”等基础概念。
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-[![ML for beginners - Techniques of Machine Learning](https://img.youtube.com/vi/4NGM0U2ZSHU/0.jpg)](https://youtu.be/4NGM0U2ZSHU "ML for beginners - Techniques of Machine Learning")
+[![机器学习入门 - 机器学习技术](https://img.youtube.com/vi/4NGM0U2ZSHU/0.jpg)](https://youtu.be/4NGM0U2ZSHU "机器学习入门 - 机器学习技术")
 
-> 🎥 Click the image above for a short video working through this lesson.
+> 🎥 点击上方图片观看本课的简短视频。
 
-## Introduction
+## 介绍
 
-On a high level, the craft of creating machine learning (ML) processes is comprised of a number of steps:
+从高层次来看，创建机器学习（ML）流程的过程包括以下几个步骤：
 
-1. **Decide on the question**. Most ML processes start by asking a question that cannot be answered by a simple conditional program or rules-based engine. These questions often revolve around predictions based on a collection of data.
-2. **Collect and prepare data**. To be able to answer your question, you need data. The quality and, sometimes, quantity of your data will determine how well you can answer your initial question. Visualizing data is an important aspect of this phase. This phase also includes splitting the data into a training and testing group to build a model.
-3. **Choose a training method**. Depending on your question and the nature of your data, you need to choose how you want to train a model to best reflect your data and make accurate predictions against it. This is the part of your ML process that requires specific expertise and, often, a considerable amount of experimentation.
-4. **Train the model**. Using your training data, you'll use various algorithms to train a model to recognize patterns in the data. The model might leverage internal weights that can be adjusted to privilege certain parts of the data over others to build a better model.
-5. **Evaluate the model**. You use never before seen data (your testing data) from your collected set to see how the model is performing.
-6. **Parameter tuning**. Based on the performance of your model, you can redo the process using different parameters, or variables, that control the behavior of the algorithms used to train the model.
-7. **Predict**. Use new inputs to test the accuracy of your model.
+1. **确定问题**。大多数机器学习流程从提出一个无法通过简单条件程序或基于规则的引擎回答的问题开始。这些问题通常围绕基于数据集合的预测展开。
+2. **收集和准备数据**。为了回答您的问题，您需要数据。数据的质量以及有时数据的数量将决定您能多好地回答最初的问题。可视化数据是这一阶段的重要部分。这一阶段还包括将数据分为训练集和测试集以构建模型。
+3. **选择训练方法**。根据您的问题和数据的性质，您需要选择一种训练模型的方法，以便最好地反映数据并对其进行准确预测。这是机器学习流程中需要特定专业知识的部分，通常需要大量的实验。
+4. **训练模型**。使用训练数据，您将使用各种算法训练模型以识别数据中的模式。模型可能会利用内部权重，这些权重可以调整以优先考虑数据的某些部分，从而构建更好的模型。
+5. **评估模型**。使用从未见过的数据（测试数据）来检查模型的表现。
+6. **参数调优**。根据模型的表现，您可以使用不同的参数或变量重新进行训练，这些参数或变量控制用于训练模型的算法的行为。
+7. **预测**。使用新的输入测试模型的准确性。
 
-## What question to ask
+## 提出什么问题
 
-Computers are particularly skilled at discovering hidden patterns in data. This utility is very helpful for researchers who have questions about a given domain that cannot be easily answered by creating a conditionally-based rules engine. Given an actuarial task, for example, a data scientist might be able to construct handcrafted rules around the mortality of smokers vs non-smokers.
+计算机特别擅长发现数据中的隐藏模式。这种能力对研究人员来说非常有用，他们可能会提出一些无法通过条件规则引擎轻松回答的问题。例如，在精算任务中，数据科学家可能能够围绕吸烟者与非吸烟者的死亡率构建手工规则。
 
-When many other variables are brought into the equation, however, a ML model might prove more efficient to predict future mortality rates based on past health history. A more cheerful example might be making weather predictions for the month of April in a given location based on data that includes latitude, longitude, climate change, proximity to the ocean, patterns of the jet stream, and more.
+然而，当许多其他变量被纳入考虑时，机器学习模型可能更高效地根据过去的健康历史预测未来的死亡率。一个更令人愉快的例子可能是基于纬度、经度、气候变化、靠近海洋、喷流模式等数据预测某地四月份的天气。
 
-✅ This [slide deck](https://www2.cisl.ucar.edu/sites/default/files/2021-10/0900%20June%2024%20Haupt_0.pdf) on weather models offers a historical perspective for using ML in weather analysis.  
+✅ 这份[幻灯片](https://www2.cisl.ucar.edu/sites/default/files/2021-10/0900%20June%2024%20Haupt_0.pdf)提供了使用机器学习进行天气分析的历史视角。
 
-## Pre-building tasks
+## 构建前的任务
 
-Before starting to build your model, there are several tasks you need to complete. To test your question and form a hypothesis based on a model's predictions, you need to identify and configure several elements.
+在开始构建模型之前，您需要完成几个任务。为了测试您的问题并根据模型的预测形成假设，您需要识别并配置几个要素。
 
-### Data
+### 数据
 
-To be able to answer your question with any kind of certainty, you need a good amount of data of the right type. There are two things you need to do at this point:
+为了以任何确定性回答您的问题，您需要足够数量的正确类型的数据。在这一点上，您需要完成以下两件事：
 
-- **Collect data**. Keeping in mind the previous lesson on fairness in data analysis, collect your data with care. Be aware of the sources of this data, any inherent biases it might have, and document its origin.
-- **Prepare data**. There are several steps in the data preparation process. You might need to collate data and normalize it if it comes from diverse sources. You can improve the data's quality and quantity through various methods such as converting strings to numbers (as we do in [Clustering](../../5-Clustering/1-Visualize/README.md)). You might also generate new data, based on the original (as we do in [Classification](../../4-Classification/1-Introduction/README.md)). You can clean and edit the data (as we will prior to the [Web App](../../3-Web-App/README.md) lesson). Finally, you might also need to randomize it and shuffle it, depending on your training techniques.
+- **收集数据**。牢记上一课关于数据分析公平性的内容，谨慎收集数据。注意数据的来源、可能存在的内在偏见，并记录其来源。
+- **准备数据**。数据准备过程包括多个步骤。如果数据来自不同来源，您可能需要整理并规范化数据。您可以通过各种方法提高数据的质量和数量，例如将字符串转换为数字（如我们在[聚类](../../5-Clustering/1-Visualize/README.md)中所做的）。您还可以基于原始数据生成新数据（如我们在[分类](../../4-Classification/1-Introduction/README.md)中所做的）。您可以清理和编辑数据（如我们在[Web 应用](../../3-Web-App/README.md)课程之前所做的）。最后，根据您的训练技术，您可能还需要随机化和打乱数据。
 
-✅ After collecting and processing your data, take a moment to see if its shape will allow you to address your intended question. It may be that the data will not perform well in your given task, as we discover in our [Clustering](../../5-Clustering/1-Visualize/README.md) lessons!
+✅ 在收集和处理数据后，花点时间检查其形状是否能帮助您解决预期问题。可能会发现数据在给定任务中表现不佳，就像我们在[聚类](../../5-Clustering/1-Visualize/README.md)课程中发现的那样！
 
-### Features and Target
+### 特征和目标
 
-A [feature](https://www.datasciencecentral.com/profiles/blogs/an-introduction-to-variable-and-feature-selection) is a measurable property of your data. In many datasets it is expressed as a column heading like 'date' 'size' or 'color'. Your feature variable, usually represented as `X` in code, represent the input variable which will be used to train model.
+[特征](https://www.datasciencecentral.com/profiles/blogs/an-introduction-to-variable-and-feature-selection)是数据的可测量属性。在许多数据集中，它通常以列标题的形式表示，例如“日期”、“大小”或“颜色”。特征变量通常在代码中表示为`X`，代表用于训练模型的输入变量。
 
-A target is a thing you are trying to predict. Target usually represented as `y` in code, represents the answer to the question you are trying to ask of your data: in December, what **color** pumpkins will be cheapest? in San Francisco, what neighborhoods will have the best real estate **price**? Sometimes target is also referred as label attribute.
+目标是您试图预测的内容。目标通常在代码中表示为`y`，代表您试图从数据中回答的问题：在十二月，哪种**颜色**的南瓜最便宜？在旧金山，哪些社区的房地产**价格**最好？有时目标也被称为标签属性。
 
-### Selecting your feature variable
+### 选择特征变量
 
-🎓 **Feature Selection and Feature Extraction** How do you know which variable to choose when building a model? You'll probably go through a process of feature selection or feature extraction to choose the right variables for the most performant model. They're not the same thing, however: "Feature extraction creates new features from functions of the original features, whereas feature selection returns a subset of the features." ([source](https://wikipedia.org/wiki/Feature_selection))
+🎓 **特征选择和特征提取** 如何在构建模型时选择变量？您可能会经历特征选择或特征提取的过程，以选择最适合的变量来构建性能最佳的模型。然而，它们并不相同：“特征提取通过原始特征的函数创建新特征，而特征选择返回特征的子集。”（[来源](https://wikipedia.org/wiki/Feature_selection)）
 
-### Visualize your data
+### 可视化数据
 
-An important aspect of the data scientist's toolkit is the power to visualize data using several excellent libraries such as Seaborn or MatPlotLib. Representing your data visually might allow you to uncover hidden correlations that you can leverage. Your visualizations might also help you to uncover bias or unbalanced data (as we discover in [Classification](../../4-Classification/2-Classifiers-1/README.md)).
+数据科学家工具箱的重要组成部分是使用 Seaborn 或 MatPlotLib 等优秀库可视化数据的能力。通过可视化数据，您可能会发现可以利用的隐藏相关性。可视化还可能帮助您发现偏差或数据不平衡（如我们在[分类](../../4-Classification/2-Classifiers-1/README.md)中发现的那样）。
 
-### Split your dataset
+### 划分数据集
 
-Prior to training, you need to split your dataset into two or more parts of unequal size that still represent the data well.
+在训练之前，您需要将数据集划分为两个或更多不等大小的部分，同时确保它们能很好地代表数据。
 
-- **Training**. This part of the dataset is fit to your model to train it. This set constitutes the majority of the original dataset.
-- **Testing**. A test dataset is an independent group of data, often gathered from the original data, that you use to confirm the performance of the built model.
-- **Validating**. A validation set is a smaller independent group of examples that you use to tune the model's hyperparameters, or architecture, to improve the model. Depending on your data's size and the question you are asking, you might not need to build this third set (as we note in [Time Series Forecasting](../../7-TimeSeries/1-Introduction/README.md)).
+- **训练集**。数据集的这一部分用于训练模型。它通常占原始数据集的大部分。
+- **测试集**。测试数据集是一个独立的数据组，通常从原始数据中提取，用于验证模型的性能。
+- **验证集**。验证集是一个较小的独立数据组，用于调整模型的超参数或架构以改进模型。根据数据的大小和您提出的问题，您可能不需要构建这个第三组（如我们在[时间序列预测](../../7-TimeSeries/1-Introduction/README.md)中提到的）。
 
-## Building a model
+## 构建模型
 
-Using your training data, your goal is to build a model, or a statistical representation of your data, using various algorithms to **train** it. Training a model exposes it to data and allows it to make assumptions about perceived patterns it discovers, validates, and accepts or rejects.
+使用训练数据，您的目标是通过各种算法**训练**模型，构建数据的统计表示。训练模型使其接触数据，并让它对发现的模式进行假设、验证并接受或拒绝。
 
-### Decide on a training method
+### 决定训练方法
 
-Depending on your question and the nature of your data, you will choose a method to train it. Stepping through [Scikit-learn's documentation](https://scikit-learn.org/stable/user_guide.html) - which we use in this course - you can explore many ways to train a model. Depending on your experience, you might have to try several different methods to build the best model. You are likely to go through a process whereby data scientists evaluate the performance of a model by feeding it unseen data, checking for accuracy, bias, and other quality-degrading issues, and selecting the most appropriate training method for the task at hand.
+根据您的问题和数据的性质，您将选择一种训练方法。通过浏览[Scikit-learn 的文档](https://scikit-learn.org/stable/user_guide.html)（我们在本课程中使用的工具），您可以探索多种训练模型的方法。根据您的经验，您可能需要尝试几种不同的方法来构建最佳模型。数据科学家通常会经历一个过程，通过向模型提供未见过的数据来评估其性能，检查准确性、偏差和其他质量问题，并选择最适合当前任务的训练方法。
 
-### Train a model
+### 训练模型
 
-Armed with your training data, you are ready to 'fit' it to create a model. You will notice that in many ML libraries you will find the code 'model.fit' - it is at this time that you send in your feature variable as an array of values (usually 'X') and a target variable (usually 'y').
+有了训练数据，您可以开始“拟合”数据以创建模型。您会注意到，在许多机器学习库中，代码中会出现“model.fit”——此时，您将特征变量作为值数组（通常是`X`）和目标变量（通常是`y`）传入。
 
-### Evaluate the model
+### 评估模型
 
-Once the training process is complete (it can take many iterations, or 'epochs', to train a large model), you will be able to evaluate the model's quality by using test data to gauge its performance. This data is a subset of the original data that the model has not previously analyzed. You can print out a table of metrics about your model's quality.
+一旦训练过程完成（对于大型模型可能需要多次迭代或“周期”），您可以使用测试数据评估模型的质量，以衡量其性能。这些数据是模型之前未分析过的原始数据的子集。您可以打印出关于模型质量的指标表。
 
-🎓 **Model fitting**
+🎓 **模型拟合**
 
-In the context of machine learning, model fitting refers to the accuracy of the model's underlying function as it attempts to analyze data with which it is not familiar.
+在机器学习的背景下，模型拟合指的是模型底层函数在尝试分析未见过的数据时的准确性。
 
-🎓 **Underfitting** and **overfitting** are common problems that degrade the quality of the model, as the model fits either not well enough or too well. This causes the model to make predictions either too closely aligned or too loosely aligned with its training data. An overfit model predicts training data too well because it has learned the data's details and noise too well. An underfit model is not accurate as it can neither accurately analyze its training data nor data it has not yet 'seen'.
+🎓 **欠拟合**和**过拟合**是常见问题，会降低模型质量。欠拟合的模型无法很好地分析训练数据或未见过的数据，而过拟合的模型过于贴合训练数据的细节和噪声。过拟合的模型对训练数据的预测过于精准，而欠拟合的模型则不够准确。
 
-![overfitting model](images/overfitting.png)
-> Infographic by [Jen Looper](https://twitter.com/jenlooper)
+![过拟合模型](../../../../1-Introduction/4-techniques-of-ML/images/overfitting.png)
+> 信息图由 [Jen Looper](https://twitter.com/jenlooper) 提供
 
-## Parameter tuning
+## 参数调优
 
-Once your initial training is complete, observe the quality of the model and consider improving it by tweaking its 'hyperparameters'. Read more about the process [in the documentation](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters?WT.mc_id=academic-77952-leestott).
+初步训练完成后，观察模型的质量，并通过调整其“超参数”来改进模型。阅读更多关于该过程的内容：[文档](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-tune-hyperparameters?WT.mc_id=academic-77952-leestott)。
 
-## Prediction
+## 预测
 
-This is the moment where you can use completely new data to test your model's accuracy. In an 'applied' ML setting, where you are building web assets to use the model in production, this process might involve gathering user input (a button press, for example) to set a variable and send it to the model for inference, or evaluation.
+这是您可以使用全新数据测试模型准确性的时刻。在“应用”机器学习场景中，例如构建用于生产的 Web 应用程序，这一过程可能涉及收集用户输入（例如按钮点击）以设置变量并将其发送到模型进行推断或评估。
 
-In these lessons, you will discover how to use these steps to prepare, build, test, evaluate, and predict - all the gestures of a data scientist and more, as you progress in your journey to become a 'full stack' ML engineer.
+在这些课程中，您将学习如何使用这些步骤来准备、构建、测试、评估和预测——这些都是数据科学家的基本操作，同时也将帮助您在成为“全栈”机器学习工程师的旅程中不断进步。
 
 ---
 
-## 🚀Challenge
+## 🚀挑战
 
-Draw a flow chart reflecting the steps of a ML practitioner. Where do you see yourself right now in the process? Where do you predict you will find difficulty? What seems easy to you?
+绘制一张流程图，反映机器学习从业者的步骤。您认为自己目前处于哪个阶段？您预测在哪些方面会遇到困难？哪些部分对您来说似乎很容易？
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-Search online for interviews with data scientists who discuss their daily work. Here is [one](https://www.youtube.com/watch?v=Z3IjgbbCEfs).
+在线搜索数据科学家讨论日常工作的访谈。这里有一个[示例](https://www.youtube.com/watch?v=Z3IjgbbCEfs)。
 
-## Assignment
+## 作业
 
-[Interview a data scientist](assignment.md)
+[采访一位数据科学家](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

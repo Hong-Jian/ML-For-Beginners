@@ -1,61 +1,71 @@
-# Build a regression model using Scikit-learn: prepare and visualize data
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "7c077988328ebfe33b24d07945f16eca",
+  "translation_date": "2025-09-05T08:58:47+00:00",
+  "source_file": "2-Regression/2-Data/README.md",
+  "language_code": "zh"
+}
+-->
+# 使用 Scikit-learn 构建回归模型：准备和可视化数据
 
-![Data visualization infographic](./images/data-visualization.png)
+![数据可视化信息图](../../../../2-Regression/2-Data/images/data-visualization.png)
 
-Infographic by [Dasani Madipalli](https://twitter.com/dasani_decoded)
+信息图作者：[Dasani Madipalli](https://twitter.com/dasani_decoded)
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-> ### [This lesson is available in R!](./solution/R/lesson_2.html)
+> ### [本课程也提供 R 版本！](../../../../2-Regression/2-Data/solution/R/lesson_2.html)
 
-## Introduction
+## 简介
 
-Now that you are set up with the tools you need to start tackling machine learning model building with Scikit-learn, you are ready to start asking questions of your data. As you work with data and apply ML solutions, it's very important to understand how to ask the right question to properly unlock the potentials of your dataset.
+现在你已经准备好使用 Scikit-learn 开始构建机器学习模型，可以开始向数据提出问题了。在处理数据并应用机器学习解决方案时，了解如何提出正确的问题以充分挖掘数据的潜力非常重要。
 
-In this lesson, you will learn:
+在本课中，你将学习：
 
-- How to prepare your data for model-building.
-- How to use Matplotlib for data visualization.
+- 如何为模型构建准备数据。
+- 如何使用 Matplotlib 进行数据可视化。
 
-## Asking the right question of your data
+## 向数据提出正确的问题
 
-The question you need answered will determine what type of ML algorithms you will leverage. And the quality of the answer you get back will be heavily dependent on the nature of your data.
+你需要回答的问题将决定你使用哪种类型的机器学习算法。而你得到答案的质量将很大程度上取决于数据的性质。
 
-Take a look at the [data](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/US-pumpkins.csv) provided for this lesson. You can open this .csv file in VS Code. A quick skim immediately shows that there are blanks and a mix of strings and numeric data. There's also a strange column called 'Package' where the data is a mix between 'sacks', 'bins' and other values. The data, in fact, is a bit of a mess.
+看看为本课提供的[数据](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/US-pumpkins.csv)。你可以在 VS Code 中打开这个 .csv 文件。快速浏览会发现其中有空白值，还有字符串和数值数据的混合。此外，还有一个名为“Package”的奇怪列，其中的数据是“sacks”、“bins”和其他值的混合。事实上，这些数据有点混乱。
 
-[![ML for beginners - How to Analyze and Clean a Dataset](https://img.youtube.com/vi/5qGjczWTrDQ/0.jpg)](https://youtu.be/5qGjczWTrDQ "ML for beginners - How to Analyze and Clean a Dataset")
+[![机器学习入门 - 如何分析和清理数据集](https://img.youtube.com/vi/5qGjczWTrDQ/0.jpg)](https://youtu.be/5qGjczWTrDQ "机器学习入门 - 如何分析和清理数据集")
 
-> 🎥 Click the image above for a short video working through preparing the data for this lesson.
+> 🎥 点击上方图片观看准备本课数据的简短视频。
 
-In fact, it is not very common to be gifted a dataset that is completely ready to use to create a ML model out of the box. In this lesson, you will learn how to prepare a raw dataset using standard Python libraries. You will also learn various techniques to visualize the data.
+事实上，很少会直接获得一个完全准备好用于创建机器学习模型的数据集。在本课中，你将学习如何使用标准 Python 库准备原始数据集。你还将学习各种数据可视化技术。
 
-## Case study: 'the pumpkin market'
+## 案例研究：“南瓜市场”
 
-In this folder you will find a .csv file in the root `data` folder called [US-pumpkins.csv](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/US-pumpkins.csv) which includes 1757 lines of data about the market for pumpkins, sorted into groupings by city. This is raw data extracted from the [Specialty Crops Terminal Markets Standard Reports](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice) distributed by the United States Department of Agriculture.
+在本文件夹中，你会发现根目录 `data` 文件夹中有一个名为 [US-pumpkins.csv](https://github.com/microsoft/ML-For-Beginners/blob/main/2-Regression/data/US-pumpkins.csv) 的 .csv 文件，其中包含关于南瓜市场的 1757 行数据，这些数据按城市分组。这是从美国农业部发布的[特种作物终端市场标准报告](https://www.marketnews.usda.gov/mnp/fv-report-config-step1?type=termPrice)中提取的原始数据。
 
-### Preparing data
+### 准备数据
 
-This data is in the public domain. It can be downloaded in many separate files, per city, from the USDA web site. To avoid too many separate files, we have concatenated all the city data into one spreadsheet, thus we have already _prepared_ the data a bit. Next, let's take a closer look at the data.
+这些数据属于公共领域。可以从 USDA 网站按城市下载多个单独的文件。为了避免过多的单独文件，我们将所有城市数据合并到一个电子表格中，因此我们已经对数据进行了部分_准备_。接下来，让我们仔细看看这些数据。
 
-### The pumpkin data - early conclusions
+### 南瓜数据 - 初步结论
 
-What do you notice about this data? You already saw that there is a mix of strings, numbers, blanks and strange values that you need to make sense of.
+你对这些数据有什么发现？你可能已经注意到其中有字符串、数字、空白和一些需要理解的奇怪值。
 
-What question can you ask of this data, using a Regression technique? What about "Predict the price of a pumpkin for sale during a given month". Looking again at the data, there are some changes you need to make to create the data structure necessary for the task.
-## Exercise - analyze the pumpkin data
+使用回归技术，你可以向这些数据提出什么问题？比如“预测某个月份出售南瓜的价格”。再次查看数据，你需要进行一些更改以创建适合任务的数据结构。
 
-Let's use [Pandas](https://pandas.pydata.org/), (the name stands for `Python Data Analysis`) a tool very useful for shaping data, to analyze and prepare this pumpkin data.
+## 练习 - 分析南瓜数据
 
-### First, check for missing dates
+让我们使用 [Pandas](https://pandas.pydata.org/)（名称代表 `Python Data Analysis`），一个非常有用的数据处理工具，来分析和准备这些南瓜数据。
 
-You will first need to take steps to check for missing dates:
+### 首先，检查缺失日期
 
-1. Convert the dates to a month format (these are US dates, so the format is `MM/DD/YYYY`).
-2. Extract the month to a new column.
+你首先需要采取步骤检查是否有缺失日期：
 
-Open the _notebook.ipynb_ file in Visual Studio Code and import the spreadsheet in to a new Pandas dataframe.
+1. 将日期转换为月份格式（这些是美国日期，格式为 `MM/DD/YYYY`）。
+2. 提取月份到一个新列。
 
-1. Use the `head()` function to view the first five rows.
+在 Visual Studio Code 中打开 _notebook.ipynb_ 文件，并将电子表格导入到一个新的 Pandas 数据框中。
+
+1. 使用 `head()` 函数查看前五行。
 
     ```python
     import pandas as pd
@@ -63,30 +73,30 @@ Open the _notebook.ipynb_ file in Visual Studio Code and import the spreadsheet 
     pumpkins.head()
     ```
 
-    ✅ What function would you use to view the last five rows?
+    ✅ 你会使用什么函数来查看最后五行？
 
-1. Check if there is missing data in the current dataframe:
+1. 检查当前数据框中是否有缺失数据：
 
     ```python
     pumpkins.isnull().sum()
     ```
 
-    There is missing data, but maybe it won't matter for the task at hand.
+    存在缺失数据，但可能对当前任务没有影响。
 
-1. To make your dataframe easier to work with, select only the columns you need, using the `loc` function which extracts from the original dataframe a group of rows (passed as first parameter) and columns (passed as second parameter). The expression `:` in the case below means "all rows".
+1. 为了让数据框更易于操作，使用 `loc` 函数选择你需要的列。`loc` 函数从原始数据框中提取一组行（作为第一个参数传递）和列（作为第二个参数传递）。下面的表达式 `:` 表示“所有行”。
 
     ```python
     columns_to_select = ['Package', 'Low Price', 'High Price', 'Date']
     pumpkins = pumpkins.loc[:, columns_to_select]
     ```
 
-### Second, determine average price of pumpkin
+### 其次，确定南瓜的平均价格
 
-Think about how to determine the average price of a pumpkin in a given month. What columns would you pick for this task? Hint: you'll need 3 columns.
+思考如何确定某个月份南瓜的平均价格。你会选择哪些列来完成这个任务？提示：你需要 3 列。
 
-Solution: take the average of the `Low Price` and `High Price` columns to populate the new Price column, and convert the Date column to only show the month. Fortunately, according to the check above, there is no missing data for dates or prices.
+解决方案：取 `Low Price` 和 `High Price` 列的平均值来填充新的 Price 列，并将 Date 列转换为仅显示月份。幸运的是，根据上面的检查，日期和价格没有缺失数据。
 
-1. To calculate the average, add the following code:
+1. 要计算平均值，添加以下代码：
 
     ```python
     price = (pumpkins['Low Price'] + pumpkins['High Price']) / 2
@@ -95,37 +105,37 @@ Solution: take the average of the `Low Price` and `High Price` columns to popula
 
     ```
 
-   ✅ Feel free to print any data you'd like to check using `print(month)`.
+   ✅ 随时使用 `print(month)` 打印任何数据以进行检查。
 
-2. Now, copy your converted data into a fresh Pandas dataframe:
+2. 现在，将转换后的数据复制到一个新的 Pandas 数据框中：
 
     ```python
     new_pumpkins = pd.DataFrame({'Month': month, 'Package': pumpkins['Package'], 'Low Price': pumpkins['Low Price'],'High Price': pumpkins['High Price'], 'Price': price})
     ```
 
-    Printing out your dataframe will show you a clean, tidy dataset on which you can build your new regression model.
+    打印出你的数据框会显示一个干净整洁的数据集，你可以用它来构建新的回归模型。
 
-### But wait! There's something odd here
+### 等等！这里有些奇怪的地方
 
-If you look at the `Package` column, pumpkins are sold in many different configurations. Some are sold in '1 1/9 bushel' measures, and some in '1/2 bushel' measures, some per pumpkin, some per pound, and some in big boxes with varying widths.
+如果你查看 `Package` 列，南瓜以许多不同的配置出售。有些以“1 1/9 bushel”计量，有些以“1/2 bushel”计量，有些按南瓜个数出售，有些按磅出售，还有些以不同宽度的大箱子出售。
 
-> Pumpkins seem very hard to weigh consistently
+> 南瓜似乎很难一致地称重
 
-Digging into the original data, it's interesting that anything with `Unit of Sale` equalling 'EACH' or 'PER BIN' also have the `Package` type per inch, per bin, or 'each'. Pumpkins seem to be very hard to weigh consistently, so let's filter them by selecting only pumpkins with the string 'bushel' in their `Package` column.
+深入研究原始数据，发现 `Unit of Sale` 等于 'EACH' 或 'PER BIN' 的数据，其 `Package` 类型也为每英寸、每箱或“每个”。南瓜似乎很难一致地称重，因此我们通过选择 `Package` 列中包含字符串 'bushel' 的南瓜来进行过滤。
 
-1. Add a filter at the top of the file, under the initial .csv import:
+1. 在文件顶部的初始 .csv 导入下添加过滤器：
 
     ```python
     pumpkins = pumpkins[pumpkins['Package'].str.contains('bushel', case=True, regex=True)]
     ```
 
-    If you print the data now, you can see that you are only getting the 415 or so rows of data containing pumpkins by the bushel.
+    如果现在打印数据，你会发现只剩下约 415 行按 bushel 销售的南瓜数据。
 
-### But wait! There's one more thing to do
+### 等等！还有一件事要做
 
-Did you notice that the bushel amount varies per row? You need to normalize the pricing so that you show the pricing per bushel, so do some math to standardize it.
+你是否注意到每行的 bushel 数量不同？你需要对价格进行标准化，以显示每 bushel 的价格，因此需要进行一些数学计算来统一标准。
 
-1. Add these lines after the block creating the new_pumpkins dataframe:
+1. 在创建 new_pumpkins 数据框的代码块后添加以下代码：
 
     ```python
     new_pumpkins.loc[new_pumpkins['Package'].str.contains('1 1/9'), 'Price'] = price/(1 + 1/9)
@@ -133,38 +143,38 @@ Did you notice that the bushel amount varies per row? You need to normalize the 
     new_pumpkins.loc[new_pumpkins['Package'].str.contains('1/2'), 'Price'] = price/(1/2)
     ```
 
-✅ According to [The Spruce Eats](https://www.thespruceeats.com/how-much-is-a-bushel-1389308), a bushel's weight depends on the type of produce, as it's a volume measurement. "A bushel of tomatoes, for example, is supposed to weigh 56 pounds... Leaves and greens take up more space with less weight, so a bushel of spinach is only 20 pounds." It's all pretty complicated! Let's not bother with making a bushel-to-pound conversion, and instead price by the bushel. All this study of bushels of pumpkins, however, goes to show how very important it is to understand the nature of your data!
+✅ 根据 [The Spruce Eats](https://www.thespruceeats.com/how-much-is-a-bushel-1389308)，bushel 的重量取决于农产品的类型，因为它是一个体积测量单位。“例如，一 bushel 的番茄应该重 56 磅……叶子和绿叶占据更多空间但重量较轻，因此一 bushel 的菠菜只有 20 磅。”这非常复杂！我们不必进行 bushel 到磅的转换，而是按 bushel 定价。然而，所有这些关于南瓜 bushel 的研究表明，了解数据的性质是多么重要！
 
-Now, you can analyze the pricing per unit based on their bushel measurement. If you print out the data one more time, you can see how it's standardized.
+现在，你可以根据 bushel 测量分析每单位的定价。如果再打印一次数据，你会看到它已经标准化。
 
-✅ Did you notice that pumpkins sold by the half-bushel are very expensive? Can you figure out why? Hint: little pumpkins are way pricier than big ones, probably because there are so many more of them per bushel, given the unused space taken by one big hollow pie pumpkin.
+✅ 你是否注意到按半 bushel 销售的南瓜非常昂贵？你能找出原因吗？提示：小南瓜比大南瓜贵得多，可能是因为每 bushel 中小南瓜的数量更多，而大空心南瓜占据了更多未使用的空间。
 
-## Visualization Strategies
+## 可视化策略
 
-Part of the data scientist's role is to demonstrate the quality and nature of the data they are working with. To do this, they often create interesting visualizations, or plots, graphs, and charts, showing different aspects of data. In this way, they are able to visually show relationships and gaps that are otherwise hard to uncover.
+数据科学家的部分职责是展示他们正在处理的数据的质量和性质。为此，他们通常会创建有趣的可视化，例如图表、图形和表格，展示数据的不同方面。通过这种方式，他们能够直观地展示关系和差距，这些关系和差距可能很难通过其他方式发现。
 
-[![ML for beginners - How to Visualize Data with Matplotlib](https://img.youtube.com/vi/SbUkxH6IJo0/0.jpg)](https://youtu.be/SbUkxH6IJo0 "ML for beginners - How to Visualize Data with Matplotlib")
+[![机器学习入门 - 如何使用 Matplotlib 可视化数据](https://img.youtube.com/vi/SbUkxH6IJo0/0.jpg)](https://youtu.be/SbUkxH6IJo0 "机器学习入门 - 如何使用 Matplotlib 可视化数据")
 
-> 🎥 Click the image above for a short video working through visualizing the data for this lesson.
+> 🎥 点击上方图片观看本课数据可视化的简短视频。
 
-Visualizations can also help determine the machine learning technique most appropriate for the data. A scatterplot that seems to follow a line, for example, indicates that the data is a good candidate for a linear regression exercise.
+可视化还可以帮助确定最适合数据的机器学习技术。例如，一个看起来沿着一条线分布的散点图表明数据非常适合线性回归练习。
 
-One data visualization library that works well in Jupyter notebooks is [Matplotlib](https://matplotlib.org/) (which you also saw in the previous lesson).
+一个在 Jupyter 笔记本中表现良好的数据可视化库是 [Matplotlib](https://matplotlib.org/)（你在上一课中也见过它）。
 
-> Get more experience with data visualization in [these tutorials](https://docs.microsoft.com/learn/modules/explore-analyze-data-with-python?WT.mc_id=academic-77952-leestott).
+> 在[这些教程](https://docs.microsoft.com/learn/modules/explore-analyze-data-with-python?WT.mc_id=academic-77952-leestott)中获得更多数据可视化经验。
 
-## Exercise - experiment with Matplotlib
+## 练习 - 试验 Matplotlib
 
-Try to create some basic plots to display the new dataframe you just created. What would a basic line plot show?
+尝试创建一些基本图表来显示你刚刚创建的新数据框。基本折线图会显示什么？
 
-1. Import Matplotlib at the top of the file, under the Pandas import:
+1. 在文件顶部的 Pandas 导入下导入 Matplotlib：
 
     ```python
     import matplotlib.pyplot as plt
     ```
 
-1. Rerun the entire notebook to refresh.
-1. At the bottom of the notebook, add a cell to plot the data as a box:
+1. 重新运行整个笔记本以刷新。
+1. 在笔记本底部添加一个单元格，将数据绘制为一个框图：
 
     ```python
     price = new_pumpkins.Price
@@ -173,39 +183,44 @@ Try to create some basic plots to display the new dataframe you just created. Wh
     plt.show()
     ```
 
-    ![A scatterplot showing price to month relationship](./images/scatterplot.png)
+    ![一个显示价格与月份关系的散点图](../../../../2-Regression/2-Data/images/scatterplot.png)
 
-    Is this a useful plot? Does anything about it surprise you?
+    这是一个有用的图表吗？它是否让你感到惊讶？
 
-    It's not particularly useful as all it does is display in your data as a spread of points in a given month.
+    它并不是特别有用，因为它只是显示了某个月份的数据点分布。
 
-### Make it useful
+### 让它更有用
 
-To get charts to display useful data, you usually need to group the data somehow. Let's try creating a plot where the y axis shows the months and the data demonstrates the distribution of data.
+为了让图表显示有用的数据，你通常需要以某种方式对数据进行分组。让我们尝试创建一个图表，其中 y 轴显示月份，数据展示数据的分布。
 
-1. Add a cell to create a grouped bar chart:
+1. 添加一个单元格以创建分组柱状图：
 
     ```python
     new_pumpkins.groupby(['Month'])['Price'].mean().plot(kind='bar')
     plt.ylabel("Pumpkin Price")
     ```
 
-    ![A bar chart showing price to month relationship](./images/barchart.png)
+    ![一个显示价格与月份关系的柱状图](../../../../2-Regression/2-Data/images/barchart.png)
 
-    This is a more useful data visualization! It seems to indicate that the highest price for pumpkins occurs in September and October. Does that meet your expectation? Why or why not?
+    这是一个更有用的数据可视化！它似乎表明南瓜的最高价格出现在九月和十月。这符合你的预期吗？为什么？
 
 ---
 
-## 🚀Challenge
+## 🚀挑战
 
-Explore the different types of visualization that Matplotlib offers. Which types are most appropriate for regression problems?
+探索 Matplotlib 提供的不同类型的可视化。哪些类型最适合回归问题？
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Review & Self Study
+## 复习与自学
 
-Take a look at the many ways to visualize data. Make a list of the various libraries available and note which are best for given types of tasks, for example 2D visualizations vs. 3D visualizations. What do you discover?
+看看可视化数据的各种方法。列出可用的各种库，并记录哪些库最适合特定类型的任务，例如 2D 可视化与 3D 可视化。你发现了什么？
 
-## Assignment
+## 作业
 
-[Exploring visualization](assignment.md)
+[探索可视化](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。因使用本翻译而导致的任何误解或误读，我们概不负责。

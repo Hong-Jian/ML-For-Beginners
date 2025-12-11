@@ -1,28 +1,42 @@
-# Clustering models for machine learning
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "b28a3a4911584062772c537b653ebbc7",
+  "translation_date": "2025-09-03T17:02:10+00:00",
+  "source_file": "5-Clustering/README.md",
+  "language_code": "zh"
+}
+-->
+# 机器学习中的聚类模型
 
-Clustering is a machine learning task where it looks to find objects that resemble one another and group these into groups called clusters.  What differs clustering from other approaches in machine learning, is that things happen automatically, in fact, it's fair to say it's the opposite of supervised learning. 
+聚类是一种机器学习任务，旨在寻找彼此相似的对象并将它们分组到称为“聚类”的组中。与机器学习中的其他方法不同，聚类是自动进行的，实际上可以说它是监督学习的反面。
 
-## Regional topic: clustering models for a Nigerian audience's musical taste 🎧
+## 地区主题：针对尼日利亚观众音乐品味的聚类模型 🎧
 
-Nigeria's diverse audience has diverse musical tastes. Using data scraped from Spotify (inspired by [this article](https://towardsdatascience.com/country-wise-visual-analysis-of-music-taste-using-spotify-api-seaborn-in-python-77f5b749b421), let's look at some music popular in Nigeria. This dataset includes data about various songs' 'danceability' score, 'acousticness', loudness, 'speechiness', popularity and energy. It will be interesting to discover patterns in this data!
+尼日利亚的观众拥有多样化的音乐品味。通过从 Spotify 抓取的数据（灵感来源于[这篇文章](https://towardsdatascience.com/country-wise-visual-analysis-of-music-taste-using-spotify-api-seaborn-in-python-77f5b749b421)），让我们来看看尼日利亚流行的一些音乐。这份数据集包括关于各种歌曲的“舞蹈性”评分、“声学性”、响度、“语音性”、流行度和能量的相关数据。发现这些数据中的模式将会非常有趣！
 
-![A turntable](./images/turntable.jpg)
+![唱盘](../../../translated_images/turntable.f2b86b13c53302dc106aa741de9dc96ac372864cf458dd6f879119857aab01da.zh.jpg)
 
-> Photo by <a href="https://unsplash.com/@marcelalaskoski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcela Laskoski</a> on <a href="https://unsplash.com/s/photos/nigerian-music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+> 图片由 <a href="https://unsplash.com/@marcelalaskoski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marcela Laskoski</a> 提供，来自 <a href="https://unsplash.com/s/photos/nigerian-music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
   
-In this series of lessons, you will discover new ways to analyze data using clustering techniques. Clustering is particularly useful when your dataset lacks labels. If it does have labels, then classification techniques such as those you learned in previous lessons might be more useful. But in cases where you are looking to group unlabelled data, clustering is a great way to discover patterns.
+在这一系列课程中，你将学习使用聚类技术分析数据的新方法。聚类特别适用于数据集缺乏标签的情况。如果数据集有标签，那么你在之前课程中学到的分类技术可能会更有用。但在需要对无标签数据进行分组的情况下，聚类是发现模式的绝佳方法。
 
-> There are useful low-code tools that can help you learn about working with clustering models. Try [Azure ML for this task](https://docs.microsoft.com/learn/modules/create-clustering-model-azure-machine-learning-designer/?WT.mc_id=academic-77952-leestott)
+> 有一些实用的低代码工具可以帮助你学习如何使用聚类模型。试试 [Azure ML](https://docs.microsoft.com/learn/modules/create-clustering-model-azure-machine-learning-designer/?WT.mc_id=academic-77952-leestott) 来完成这个任务。
 
-## Lessons
+## 课程
 
-1. [Introduction to clustering](1-Visualize/README.md)
-2. [K-Means clustering](2-K-Means/README.md)
+1. [聚类简介](1-Visualize/README.md)
+2. [K-Means 聚类](2-K-Means/README.md)
 
-## Credits
+## 致谢
 
-These lessons were written with 🎶 by [Jen Looper](https://www.twitter.com/jenlooper) with helpful reviews by [Rishit Dagli](https://rishit_dagli) and [Muhammad Sakib Khan Inan](https://twitter.com/Sakibinan).
+这些课程由 [Jen Looper](https://www.twitter.com/jenlooper) 倾情创作，并由 [Rishit Dagli](https://rishit_dagli) 和 [Muhammad Sakib Khan Inan](https://twitter.com/Sakibinan) 提供了有益的审阅。
 
-The [Nigerian Songs](https://www.kaggle.com/sootersaalu/nigerian-songs-spotify) dataset was sourced from Kaggle as scraped from Spotify.
+[Nigerian Songs](https://www.kaggle.com/sootersaalu/nigerian-songs-spotify) 数据集来源于 Kaggle，由 Spotify 抓取。
 
-Useful K-Means examples that aided in creating this lesson include this [iris exploration](https://www.kaggle.com/bburns/iris-exploration-pca-k-means-and-gmm-clustering), this [introductory notebook](https://www.kaggle.com/prashant111/k-means-clustering-with-python), and this [hypothetical NGO example](https://www.kaggle.com/ankandash/pca-k-means-clustering-hierarchical-clustering).
+在创建本课程时，以下 K-Means 示例提供了帮助，包括这个 [鸢尾花探索](https://www.kaggle.com/bburns/iris-exploration-pca-k-means-and-gmm-clustering)、这个[入门笔记本](https://www.kaggle.com/prashant111/k-means-clustering-with-python)，以及这个[假设的 NGO 示例](https://www.kaggle.com/ankandash/pca-k-means-clustering-hierarchical-clustering)。
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

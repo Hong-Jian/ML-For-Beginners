@@ -1,35 +1,44 @@
-# Troubleshooting Guide
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "134d8759f0e2ab886e9aa4f62362c201",
+  "translation_date": "2025-10-03T12:38:25+00:00",
+  "source_file": "TROUBLESHOOTING.md",
+  "language_code": "zh"
+}
+-->
+# 故障排查指南
 
-This guide helps you solve common problems when working with the Machine Learning for Beginners curriculum. If you don't find a solution here, please check our [Discord Discussions](https://aka.ms/foundry/discord) or [open an issue](https://github.com/microsoft/ML-For-Beginners/issues).
+本指南帮助您解决使用《机器学习初学者》课程时常见的问题。如果您在这里找不到解决方案，请查看我们的[Discord讨论](https://aka.ms/foundry/discord)或[提交问题](https://github.com/microsoft/ML-For-Beginners/issues)。
 
-## Table of Contents
+## 目录
 
-- [Installation Issues](#installation-issues)
-- [Jupyter Notebook Issues](#jupyter-notebook-issues)
-- [Python Package Issues](#python-package-issues)
-- [R Environment Issues](#r-environment-issues)
-- [Quiz Application Issues](#quiz-application-issues)
-- [Data and File Path Issues](#data-and-file-path-issues)
-- [Common Error Messages](#common-error-messages)
-- [Performance Issues](#performance-issues)
-- [Environment and Configuration](#environment-and-configuration)
+- [安装问题](../..)
+- [Jupyter Notebook问题](../..)
+- [Python包问题](../..)
+- [R环境问题](../..)
+- [测验应用问题](../..)
+- [数据和文件路径问题](../..)
+- [常见错误信息](../..)
+- [性能问题](../..)
+- [环境和配置](../..)
 
 ---
 
-## Installation Issues
+## 安装问题
 
-### Python Installation
+### Python安装
 
-**Problem**: `python: command not found`
+**问题**：`python: command not found`
 
-**Solution**:
-1. Install Python 3.8 or higher from [python.org](https://www.python.org/downloads/)
-2. Verify installation: `python --version` or `python3 --version`
-3. On macOS/Linux, you may need to use `python3` instead of `python`
+**解决方案**：
+1. 从[python.org](https://www.python.org/downloads/)安装Python 3.8或更高版本
+2. 验证安装：`python --version`或`python3 --version`
+3. 在macOS/Linux上，可能需要使用`python3`而不是`python`
 
-**Problem**: Multiple Python versions causing conflicts
+**问题**：多个Python版本导致冲突
 
-**Solution**:
+**解决方案**：
 ```bash
 # Use virtual environments to isolate projects
 python -m venv ml-env
@@ -41,11 +50,11 @@ ml-env\Scripts\activate
 source ml-env/bin/activate
 ```
 
-### Jupyter Installation
+### Jupyter安装
 
-**Problem**: `jupyter: command not found`
+**问题**：`jupyter: command not found`
 
-**Solution**:
+**解决方案**：
 ```bash
 # Install Jupyter
 pip install jupyter
@@ -57,9 +66,9 @@ pip3 install jupyter
 jupyter --version
 ```
 
-**Problem**: Jupyter won't launch in browser
+**问题**：Jupyter无法在浏览器中启动
 
-**Solution**:
+**解决方案**：
 ```bash
 # Try specifying the browser
 jupyter notebook --browser=chrome
@@ -68,11 +77,11 @@ jupyter notebook --browser=chrome
 # Look for: http://localhost:8888/?token=...
 ```
 
-### R Installation
+### R安装
 
-**Problem**: R packages won't install
+**问题**：R包无法安装
 
-**Solution**:
+**解决方案**：
 ```r
 # Ensure you have the latest R version
 # Install packages with dependencies
@@ -82,9 +91,9 @@ install.packages(c("tidyverse", "tidymodels", "caret"), dependencies = TRUE)
 install.packages("package-name", type = "binary")
 ```
 
-**Problem**: IRkernel not available in Jupyter
+**问题**：IRkernel在Jupyter中不可用
 
-**Solution**:
+**解决方案**：
 ```r
 # In R console
 install.packages('IRkernel')
@@ -93,31 +102,31 @@ IRkernel::installspec(user = TRUE)
 
 ---
 
-## Jupyter Notebook Issues
+## Jupyter Notebook问题
 
-### Kernel Issues
+### 内核问题
 
-**Problem**: Kernel keeps dying or restarting
+**问题**：内核不断崩溃或重启
 
-**Solution**:
-1. Restart the kernel: `Kernel → Restart`
-2. Clear output and restart: `Kernel → Restart & Clear Output`
-3. Check for memory issues (see [Performance Issues](#performance-issues))
-4. Try running cells individually to identify problematic code
+**解决方案**：
+1. 重启内核：`Kernel → Restart`
+2. 清除输出并重启：`Kernel → Restart & Clear Output`
+3. 检查内存问题（参见[性能问题](../..)）
+4. 尝试逐个运行单元格以识别问题代码
 
-**Problem**: Wrong Python kernel selected
+**问题**：选择了错误的Python内核
 
-**Solution**:
-1. Check current kernel: `Kernel → Change Kernel`
-2. Select the correct Python version
-3. If kernel is missing, create it:
+**解决方案**：
+1. 检查当前内核：`Kernel → Change Kernel`
+2. 选择正确的Python版本
+3. 如果内核缺失，请创建：
 ```bash
 python -m ipykernel install --user --name=ml-env
 ```
 
-**Problem**: Kernel won't start
+**问题**：内核无法启动
 
-**Solution**:
+**解决方案**：
 ```bash
 # Reinstall ipykernel
 pip uninstall ipykernel
@@ -127,32 +136,32 @@ pip install ipykernel
 python -m ipykernel install --user
 ```
 
-### Notebook Cell Issues
+### Notebook单元格问题
 
-**Problem**: Cells are running but not showing output
+**问题**：单元格正在运行但不显示输出
 
-**Solution**:
-1. Check if cell is still running (look for `[*]` indicator)
-2. Restart kernel and run all cells: `Kernel → Restart & Run All`
-3. Check browser console for JavaScript errors (F12)
+**解决方案**：
+1. 检查单元格是否仍在运行（查看`[*]`指示器）
+2. 重启内核并运行所有单元格：`Kernel → Restart & Run All`
+3. 检查浏览器控制台是否有JavaScript错误（按F12）
 
-**Problem**: Can't run cells - no response when clicking "Run"
+**问题**：无法运行单元格——点击“运行”无响应
 
-**Solution**:
-1. Check if Jupyter server is still running in terminal
-2. Refresh the browser page
-3. Close and reopen the notebook
-4. Restart Jupyter server
+**解决方案**：
+1. 检查Jupyter服务器是否仍在终端中运行
+2. 刷新浏览器页面
+3. 关闭并重新打开Notebook
+4. 重启Jupyter服务器
 
 ---
 
-## Python Package Issues
+## Python包问题
 
-### Import Errors
+### 导入错误
 
-**Problem**: `ModuleNotFoundError: No module named 'sklearn'`
+**问题**：`ModuleNotFoundError: No module named 'sklearn'`
 
-**Solution**:
+**解决方案**：
 ```bash
 pip install scikit-learn
 
@@ -160,9 +169,9 @@ pip install scikit-learn
 pip install scikit-learn pandas numpy matplotlib seaborn
 ```
 
-**Problem**: `ImportError: cannot import name 'X' from 'sklearn'`
+**问题**：`ImportError: cannot import name 'X' from 'sklearn'`
 
-**Solution**:
+**解决方案**：
 ```bash
 # Update scikit-learn to latest version
 pip install --upgrade scikit-learn
@@ -171,11 +180,11 @@ pip install --upgrade scikit-learn
 python -c "import sklearn; print(sklearn.__version__)"
 ```
 
-### Version Conflicts
+### 版本冲突
 
-**Problem**: Package version incompatibility errors
+**问题**：包版本不兼容错误
 
-**Solution**:
+**解决方案**：
 ```bash
 # Create a new virtual environment
 python -m venv fresh-env
@@ -188,9 +197,9 @@ pip install jupyter scikit-learn pandas numpy matplotlib seaborn
 pip install scikit-learn==1.3.0
 ```
 
-**Problem**: `pip install` fails with permission errors
+**问题**：`pip install`因权限错误失败
 
-**Solution**:
+**解决方案**：
 ```bash
 # Install for current user only
 pip install --user package-name
@@ -201,11 +210,11 @@ source venv/bin/activate
 pip install package-name
 ```
 
-### Data Loading Issues
+### 数据加载问题
 
-**Problem**: `FileNotFoundError` when loading CSV files
+**问题**：加载CSV文件时出现`FileNotFoundError`
 
-**Solution**:
+**解决方案**：
 ```python
 import os
 # Check current working directory
@@ -220,13 +229,13 @@ df = pd.read_csv('/full/path/to/data/filename.csv')
 
 ---
 
-## R Environment Issues
+## R环境问题
 
-### Package Installation
+### 包安装
 
-**Problem**: Package installation fails with compilation errors
+**问题**：包安装因编译错误失败
 
-**Solution**:
+**解决方案**：
 ```r
 # Install binary version (Windows/macOS)
 install.packages("package-name", type = "binary")
@@ -240,9 +249,9 @@ R.version.string
 # sudo apt-get install r-base-dev
 ```
 
-**Problem**: `tidyverse` won't install
+**问题**：`tidyverse`无法安装
 
-**Solution**:
+**解决方案**：
 ```r
 # Install dependencies first
 install.packages(c("rlang", "vctrs", "pillar"))
@@ -254,11 +263,11 @@ install.packages("tidyverse")
 install.packages(c("dplyr", "ggplot2", "tidyr", "readr"))
 ```
 
-### RMarkdown Issues
+### RMarkdown问题
 
-**Problem**: RMarkdown won't render
+**问题**：RMarkdown无法渲染
 
-**Solution**:
+**解决方案**：
 ```r
 # Install/update rmarkdown
 install.packages("rmarkdown")
@@ -273,13 +282,13 @@ tinytex::install_tinytex()
 
 ---
 
-## Quiz Application Issues
+## 测验应用问题
 
-### Build and Installation
+### 构建和安装
 
-**Problem**: `npm install` fails
+**问题**：`npm install`失败
 
-**Solution**:
+**解决方案**：
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -294,9 +303,9 @@ npm install
 npm install --legacy-peer-deps
 ```
 
-**Problem**: Port 8080 already in use
+**问题**：端口8080已被占用
 
-**Solution**:
+**解决方案**：
 ```bash
 # Use different port
 npm run serve -- --port 8081
@@ -310,11 +319,11 @@ netstat -ano | findstr :8080
 taskkill /PID <PID> /F
 ```
 
-### Build Errors
+### 构建错误
 
-**Problem**: `npm run build` fails
+**问题**：`npm run build`失败
 
-**Solution**:
+**解决方案**：
 ```bash
 # Check Node.js version (should be 14+)
 node --version
@@ -326,9 +335,9 @@ npm install
 npm run build
 ```
 
-**Problem**: Linting errors preventing build
+**问题**：Linting错误阻止构建
 
-**Solution**:
+**解决方案**：
 ```bash
 # Fix auto-fixable issues
 npm run lint -- --fix
@@ -339,20 +348,20 @@ npm run lint -- --fix
 
 ---
 
-## Data and File Path Issues
+## 数据和文件路径问题
 
-### Path Problems
+### 路径问题
 
-**Problem**: Data files not found when running notebooks
+**问题**：运行Notebook时找不到数据文件
 
-**Solution**:
-1. **Always run notebooks from their containing directory**
+**解决方案**：
+1. **始终从包含Notebook的目录运行**
    ```bash
    cd /path/to/lesson/folder
    jupyter notebook
    ```
 
-2. **Check relative paths in code**
+2. **检查代码中的相对路径**
    ```python
    # Correct path from notebook location
    df = pd.read_csv('../data/filename.csv')
@@ -360,34 +369,34 @@ npm run lint -- --fix
    # Not from your terminal location
    ```
 
-3. **Use absolute paths if needed**
+3. **必要时使用绝对路径**
    ```python
    import os
    base_path = os.path.dirname(os.path.abspath(__file__))
    data_path = os.path.join(base_path, 'data', 'filename.csv')
    ```
 
-### Missing Data Files
+### 数据文件丢失
 
-**Problem**: Dataset files are missing
+**问题**：数据集文件丢失
 
-**Solution**:
-1. Check if data should be in the repository - most datasets are included
-2. Some lessons may require downloading data - check lesson README
-3. Ensure you've pulled the latest changes:
+**解决方案**：
+1. 检查数据是否应该在仓库中——大多数数据集都已包含
+2. 某些课程可能需要下载数据——请查看课程README
+3. 确保您已拉取最新的更改：
    ```bash
    git pull origin main
    ```
 
 ---
 
-## Common Error Messages
+## 常见错误信息
 
-### Memory Errors
+### 内存错误
 
-**Error**: `MemoryError` or kernel dies when processing data
+**错误**：处理数据时出现`MemoryError`或内核崩溃
 
-**Solution**:
+**解决方案**：
 ```python
 # Load data in chunks
 for chunk in pd.read_csv('large_file.csv', chunksize=10000):
@@ -402,11 +411,11 @@ import gc
 gc.collect()
 ```
 
-### Convergence Warnings
+### 收敛警告
 
-**Warning**: `ConvergenceWarning: Maximum number of iterations reached`
+**警告**：`ConvergenceWarning: Maximum number of iterations reached`
 
-**Solution**:
+**解决方案**：
 ```python
 from sklearn.linear_model import LogisticRegression
 
@@ -419,11 +428,11 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 ```
 
-### Plotting Issues
+### 绘图问题
 
-**Problem**: Plots not showing in Jupyter
+**问题**：Jupyter中不显示图表
 
-**Solution**:
+**解决方案**：
 ```python
 # Enable inline plotting
 %matplotlib inline
@@ -436,9 +445,9 @@ plt.plot(data)
 plt.show()
 ```
 
-**Problem**: Seaborn plots look different or throw errors
+**问题**：Seaborn图表显示异常或报错
 
-**Solution**:
+**解决方案**：
 ```python
 import warnings
 warnings.filterwarnings('ignore', category=UserWarning)
@@ -447,11 +456,11 @@ warnings.filterwarnings('ignore', category=UserWarning)
 # pip install --upgrade seaborn matplotlib
 ```
 
-### Unicode/Encoding Errors
+### Unicode/编码错误
 
-**Problem**: `UnicodeDecodeError` when reading files
+**问题**：读取文件时出现`UnicodeDecodeError`
 
-**Solution**:
+**解决方案**：
 ```python
 # Specify encoding explicitly
 df = pd.read_csv('file.csv', encoding='utf-8')
@@ -465,31 +474,31 @@ df = pd.read_csv('file.csv', encoding='utf-8', errors='ignore')
 
 ---
 
-## Performance Issues
+## 性能问题
 
-### Slow Notebook Execution
+### Notebook执行缓慢
 
-**Problem**: Notebooks are very slow to run
+**问题**：Notebook运行速度非常慢
 
-**Solution**:
-1. **Restart kernel to free memory**: `Kernel → Restart`
-2. **Close unused notebooks** to free resources
-3. **Use smaller data samples for testing**:
+**解决方案**：
+1. **重启内核释放内存**：`Kernel → Restart`
+2. **关闭未使用的Notebook**以释放资源
+3. **使用较小的数据样本进行测试**：
    ```python
    # Work with subset during development
    df_sample = df.sample(n=1000)
    ```
-4. **Profile your code** to find bottlenecks:
+4. **分析代码性能**以找到瓶颈：
    ```python
    %time operation()  # Time single operation
    %timeit operation()  # Time with multiple runs
    ```
 
-### High Memory Usage
+### 高内存使用
 
-**Problem**: System running out of memory
+**问题**：系统内存不足
 
-**Solution**:
+**解决方案**：
 ```python
 # Check memory usage
 df.info(memory_usage='deep')
@@ -507,13 +516,13 @@ for batch in np.array_split(df, 10):
 
 ---
 
-## Environment and Configuration
+## 环境和配置
 
-### Virtual Environment Issues
+### 虚拟环境问题
 
-**Problem**: Virtual environment not activating
+**问题**：虚拟环境未激活
 
-**Solution**:
+**解决方案**：
 ```bash
 # Windows
 python -m venv venv
@@ -527,9 +536,9 @@ source venv/bin/activate
 which python  # Should point to venv python
 ```
 
-**Problem**: Packages installed but not found in notebook
+**问题**：包已安装但在Notebook中找不到
 
-**Solution**:
+**解决方案**：
 ```bash
 # Ensure notebook uses the correct kernel
 # Install ipykernel in your venv
@@ -539,11 +548,11 @@ python -m ipykernel install --user --name=ml-env --display-name="Python (ml-env)
 # In Jupyter: Kernel → Change Kernel → Python (ml-env)
 ```
 
-### Git Issues
+### Git问题
 
-**Problem**: Can't pull latest changes - merge conflicts
+**问题**：无法拉取最新更改——出现合并冲突
 
-**Solution**:
+**解决方案**：
 ```bash
 # Stash your changes
 git stash
@@ -559,38 +568,43 @@ git checkout --theirs path/to/file  # Take remote version
 git checkout --ours path/to/file    # Keep your version
 ```
 
-### VS Code Integration
+### VS Code集成
 
-**Problem**: Jupyter notebooks won't open in VS Code
+**问题**：Jupyter Notebook无法在VS Code中打开
 
-**Solution**:
-1. Install Python extension in VS Code
-2. Install Jupyter extension in VS Code
-3. Select correct Python interpreter: `Ctrl+Shift+P` → "Python: Select Interpreter"
-4. Restart VS Code
-
----
-
-## Additional Resources
-
-- **Discord Discussions**: [Ask questions and share solutions in the #ml-for-beginners channel](https://aka.ms/foundry/discord)
-- **Microsoft Learn**: [ML for Beginners modules](https://learn.microsoft.com/en-us/collections/qrqzamz1nn2wx3?WT.mc_id=academic-77952-bethanycheum)
-- **Video Tutorials**: [YouTube Playlist](https://aka.ms/ml-beginners-videos)
-- **Issue Tracker**: [Report bugs](https://github.com/microsoft/ML-For-Beginners/issues)
+**解决方案**：
+1. 在VS Code中安装Python扩展
+2. 在VS Code中安装Jupyter扩展
+3. 选择正确的Python解释器：`Ctrl+Shift+P` → "Python: Select Interpreter"
+4. 重启VS Code
 
 ---
 
-## Still Having Issues?
+## 其他资源
 
-If you've tried the solutions above and still experiencing problems:
+- **Discord讨论**：[在#ml-for-beginners频道提问并分享解决方案](https://aka.ms/foundry/discord)
+- **Microsoft Learn**：[机器学习初学者模块](https://learn.microsoft.com/en-us/collections/qrqzamz1nn2wx3?WT.mc_id=academic-77952-bethanycheum)
+- **视频教程**：[YouTube播放列表](https://aka.ms/ml-beginners-videos)
+- **问题追踪器**：[报告错误](https://github.com/microsoft/ML-For-Beginners/issues)
 
-1. **Search existing issues**: [GitHub Issues](https://github.com/microsoft/ML-For-Beginners/issues)
-2. **Check discussions in Discord**: [Discord Discussions](https://aka.ms/foundry/discord)
-3. **Open a new issue**: Include:
-   - Your operating system and version
-   - Python/R version
-   - Error message (full traceback)
-   - Steps to reproduce the problem
-   - What you've already tried
+---
 
-We're here to help! 🚀
+## 仍有问题？
+
+如果您尝试了上述解决方案但仍然遇到问题：
+
+1. **搜索现有问题**：[GitHub Issues](https://github.com/microsoft/ML-For-Beginners/issues)
+2. **查看Discord讨论**：[Discord Discussions](https://aka.ms/foundry/discord)
+3. **提交新问题**：包括以下内容：
+   - 您的操作系统及版本
+   - Python/R版本
+   - 错误信息（完整回溯）
+   - 重现问题的步骤
+   - 您已尝试的解决方法
+
+我们随时为您提供帮助！🚀
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

@@ -1,47 +1,56 @@
-# Introduction to Reinforcement Learning and Q-Learning
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "911efd5e595089000cb3c16fce1beab8",
+  "translation_date": "2025-09-05T09:09:02+00:00",
+  "source_file": "8-Reinforcement/1-QLearning/README.md",
+  "language_code": "zh"
+}
+-->
+# 强化学习与Q学习简介
 
-![Summary of reinforcement in machine learning in a sketchnote](../../sketchnotes/ml-reinforcement.png)
+![机器学习中强化学习的总结图](../../../../sketchnotes/ml-reinforcement.png)
 > Sketchnote by [Tomomi Imura](https://www.twitter.com/girlie_mac)
 
-Reinforcement learning involves three important concepts: the agent, some states, and a set of actions per state. By executing an action in a specified state, the agent is given a reward. Again imagine the computer game Super Mario. You are Mario, you are in a game level, standing next to a cliff edge. Above you is a coin. You being Mario, in a game level, at a specific position ... that's your state. Moving one step to the right (an action) will take you over the edge, and that would give you a low numerical score. However, pressing the jump button would let you score a point and you would stay alive. That's a positive outcome and that should award you a positive numerical score.
+强化学习涉及三个重要概念：代理、状态和每个状态的一组动作。通过在指定状态下执行一个动作，代理会获得奖励。想象一下电脑游戏《超级马里奥》。你是马里奥，处于一个游戏关卡中，站在悬崖边上。你的上方有一个金币。你作为马里奥，处于游戏关卡中的特定位置……这就是你的状态。向右移动一步（一个动作）会让你掉下悬崖，这会给你一个较低的数值分数。然而，按下跳跃按钮会让你得分并保持存活。这是一个积极的结果，应该奖励你一个正数分数。
 
-By using reinforcement learning and a simulator (the game), you can learn how to play the game to maximize the reward which is staying alive and scoring as many points as possible.
+通过使用强化学习和模拟器（游戏），你可以学习如何玩游戏以最大化奖励，即保持存活并尽可能多地得分。
 
-[![Intro to Reinforcement Learning](https://img.youtube.com/vi/lDq_en8RNOo/0.jpg)](https://www.youtube.com/watch?v=lDq_en8RNOo)
+[![强化学习简介](https://img.youtube.com/vi/lDq_en8RNOo/0.jpg)](https://www.youtube.com/watch?v=lDq_en8RNOo)
 
-> 🎥 Click the image above to hear Dmitry discuss Reinforcement Learning
+> 🎥 点击上方图片观看 Dmitry 讨论强化学习
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## Prerequisites and Setup
+## 前提条件与设置
 
-In this lesson, we will be experimenting with some code in Python. You should be able to run the Jupyter Notebook code from this lesson, either on your computer or somewhere in the cloud.
+在本课中，我们将用 Python 实验一些代码。你应该能够在你的电脑或云端运行本课的 Jupyter Notebook 代码。
 
-You can open [the lesson notebook](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/notebook.ipynb) and walk through this lesson to build.
+你可以打开[课程笔记本](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/notebook.ipynb)，并按照课程内容进行学习。
 
-> **Note:** If you are opening this code from the cloud, you also need to fetch the [`rlboard.py`](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/rlboard.py) file, which is used in the notebook code. Add it to the same directory as the notebook.
+> **注意：** 如果你从云端打开代码，还需要获取 [`rlboard.py`](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/rlboard.py) 文件，该文件在笔记本代码中使用。将其添加到与笔记本相同的目录中。
 
-## Introduction
+## 简介
 
-In this lesson, we will explore the world of **[Peter and the Wolf](https://en.wikipedia.org/wiki/Peter_and_the_Wolf)**, inspired by a musical fairy tale by a Russian composer, [Sergei Prokofiev](https://en.wikipedia.org/wiki/Sergei_Prokofiev). We will use **Reinforcement Learning** to let Peter explore his environment, collect tasty apples and avoid meeting the wolf.
+在本课中，我们将探索**《彼得与狼》**的世界，这个故事灵感来源于俄罗斯作曲家[谢尔盖·普罗科菲耶夫](https://en.wikipedia.org/wiki/Sergei_Prokofiev)创作的音乐童话。我们将使用**强化学习**让彼得探索他的环境，收集美味的苹果并避免遇到狼。
 
-**Reinforcement Learning** (RL) is a learning technique that allows us to learn an optimal behavior of an **agent** in some **environment** by running many experiments. An agent in this environment should have some **goal**, defined by a **reward function**.
+**强化学习**（RL）是一种学习技术，它通过运行许多实验让我们学习代理在某个**环境**中的最佳行为。代理在这个环境中应该有某种**目标**，由**奖励函数**定义。
 
-## The environment
+## 环境
 
-For simplicity, let's consider Peter's world to be a square board of size `width` x `height`, like this:
+为了简化，我们将彼得的世界设定为一个大小为 `width` x `height` 的方形棋盘，如下所示：
 
-![Peter's Environment](images/environment.png)
+![彼得的环境](../../../../8-Reinforcement/1-QLearning/images/environment.png)
 
-Each cell in this board can either be:
+棋盘中的每个单元格可以是：
 
-* **ground**, on which Peter and other creatures can walk.
-* **water**, on which you obviously cannot walk.
-* a **tree** or **grass**, a place where you can rest.
-* an **apple**, which represents something Peter would be glad to find in order to feed himself.
-* a **wolf**, which is dangerous and should be avoided.
+* **地面**，彼得和其他生物可以在上面行走。
+* **水域**，显然无法在上面行走。
+* **树**或**草地**，可以休息的地方。
+* **苹果**，彼得很高兴找到的食物。
+* **狼**，危险的生物，应避免接触。
 
-There is a separate Python module, [`rlboard.py`](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/rlboard.py), which contains the code to work with this environment. Because this code is not important for understanding our concepts, we will import the module and use it to create the sample board (code block 1):
+有一个单独的 Python 模块 [`rlboard.py`](https://github.com/microsoft/ML-For-Beginners/blob/main/8-Reinforcement/1-QLearning/rlboard.py)，包含了与这个环境交互的代码。由于这些代码对理解我们的概念并不重要，我们将导入模块并使用它创建示例棋盘（代码块 1）：
 
 ```python
 from rlboard import *
@@ -52,32 +61,32 @@ m.randomize(seed=13)
 m.plot()
 ```
 
-This code should print a picture of the environment similar to the one above.
+这段代码应该打印出类似上图的环境。
 
-## Actions and policy
+## 动作与策略
 
-In our example, Peter's goal would be able to find an apple, while avoiding the wolf and other obstacles. To do this, he can essentially walk around until he finds an apple.
+在我们的示例中，彼得的目标是找到苹果，同时避免狼和其他障碍物。为此，他可以在棋盘上四处走动，直到找到苹果。
 
-Therefore, at any position, he can choose between one of the following actions: up, down, left and right.
+因此，在任何位置，他可以选择以下动作之一：向上、向下、向左和向右。
 
-We will define those actions as a dictionary, and map them to pairs of corresponding coordinate changes. For example, moving right (`R`) would correspond to a pair `(1,0)`. (code block 2):
+我们将这些动作定义为一个字典，并将它们映射到对应的坐标变化。例如，向右移动（`R`）对应于坐标对 `(1,0)`。（代码块 2）：
 
 ```python
 actions = { "U" : (0,-1), "D" : (0,1), "L" : (-1,0), "R" : (1,0) }
 action_idx = { a : i for i,a in enumerate(actions.keys()) }
 ```
 
-To sum up, the strategy and goal of this scenario are as follows:
+总结一下，这个场景的策略和目标如下：
 
-- **The strategy**, of our agent (Peter) is defined by a so-called **policy**. A policy is a function that returns the action at any given state. In our case, the state of the problem is represented by the board, including the current position of the player.
+- **策略**：我们的代理（彼得）的策略由所谓的**策略函数**定义。策略函数在任何给定状态下返回动作。在我们的例子中，问题的状态由棋盘表示，包括玩家的当前位置。
 
-- **The goal**, of reinforcement learning is to eventually learn a good policy that will allow us to solve the problem efficiently. However, as a baseline, let's consider the simplest policy called **random walk**.
+- **目标**：强化学习的目标是最终学习一个好的策略，使我们能够高效地解决问题。然而，作为基线，我们可以考虑最简单的策略，称为**随机游走**。
 
-## Random walk
+## 随机游走
 
-Let's first solve our problem by implementing a random walk strategy. With random walk, we will randomly choose the next action from the allowed actions, until we reach the apple (code block 3).
+首先，我们通过实现随机游走策略来解决问题。在随机游走中，我们会随机选择允许的动作，直到到达苹果（代码块 3）。
 
-1. Implement the random walk with the below code:
+1. 使用以下代码实现随机游走：
 
     ```python
     def random_policy(m):
@@ -106,9 +115,9 @@ Let's first solve our problem by implementing a random walk strategy. With rando
     walk(m,random_policy)
     ```
 
-    The call to `walk` should return the length of the corresponding path, which can vary from one run to another. 
+    调用 `walk` 应返回对应路径的长度，该长度可能因运行而异。
 
-1. Run the walk experiment a number of times (say, 100), and print the resulting statistics (code block 4):
+1. 多次运行游走实验（例如，100 次），并打印结果统计数据（代码块 4）：
 
     ```python
     def print_statistics(policy):
@@ -125,17 +134,17 @@ Let's first solve our problem by implementing a random walk strategy. With rando
     print_statistics(random_policy)
     ```
 
-    Note that the average length of a path is around 30-40 steps, which is quite a lot, given the fact that the average distance to the nearest apple is around 5-6 steps.
+    注意，路径的平均长度约为 30-40 步，这相当多，考虑到到最近苹果的平均距离约为 5-6 步。
 
-    You can also see what Peter's movement looks like during the random walk:
+    你还可以看到彼得在随机游走中的移动情况：
 
-    ![Peter's Random Walk](images/random_walk.gif)
+    ![彼得的随机游走](../../../../8-Reinforcement/1-QLearning/images/random_walk.gif)
 
-## Reward function
+## 奖励函数
 
-To make our policy more intelligent, we need to understand which moves are "better" than others. To do this, we need to define our goal.
+为了让我们的策略更智能，我们需要了解哪些动作比其他动作“更好”。为此，我们需要定义目标。
 
-The goal can be defined in terms of a **reward function**, which will return some score value for each state. The higher the number, the better the reward function. (code block 5)
+目标可以通过**奖励函数**定义，该函数为每个状态返回一些分数值。分数越高，奖励函数越好。（代码块 5）
 
 ```python
 move_reward = -0.1
@@ -154,115 +163,39 @@ def reward(m,pos=None):
     return move_reward
 ```
 
-An interesting thing about reward functions is that in most cases, *we are only given a substantial reward at the end of the game*. This means that our algorithm should somehow remember "good" steps that lead to a positive reward at the end, and increase their importance. Similarly, all moves that lead to bad results should be discouraged.
+奖励函数的一个有趣之处在于，大多数情况下，*我们只有在游戏结束时才会获得实质性奖励*。这意味着我们的算法应该以某种方式记住导致最终正奖励的“好”步骤，并增加它们的重要性。同样，所有导致不良结果的动作应该被抑制。
 
-## Q-Learning
+## Q学习
 
-An algorithm that we will discuss here is called **Q-Learning**. In this algorithm, the policy is defined by a function (or a data structure) called a **Q-Table**. It records the "goodness" of each of the actions in a given state.
+我们将讨论的算法称为**Q学习**。在这个算法中，策略由一个称为**Q表**的函数（或数据结构）定义。它记录了在给定状态下每个动作的“好坏程度”。
 
-It is called a Q-Table because it is often convenient to represent it as a table, or multi-dimensional array. Since our board has dimensions `width` x `height`, we can represent the Q-Table using a numpy array with shape `width` x `height` x `len(actions)`: (code block 6)
+之所以称为 Q表，是因为将其表示为表格或多维数组通常很方便。由于我们的棋盘维度为 `width` x `height`，我们可以使用形状为 `width` x `height` x `len(actions)` 的 numpy 数组来表示 Q表：（代码块 6）
 
 ```python
 Q = np.ones((width,height,len(actions)),dtype=np.float)*1.0/len(actions)
 ```
 
-Notice that we initialize all the values of the Q-Table with an equal value, in our case - 0.25. This corresponds to the "random walk" policy, because all moves in each state are equally good. We can pass the Q-Table to the `plot` function in order to visualize the table on the board: `m.plot(Q)`.
+注意，我们将 Q表的所有值初始化为相等值，在我们的例子中为 0.25。这对应于“随机游走”策略，因为每个状态中的所有动作都同样好。我们可以将 Q表传递给 `plot` 函数，以便在棋盘上可视化表格：`m.plot(Q)`。
 
-![Peter's Environment](images/env_init.png)
+![彼得的环境](../../../../8-Reinforcement/1-QLearning/images/env_init.png)
 
-In the center of each cell there is an "arrow" that indicates the preferred direction of movement. Since all directions are equal, a dot is displayed.
+每个单元格的中心有一个“箭头”，指示移动的优选方向。由于所有方向都相等，显示的是一个点。
 
-Now we need to run the simulation, explore our environment, and learn a better distribution of Q-Table values, which will allow us to find the path to the apple much faster.
+现在我们需要运行模拟，探索环境，并学习 Q表值的更好分布，这将使我们更快找到苹果的路径。
 
-## Essence of Q-Learning: Bellman Equation
+## Q学习的核心：贝尔曼方程
 
-Once we start moving, each action will have a corresponding reward, i.e. we can theoretically select the next action based on the highest immediate reward. However, in most states, the move will not achieve our goal of reaching the apple, and thus we cannot immediately decide which direction is better.
+一旦我们开始移动，每个动作都会有相应的奖励，即我们理论上可以根据最高的即时奖励选择下一个动作。然而，在大多数状态下，动作不会立即实现我们到达苹果的目标，因此我们无法立即决定哪个方向更好。
 
-> Remember that it is not the immediate result that matters, but rather the final result, which we will obtain at the end of the simulation.
+> 请记住，重要的不是即时结果，而是最终结果，即我们将在模拟结束时获得的结果。
 
-In order to account for this delayed reward, we need to use the principles of **[dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming)**, which allow us to think about out problem recursively.
+为了考虑这种延迟奖励，我们需要使用**[动态规划](https://en.wikipedia.org/wiki/Dynamic_programming)**的原理，这使我们能够递归地思考问题。
 
-Suppose we are now at the state *s*, and we want to move to the next state *s'*. By doing so, we will receive the immediate reward *r(s,a)*, defined by the reward function, plus some future reward. If we suppose that our Q-Table correctly reflects the "attractiveness" of each action, then at state *s'* we will chose an action *a* that corresponds to maximum value of *Q(s',a')*. Thus, the best possible future reward we could get at state *s* will be defined as `max`<sub>a'</sub>*Q(s',a')* (maximum here is computed over all possible actions *a'* at state *s'*).
+假设我们现在处于状态 *s*，并希望移动到下一个状态 *s'*。通过这样做，我们将获得即时奖励 *r(s,a)*，由奖励函数定义，加上某些未来奖励。如果我们假设我们的 Q表正确反映了每个动作的“吸引力”，那么在状态 *s'* 我们将选择一个动作 *a'*，其对应的值为 *Q(s',a')* 的最大值。因此，我们在状态 *s* 能够获得的最佳未来奖励将定义为 `max`
 
-This gives the **Bellman formula** for calculating the value of the Q-Table at state *s*, given action *a*:
+## 检查策略
 
-<img src="images/bellman-equation.png"/>
-
-Here γ is the so-called **discount factor** that determines to which extent you should prefer the current reward over the future reward and vice versa.
-
-## Learning Algorithm
-
-Given the equation above, we can now write pseudo-code for our learning algorithm:
-
-* Initialize Q-Table Q with equal numbers for all states and actions
-* Set learning rate α ← 1
-* Repeat simulation many times
-   1. Start at random position
-   1. Repeat
-        1. Select an action *a* at state *s*
-        2. Execute action by moving to a new state *s'*
-        3. If we encounter end-of-game condition, or total reward is too small - exit simulation  
-        4. Compute reward *r* at the new state
-        5. Update Q-Function according to Bellman equation: *Q(s,a)* ← *(1-α)Q(s,a)+α(r+γ max<sub>a'</sub>Q(s',a'))*
-        6. *s* ← *s'*
-        7. Update the total reward and decrease α.
-
-## Exploit vs. explore
-
-In the algorithm above, we did not specify how exactly we should choose an action at step 2.1. If we are choosing the action randomly, we will randomly **explore** the environment, and we are quite likely to die often as well as explore areas where we would not normally go. An alternative approach would be to **exploit** the Q-Table values that we already know, and thus to choose the best action (with higher Q-Table value) at state *s*. This, however, will prevent us from exploring other states, and it's likely we might not find the optimal solution.
-
-Thus, the best approach is to strike a balance between exploration and exploitation. This can be done by choosing the action at state *s* with probabilities proportional to values in the Q-Table. In the beginning, when Q-Table values are all the same, it would correspond to a random selection, but as we learn more about our environment, we would be more likely to follow the optimal route while allowing the agent to choose the unexplored path once in a while.
-
-## Python implementation
-
-We are now ready to implement the learning algorithm. Before we do that, we also need some function that will convert arbitrary numbers in the Q-Table into a vector of probabilities for corresponding actions.
-
-1. Create a function `probs()`:
-
-    ```python
-    def probs(v,eps=1e-4):
-        v = v-v.min()+eps
-        v = v/v.sum()
-        return v
-    ```
-
-    We add a few `eps` to the original vector in order to avoid division by 0 in the initial case, when all components of the vector are identical.
-
-Run them learning algorithm through 5000 experiments, also called **epochs**: (code block 8)
-```python
-    for epoch in range(5000):
-    
-        # Pick initial point
-        m.random_start()
-        
-        # Start travelling
-        n=0
-        cum_reward = 0
-        while True:
-            x,y = m.human
-            v = probs(Q[x,y])
-            a = random.choices(list(actions),weights=v)[0]
-            dpos = actions[a]
-            m.move(dpos,check_correctness=False) # we allow player to move outside the board, which terminates episode
-            r = reward(m)
-            cum_reward += r
-            if r==end_reward or cum_reward < -1000:
-                lpath.append(n)
-                break
-            alpha = np.exp(-n / 10e5)
-            gamma = 0.5
-            ai = action_idx[a]
-            Q[x,y,ai] = (1 - alpha) * Q[x,y,ai] + alpha * (r + gamma * Q[x+dpos[0], y+dpos[1]].max())
-            n+=1
-```
-
-After executing this algorithm, the Q-Table should be updated with values that define the attractiveness of different actions at each step. We can try to visualize the Q-Table by plotting a vector at each cell that will point in the desired direction of movement. For simplicity, we draw a small circle instead of an arrow head.
-
-<img src="images/learned.png"/>
-
-## Checking the policy
-
-Since the Q-Table lists the "attractiveness" of each action at each state, it is quite easy to use it to define the efficient navigation in our world. In the simplest case, we can select the action corresponding to the highest Q-Table value: (code block 9)
+由于 Q-Table 列出了每个状态下每个动作的“吸引力”，因此使用它来定义我们世界中的高效导航非常简单。在最简单的情况下，我们可以选择对应于最高 Q-Table 值的动作：（代码块 9）
 
 ```python
 def qpolicy_strict(m):
@@ -274,17 +207,17 @@ def qpolicy_strict(m):
 walk(m,qpolicy_strict)
 ```
 
-> If you try the code above several times, you may notice that sometimes it "hangs", and you need to press the STOP button in the notebook to interrupt it. This happens because there could be situations when two states "point" to each other in terms of optimal Q-Value, in which case the agents ends up moving between those states indefinitely.
+> 如果多次尝试上面的代码，你可能会注意到有时它会“卡住”，需要按下笔记本中的 STOP 按钮来中断。这是因为可能存在两种状态在最佳 Q 值方面“指向”彼此的情况，这样代理就会在这些状态之间无限移动。
 
-## 🚀Challenge
+## 🚀挑战
 
-> **Task 1:** Modify the `walk` function to limit the maximum length of path by a certain number of steps (say, 100), and watch the code above return this value from time to time.
+> **任务 1：** 修改 `walk` 函数以限制路径的最大长度为一定步数（例如 100），并观察上面的代码是否会不时返回该值。
 
-> **Task 2:** Modify the `walk` function so that it does not go back to the places where it has already been previously. This will prevent `walk` from looping, however, the agent can still end up being "trapped" in a location from which it is unable to escape.
+> **任务 2：** 修改 `walk` 函数，使其不返回到之前已经到过的地方。这将防止 `walk` 进入循环，但代理仍可能最终被“困”在无法逃脱的位置。
 
-## Navigation
+## 导航
 
-A better navigation policy would be the one that we used during training, which combines exploitation and exploration. In this policy, we will select each action with a certain probability, proportional to the values in the Q-Table. This strategy may still result in the agent returning back to a position it has already explored, but, as you can see from the code below, it results in a very short average path to the desired location (remember that `print_statistics` runs the simulation 100 times): (code block 10)
+更好的导航策略是我们在训练期间使用的策略，它结合了利用和探索。在此策略中，我们将以一定的概率选择每个动作，该概率与 Q-Table 中的值成比例。此策略可能仍会导致代理返回到已经探索过的位置，但正如你从下面的代码中看到的，它会导致到达目标位置的平均路径非常短（记住 `print_statistics` 会运行 100 次模拟）：（代码块 10）
 
 ```python
 def qpolicy(m):
@@ -296,25 +229,28 @@ def qpolicy(m):
 print_statistics(qpolicy)
 ```
 
-After running this code, you should get a much smaller average path length than before, in the range of 3-6.
+运行此代码后，你应该会得到比之前小得多的平均路径长度，范围在 3-6 之间。
 
-## Investigating the learning process
+## 调查学习过程
 
-As we have mentioned, the learning process is a balance between exploration and exploration of gained knowledge about the structure of problem space. We have seen that the results of learning (the ability to help an agent to find a short path to the goal) has improved, but it is also interesting to observe how the average path length behaves during the learning process:
+正如我们提到的，学习过程是在探索和利用已获得的关于问题空间结构的知识之间的平衡。我们已经看到学习的结果（帮助代理找到到达目标的短路径的能力）有所改善，但观察平均路径长度在学习过程中的变化也很有趣：
 
-<img src="images/lpathlen1.png"/>
+学习总结如下：
 
-The learnings can be summarized as:
+- **平均路径长度增加**。我们看到的是，起初平均路径长度增加。这可能是因为当我们对环境一无所知时，很容易陷入糟糕的状态，比如水或狼。随着我们学习更多并开始使用这些知识，我们可以更长时间地探索环境，但仍然不太清楚苹果的位置。
 
-- **Average path length increases**. What we see here is that at first, the average path length increases. This is probably due to the fact that when we know nothing about the environment, we are likely to get trapped in bad states, water or wolf. As we learn more and start using this knowledge, we can explore the environment for longer, but we still do not know where the apples are very well.
+- **路径长度随着学习增加而减少**。一旦我们学到足够多，代理更容易实现目标，路径长度开始减少。然而，我们仍然开放探索，因此经常偏离最佳路径，探索新的选项，使路径比最优路径更长。
 
-- **Path length decrease, as we learn more**. Once we learn enough, it becomes easier for the agent to achieve the goal, and the path length starts to decrease. However, we are still open to exploration, so we often diverge away from the best path, and explore new options, making the path longer than optimal.
+- **长度突然增加**。我们在图表上还观察到某些时候长度突然增加。这表明过程的随机性，并且我们可能会在某些时候通过用新值覆盖 Q-Table 系数来“破坏”它们。这应该通过降低学习率来尽量减少（例如，在训练结束时，我们仅通过小值调整 Q-Table 值）。
 
-- **Length increase abruptly**. What we also observe on this graph is that at some point, the length increased abruptly. This indicates the stochastic nature of the process, and that we can at some point "spoil" the Q-Table coefficients by overwriting them with new values. This ideally should be minimized by decreasing learning rate (for example, towards the end of training, we only adjust Q-Table values by a small value).
+总体而言，重要的是要记住，学习过程的成功和质量在很大程度上取决于参数，例如学习率、学习率衰减和折扣因子。这些通常被称为 **超参数**，以区别于 **参数**，后者是在训练期间优化的（例如 Q-Table 系数）。寻找最佳超参数值的过程称为 **超参数优化**，它值得单独讨论。
 
-Overall, it is important to remember that the success and quality of the learning process significantly depends on parameters, such as learning rate, learning rate decay, and discount factor. Those are often called **hyperparameters**, to distinguish them from **parameters**, which we optimize during training (for example, Q-Table coefficients). The process of finding the best hyperparameter values is called **hyperparameter optimization**, and it deserves a separate topic.
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
+## 作业 
+[一个更真实的世界](assignment.md)
 
-## Assignment 
-[A More Realistic World](assignment.md)
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于重要信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

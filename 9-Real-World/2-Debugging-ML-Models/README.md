@@ -1,171 +1,183 @@
-# Postscript: Model Debugging in Machine Learning using Responsible AI dashboard components
- 
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "df2b538e8fbb3e91cf0419ae2f858675",
+  "translation_date": "2025-09-05T09:03:02+00:00",
+  "source_file": "9-Real-World/2-Debugging-ML-Models/README.md",
+  "language_code": "zh"
+}
+-->
+# 后记：使用负责任的AI仪表板组件进行机器学习模型调试
 
-## [Pre-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
- 
-## Introduction
+## [课前测验](https://ff-quizzes.netlify.app/en/ml/)
 
-Machine learning impacts our everyday lives. AI is finding its way into some of the most important systems that affect us as individuals as well as our society, from healthcare, finance, education, and employment. For instance, systems and models are involved in daily decision-making tasks, such as health care diagnoses or detecting fraud. Consequentially, the advancements in AI along with the accelerated adoption are being met with evolving societal expectations and growing regulation in response. We constantly see areas where AI systems continue to miss expectations; they expose new challenges; and governments are starting to regulate AI solutions. So, it is important that these models are analyzed to provide fair, reliable, inclusive, transparent, and accountable outcomes for everyone.
+## 简介
 
-In this curriculum, we will look at practical tools that can be used to assess if a model has responsible AI issues. Traditional machine learning debugging techniques tend to be based on quantitative calculations such as aggregated accuracy or average error loss. Imagine what can happen when the data you are using to build these models lacks certain demographics, such as race, gender, political view, religion, or disproportionally represents such demographics. What about when the model's output is interpreted to favor some demographic? This can introduce an over or under representation of these sensitive feature groups resulting in fairness, inclusiveness, or reliability issues from the model. Another factor is, machine learning models are considered black boxes, which makes it hard to understand and explain what drives a model’s prediction. All of these are challenges data scientists and AI developers face when they do not have adequate tools to debug and assess the fairness or trustworthiness of a model.
+机器学习正在影响我们的日常生活。人工智能正在逐步渗透到一些对个人和社会至关重要的系统中，例如医疗、金融、教育和就业领域。例如，系统和模型参与了日常决策任务，如医疗诊断或欺诈检测。因此，随着人工智能的快速发展和广泛应用，社会对其的期望也在不断变化，同时相关法规也在逐步完善。我们经常看到人工智能系统未能达到预期的领域，它们暴露出新的挑战，而各国政府也开始对人工智能解决方案进行监管。因此，分析这些模型以确保其为所有人提供公平、可靠、包容、透明和负责任的结果是非常重要的。
 
-In this lesson, you will learn about debugging your models using:
+在本课程中，我们将探讨一些实用工具，这些工具可以用来评估模型是否存在负责任的人工智能问题。传统的机器学习调试技术通常基于定量计算，例如总体准确率或平均误差损失。然而，想象一下，当您用于构建这些模型的数据缺乏某些人口统计信息（如种族、性别、政治观点、宗教）或这些人口统计信息被不成比例地代表时会发生什么情况。如果模型的输出被解释为偏向某些人口统计信息，这可能会导致这些敏感特征组的过度或不足代表，从而引发模型的公平性、包容性或可靠性问题。此外，机器学习模型通常被认为是“黑箱”，这使得理解和解释模型预测的驱动因素变得困难。这些都是数据科学家和人工智能开发者在缺乏足够工具来调试和评估模型的公平性或可信度时面临的挑战。
 
--	**Error Analysis**: identify where in your data distribution the model has high error rates.
--	**Model Overview**: perform comparative analysis across different data cohorts to discover disparities in your model’s performance metrics.
--	**Data Analysis**: investigate where there could be over or under representation of your data that can skew your model to favor one data demographic vs another.
--	**Feature Importance**: understand which features are driving your model’s predictions on a global level or local level.
+在本课程中，您将学习如何使用以下方法调试模型：
 
-## Prerequisite
+- **错误分析**：识别模型在数据分布中错误率较高的区域。
+- **模型概览**：对不同数据群体进行比较分析，发现模型性能指标中的差异。
+- **数据分析**：调查数据是否存在过度或不足代表的情况，这可能导致模型偏向某些数据群体。
+- **特征重要性**：了解哪些特征在全局或局部层面驱动模型的预测。
 
-As a prerequisite, please take the review [Responsible AI tools for developers](https://www.microsoft.com/ai/ai-lab-responsible-ai-dashboard)
+## 前提条件
 
-> ![Gif on Responsible AI Tools](./images/rai-overview.gif)
+作为前提条件，请先查看[开发者的负责任AI工具](https://www.microsoft.com/ai/ai-lab-responsible-ai-dashboard)
 
-## Error Analysis
+> ![负责任AI工具的动图](../../../../9-Real-World/2-Debugging-ML-Models/images/rai-overview.gif)
 
-Traditional model performance metrics used for measuring accuracy are mostly calculations based on correct vs incorrect predictions. For example, determining that a model is accurate 89% of time with an error loss of 0.001 can be considered a good performance. Errors are often not distributed uniformly in your underlying dataset. You may get an 89% model accuracy score but discover that there are different regions of your data for which the model is failing 42% of the time. The consequence of these failure patterns with certain data groups can lead to fairness or reliability issues. It is essential to understand areas where the model is performing well or not. The data regions where there are a high number of inaccuracies in your model may turn out to be an important data demographic.  
+## 错误分析
 
-![Analyze and debug model errors](./images/ea-error-distribution.png)
+用于衡量准确性的传统模型性能指标通常基于正确与错误预测的计算。例如，确定一个模型89%的时间是准确的，误差损失为0.001，可以被认为是良好的性能。然而，错误通常不会在您的基础数据集中均匀分布。您可能获得89%的模型准确率，但发现模型在某些数据区域的失败率高达42%。这些特定数据群体的失败模式可能导致公平性或可靠性问题。因此，了解模型表现良好或不佳的区域至关重要。模型中错误率较高的数据区域可能是重要的数据群体。
 
-The Error Analysis component on the RAI dashboard illustrates how model failure is distributed across various cohorts with a tree visualization. This is useful in identifying features or areas where there is a high error rate with your dataset. By seeing where most of the model’s inaccuracies are coming from, you can start investigating the root cause. You can also create cohorts of data to perform analysis on. These data cohorts help in the debugging process to determine why the model performance is good in one cohort, but erroneous in another.   
+![分析和调试模型错误](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-error-distribution.png)
 
-![Error Analysis](./images/ea-error-cohort.png)
+RAI仪表板上的错误分析组件通过树形可视化展示模型失败在不同群体中的分布情况。这有助于识别数据集中错误率较高的特征或区域。通过查看模型大部分错误的来源，您可以开始调查根本原因。您还可以创建数据群体以进行分析。这些数据群体有助于调试过程，以确定为什么模型在一个群体中表现良好，而在另一个群体中却出现错误。
 
-The visual indicators on the tree map help in locating the problem areas quicker. For instance, the darker shade of red color a tree node has, the higher the error rate.  
+![错误分析](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-error-cohort.png)
 
-Heat map is another visualization functionality that users can use in investigating the error rate using one or two features to find a contributor to the model errors across an entire dataset or cohorts.
+树形图上的视觉指示器可以更快地定位问题区域。例如，树节点的红色阴影越深，错误率越高。
 
-![Error Analysis Heatmap](./images/ea-heatmap.png)
+热图是另一种可视化功能，用户可以使用它通过一个或两个特征调查错误率，以发现整个数据集或群体中导致模型错误的因素。
 
-Use error analysis when you need to:
+![错误分析热图](../../../../9-Real-World/2-Debugging-ML-Models/images/ea-heatmap.png)
 
-* Gain a deep understanding of how model failures are distributed across a dataset and across several input and feature dimensions.
-* Break down the aggregate performance metrics to automatically discover erroneous cohorts to inform your targeted mitigation steps.
+使用错误分析时，您可以：
 
-## Model Overview
+* 深入了解模型失败如何在数据集和多个输入及特征维度中分布。
+* 分解总体性能指标，自动发现错误群体，以指导您的针对性缓解措施。
 
-Evaluating the performance of a machine learning model requires getting a holistic understanding of its behavior. This can be achieved by reviewing more than one metric such as error rate, accuracy, recall, precision, or MAE (Mean Absolute Err) to find disparities among performance metrics.  One performance metric may look great, but inaccuracies can be exposed in another metric. In addition, comparing the metrics for disparities across the entire dataset or cohorts helps shed light on where the model is performing well or not. This is especially important in seeing the model’s performance among sensitive vs insensitive features (e.g., patient race, gender, or age) to uncover potential unfairness the model may have. For example, discovering that the model is more erroneous in a cohort that has sensitive features can reveal potential unfairness the model may have.
+## 模型概览
 
-The Model Overview component of the RAI dashboard helps not just in analyzing the performance metrics of the data representation in a cohort, but it gives users the ability to compare the model’s behavior across different cohorts.
+评估机器学习模型的性能需要全面了解其行为。这可以通过查看多个指标（如错误率、准确率、召回率、精确度或平均绝对误差（MAE））来发现性能指标中的差异来实现。一个性能指标可能看起来很好，但另一个指标可能暴露出不准确性。此外，比较整个数据集或群体中的指标差异有助于揭示模型表现良好或不佳的区域。这对于查看模型在敏感特征（如患者种族、性别或年龄）与非敏感特征之间的表现尤为重要，以发现模型可能存在的潜在不公平性。例如，发现模型在包含敏感特征的群体中错误率更高可能揭示模型潜在的不公平性。
 
-![Dataset cohorts - model overview in RAI dashboard](./images/model-overview-dataset-cohorts.png)
+RAI仪表板的模型概览组件不仅有助于分析数据群体中的性能指标，还为用户提供了比较模型在不同群体中的行为的能力。
 
-The component's feature-based analysis functionality allows users to narrow down data subgroups within a particular feature to identify anomalies on a granular level. For example, the dashboard has built-in intelligence to automatically generate cohorts for a user-selected feature (eg., *"time_in_hospital < 3"* or *"time_in_hospital >= 7"*). This enables a user to isolate a particular feature from a larger data group to see if it is a key influencer of the model's erroneous outcomes.
+![数据群体 - RAI仪表板中的模型概览](../../../../9-Real-World/2-Debugging-ML-Models/images/model-overview-dataset-cohorts.png)
 
-![Feature cohorts - model overview in RAI dashboard](./images/model-overview-feature-cohorts.png)
+组件的基于特征的分析功能允许用户缩小特定特征内的数据子群体，以更细粒度地识别异常。例如，仪表板具有内置智能，可以自动为用户选择的特征生成群体（例如，*"time_in_hospital < 3"* 或 *"time_in_hospital >= 7"*）。这使用户能够从较大的数据组中隔离特定特征，以查看它是否是模型错误结果的关键影响因素。
 
-The Model Overview component supports two classes of disparity metrics:
+![特征群体 - RAI仪表板中的模型概览](../../../../9-Real-World/2-Debugging-ML-Models/images/model-overview-feature-cohorts.png)
 
-**Disparity in model performance**: These sets of metrics calculate the disparity (difference) in the values of the selected performance metric across subgroups of data. Here are a few examples:
+模型概览组件支持两类差异指标：
 
-* Disparity in accuracy rate
-* Disparity in error rate
-* Disparity in precision
-* Disparity in recall
-* Disparity in mean absolute error (MAE)
+**模型性能差异**：这些指标计算所选性能指标在数据子群体之间的差异（差距）。以下是一些示例：
 
-**Disparity in selection rate**: This metric contains the difference in selection rate (favorable prediction) among subgroups. An example of this is the disparity in loan approval rates. Selection rate means the fraction of data points in each class classified as 1 (in binary classification) or distribution of prediction values (in regression).
+* 准确率差异
+* 错误率差异
+* 精确度差异
+* 召回率差异
+* 平均绝对误差（MAE）差异
 
-## Data Analysis
+**选择率差异**：此指标包含子群体之间选择率（有利预测）的差异。例如，贷款批准率的差异。选择率指的是每个类别中被分类为1的数据点的比例（在二元分类中）或预测值的分布（在回归中）。
 
-> "If you torture the data long enough, it will confess to anything" - Ronald Coase
+## 数据分析
 
-This statement sounds extreme, but it is true that data can be manipulated to support any conclusion. Such manipulation can sometimes happen unintentionally. As humans, we all have bias, and it is often difficult to consciously know when you are introducing bias in data. Guaranteeing fairness in AI and machine learning remains a complex challenge. 
+> “如果你对数据施加足够的压力，它会承认任何事情” - Ronald Coase
 
-Data is a huge blind spot for traditional model performance metrics. You may have high accuracy scores, but this does not always reflect the underlining data bias that could be in your dataset. For example, if a dataset of employees has 27% of women in executive positions in a company and 73% of men at the same level, a job advertising AI model trained on this data may target mostly a male audience for senior level job positions. Having this imbalance in data skewed the model’s prediction to favor one gender. This reveals a fairness issue where there is a gender bias in the AI model.  
+这句话听起来极端，但确实如此，数据可以被操纵以支持任何结论。这种操纵有时可能是无意的。作为人类，我们都有偏见，而要意识到自己在数据中引入偏见通常是困难的。确保人工智能和机器学习的公平性仍然是一个复杂的挑战。
 
-The Data Analysis component on the RAI dashboard helps to identify areas where there’s an over- and under-representation in the dataset. It helps users diagnose the root cause of errors and fairness issues introduced from data imbalances or lack of representation of a particular data group. This gives users the ability to visualize datasets based on predicted and actual outcomes, error groups, and specific features. Sometimes discovering an underrepresented data group can also uncover that the model is not learning well, hence the high inaccuracies. Having a model that has data bias is not just a fairness issue but shows that the model is not inclusive or reliable.
+数据是传统模型性能指标的一个巨大盲点。您可能有很高的准确率，但这并不总是反映数据集中可能存在的潜在数据偏差。例如，如果一个公司员工数据集中有27%的女性担任高管职位，而73%的男性担任同一职位，那么基于该数据训练的招聘广告AI模型可能会主要针对男性观众投放高级职位广告。这种数据的不平衡使模型的预测偏向了某一性别。这揭示了模型存在性别偏见的公平性问题。
 
-![Data Analysis component on RAI Dashboard](./images/dataanalysis-cover.png)
+RAI仪表板上的数据分析组件有助于识别数据集中过度和不足代表的区域。它帮助用户诊断由于数据不平衡或缺乏特定数据群体代表性而引入的错误和公平性问题。这使用户能够根据预测和实际结果、错误群体以及特定特征可视化数据集。有时发现一个代表性不足的数据群体也可能揭示模型学习效果不佳，从而导致高错误率。一个具有数据偏差的模型不仅是一个公平性问题，还表明模型不够包容或可靠。
 
+![RAI仪表板上的数据分析组件](../../../../9-Real-World/2-Debugging-ML-Models/images/dataanalysis-cover.png)
 
-Use data analysis when you need to:
+使用数据分析时，您可以：
 
-* Explore your dataset statistics by selecting different filters to slice your data into different dimensions (also known as cohorts).
-* Understand the distribution of your dataset across different cohorts and feature groups.
-* Determine whether your findings related to fairness, error analysis, and causality (derived from other dashboard components) are a result of your dataset's distribution.
-* Decide in which areas to collect more data to mitigate errors that come from representation issues, label noise, feature noise, label bias, and similar factors.
+* 通过选择不同的过滤器探索数据集统计信息，将数据切分为不同维度（也称为群体）。
+* 了解数据集在不同群体和特征组中的分布。
+* 确定与公平性、错误分析和因果关系相关的发现（来自其他仪表板组件）是否是数据集分布的结果。
+* 决定在哪些领域收集更多数据，以缓解由于代表性问题、标签噪声、特征噪声、标签偏差等因素导致的错误。
 
-## Model Interpretability
+## 模型可解释性
 
-Machine learning models tend to be black boxes. Understanding which key data features drive a model’s prediction can be challenging.  It is important to provide transparency as to why a model makes a certain prediction. For example, if an AI system predicts that a diabetic patient is at risk of being readmitted back to a hospital in less than 30 days, it should be able to provide supporting data that led to its prediction. Having supporting data indicators brings transparency to help clinicians or hospitals to be able to make well-informed decisions. In addition, being able to explain why a model made a prediction for an individual patient enables accountability with health regulations. When you are using machine learning models in ways that affect people’s lives, it is crucial to understand and explain what influences the behavior of a model. Model explainability and interpretability helps answer questions in scenarios such as:
+机器学习模型通常是“黑箱”。理解哪些关键数据特征驱动模型的预测可能具有挑战性。提供模型为何做出某种预测的透明性非常重要。例如，如果一个AI系统预测某位糖尿病患者有可能在30天内再次入院，它应该能够提供支持其预测的数据。提供支持数据指标可以帮助临床医生或医院做出明智的决策。此外，能够解释模型为何对个别患者做出某种预测可以确保符合健康法规的责任。当您使用机器学习模型影响人们的生活时，理解和解释模型行为的驱动因素至关重要。模型可解释性和可解释性可以帮助回答以下场景中的问题：
 
-* Model debugging: Why did my model make this mistake? How can I improve my model?
-* Human-AI collaboration: How can I understand and trust the model’s decisions?
-* Regulatory compliance: Does my model satisfy legal requirements?
+* 模型调试：为什么我的模型会犯这个错误？我该如何改进模型？
+* 人机协作：我如何理解并信任模型的决策？
+* 法规合规：我的模型是否满足法律要求？
 
-The Feature Importance component of the RAI dashboard helps you to debug and get a comprehensive understanding of how a model makes predictions. It is also a useful tool for machine learning professionals and decision-makers to explain and show evidence of features influencing a model's behavior for regulatory compliance. Next, users can explore both global and local explanations validate which features drive a model’s prediction. Global explanations lists the top features that affected a model’s overall prediction. Local explanations display which features led to a model’s prediction for an individual case. The ability to evaluate local explanations is also helpful in debugging or auditing a specific case to better understand and interpret why a model made an accurate or inaccurate prediction. 
+RAI仪表板的特征重要性组件帮助您调试并全面了解模型如何做出预测。它也是机器学习专业人士和决策者解释和展示影响模型行为的特征证据的有用工具，以满足法规要求。接下来，用户可以探索全局和局部解释，验证哪些特征驱动模型的预测。全局解释列出影响模型整体预测的主要特征。局部解释显示哪些特征导致模型对个别案例的预测。评估局部解释的能力在调试或审计特定案例时也很有帮助，以更好地理解和解释模型为何做出准确或不准确的预测。
 
-![Feature Importance component of the RAI dashboard](./images/9-feature-importance.png)
+![RAI仪表板的特征重要性组件](../../../../9-Real-World/2-Debugging-ML-Models/images/9-feature-importance.png)
 
-* Global explanations: For example, what features affect the overall behavior of a diabetes hospital readmission model?
-* Local explanations: For example, why was a diabetic patient over 60 years old with prior hospitalizations predicted to be readmitted or not readmitted within 30 days back to a hospital?
+* 全局解释：例如，哪些特征影响糖尿病患者入院模型的整体行为？
+* 局部解释：例如，为什么一位年龄超过60岁且有过住院记录的糖尿病患者被预测为会或不会在30天内再次入院？
 
-In the debugging process of examining a model’s performance across different cohorts, Feature Importance shows what level of impact a feature has across the cohorts. It helps reveal anomalies when comparing the level of influence the feature has in driving a model’s erroneous predictions. The Feature Importance component can show which values in a feature positively or negatively influenced the model’s outcome. For instance, if a model made an inaccurate prediction, the component gives you the ability to drill down and pinpoint what features or feature values drove the prediction. This level of detail helps not just in debugging but provides transparency and accountability in auditing situations. Finally, the component can help you to identify fairness issues. To illustrate, if a sensitive feature such as ethnicity or gender is highly influential in driving a model’s prediction, this could be a sign of race or gender bias in the model.
+在调试模型性能的过程中，特征重要性显示了特征在不同群体中的影响程度。它有助于揭示比较特征对模型错误预测的影响程度时的异常情况。特征重要性组件可以显示特征中的哪些值对模型结果产生了正面或负面影响。例如，如果模型做出了错误预测，该组件使您能够深入分析并确定哪些特征或特征值驱动了预测。这种细节不仅有助于调试，还在审计情况下提供了透明性和责任性。最后，该组件可以帮助您识别公平性问题。例如，如果种族或性别等敏感特征在驱动模型预测中具有高度影响力，这可能表明模型存在种族或性别偏见。
 
-![Feature importance](./images/9-features-influence.png)
+![特征重要性](../../../../9-Real-World/2-Debugging-ML-Models/images/9-features-influence.png)
 
-Use interpretability when you need to:
+使用可解释性时，您可以：
 
-* Determine how trustworthy your AI system’s predictions are by understanding what features are most important for the predictions.
-* Approach the debugging of your model by understanding it first and identifying whether the model is using healthy features or merely false correlations.
-* Uncover potential sources of unfairness by understanding whether the model is basing predictions on sensitive features or on features that are highly correlated with them.
-* Build user trust in your model’s decisions by generating local explanations to illustrate their outcomes.
-* Complete a regulatory audit of an AI system to validate models and monitor the impact of model decisions on humans.
+* 通过了解哪些特征对预测最重要，确定您的AI系统预测的可信度。
+* 通过首先理解模型并识别模型是否使用健康特征或仅仅是错误关联来调试模型。
+* 发现潜在的不公平性来源，了解模型是否基于敏感特征或与敏感特征高度相关的特征进行预测。
+* 通过生成局部解释来展示模型结果，建立用户对模型决策的信任。
+* 完成AI系统的法规审计，以验证模型并监控模型决策对人类的影响。
 
-## Conclusion
+## 结论
 
-All the RAI dashboard components are practical tools to help you build machine learning models that are less harmful and more trustworthy to society. It improves the prevention of treats to human rights; discriminating or excluding certain groups to life opportunities; and the risk of physical or psychological injury. It also helps to build trust in your model’s decisions by generating local explanations to illustrate their outcomes. Some of the potential harms can be classified as:
+RAI仪表板的所有组件都是帮助您构建对社会更少伤害、更值得信赖的机器学习模型的实用工具。它有助于防止对人权的威胁；避免歧视或排除某些群体的生活机会；以及减少身体或心理伤害的风险。它还通过生成局部解释来展示模型结果，帮助建立对模型决策的信任。一些潜在的伤害可以分类为：
 
-- **Allocation**, if a gender or ethnicity for example is favored over another.
-- **Quality of service**. If you train the data for one specific scenario but the reality is much more complex, it leads to a poor performing service.
-- **Stereotyping**. Associating a given group with pre-assigned attributes.
-- **Denigration**. To unfairly criticize and label something or someone.
-- **Over- or under- representation**. The idea is that a certain group is not seen in a certain profession, and any service or function that keeps promoting that is contributing to harm.
+- **分配**：例如，某一性别或种族被优待于另一性别或种族。
+- **服务质量**：如果您为一个特定场景训练数据，但现实情况更复杂，这会导致服务质量差。
+- **刻板印象**：将某一群体与预先分配的属性联系起来。
+- **贬低**：不公平地批评和标记某事或某人。
+- **过度或不足的代表性**。这个概念指的是某些群体在某些职业中未被看到，而任何继续推动这种现象的服务或功能都在助长伤害。
 
-### Azure RAI dashboard
- 
-[Azure RAI dashboard](https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai-dashboard?WT.mc_id=aiml-90525-ruyakubu) is built on open-source tools developed by the leading academic institutions and organizations including Microsoft are instrumental for data scientists and AI developers to better understand model behavior, discover and mitigate undesirable issues from AI models.
+### Azure RAI 仪表板
 
-- Learn how to use the different components by checking out the RAI dashboard [docs.](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-responsible-ai-dashboard?WT.mc_id=aiml-90525-ruyakubu)
+[Azure RAI 仪表板](https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai-dashboard?WT.mc_id=aiml-90525-ruyakubu) 基于由领先学术机构和组织（包括微软）开发的开源工具构建。这些工具对数据科学家和 AI 开发者理解模型行为、发现并缓解 AI 模型中的不良问题至关重要。
 
-- Check out some RAI dashboard [sample notebooks](https://github.com/Azure/RAI-vNext-Preview/tree/main/examples/notebooks) for debugging more responsible AI scenarios in Azure Machine Learning. 
-  
+- 通过查看 RAI 仪表板的[文档](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-responsible-ai-dashboard?WT.mc_id=aiml-90525-ruyakubu)，学习如何使用不同的组件。
+
+- 查看一些 RAI 仪表板的[示例笔记本](https://github.com/Azure/RAI-vNext-Preview/tree/main/examples/notebooks)，以调试 Azure 机器学习中的更多负责任 AI 场景。
+
 ---
-## 🚀 Challenge 
- 
-To prevent statistical or data biases from being introduced in the first place, we should: 
+## 🚀 挑战
 
-- have a diversity of backgrounds and perspectives among the people working on systems 
-- invest in datasets that reflect the diversity of our society 
-- develop better methods for detecting and correcting bias when it occurs 
+为了从一开始就避免引入统计或数据偏差，我们应该：
 
-Think about real-life scenarios where unfairness is evident in model-building and usage. What else should we consider? 
+- 确保参与系统开发的人员具有多样化的背景和观点
+- 投资于反映社会多样性的数据集
+- 开发更好的方法来检测和纠正偏差
 
-## [Post-lecture quiz](https://ff-quizzes.netlify.app/en/ml/)
-## Review & Self Study 
- 
-In this lesson, you have learned some of the practical tools of incorporating responsible AI in machine learning.  
+思考现实生活中模型构建和使用中显而易见的不公平场景。我们还应该考虑什么？
 
-Watch this workshop to dive deeper into the topics: 
+## [课后测验](https://ff-quizzes.netlify.app/en/ml/)
+## 复习与自学
 
-- Responsible AI Dashboard: One-stop shop for operationalizing RAI in practice by Besmira Nushi and Mehrnoosh Sameki
+在本课中，你学习了一些将负责任 AI 融入机器学习的实用工具。
 
-[![Responsible AI Dashboard: One-stop shop for operationalizing RAI in practice](https://img.youtube.com/vi/f1oaDNl3djg/0.jpg)](https://www.youtube.com/watch?v=f1oaDNl3djg "Responsible AI Dashboard: One-stop shop for operationalizing RAI in practice")
+观看以下工作坊以更深入地了解相关主题：
 
-> 🎥 Click the image above for a video: Responsible AI Dashboard: One-stop shop for operationalizing RAI in practice by Besmira Nushi and Mehrnoosh Sameki
- 
-Reference the following materials to learn more about responsible AI and how to build more trustworthy models: 
+- 负责任 AI 仪表板：由 Besmira Nushi 和 Mehrnoosh Sameki 主讲，实践中实现 RAI 的一站式解决方案
 
-- Microsoft’s RAI dashboard tools for debugging ML models: [Responsible AI tools resources](https://aka.ms/rai-dashboard)
+[![负责任 AI 仪表板：实践中实现 RAI 的一站式解决方案](https://img.youtube.com/vi/f1oaDNl3djg/0.jpg)](https://www.youtube.com/watch?v=f1oaDNl3djg "负责任 AI 仪表板：实践中实现 RAI 的一站式解决方案")
 
-- Explore the Responsible AI toolkit: [Github](https://github.com/microsoft/responsible-ai-toolbox)
+> 🎥 点击上方图片观看视频：负责任 AI 仪表板：实践中实现 RAI 的一站式解决方案，由 Besmira Nushi 和 Mehrnoosh Sameki 主讲
 
-- Microsoft’s RAI resource center: [Responsible AI Resources – Microsoft AI](https://www.microsoft.com/ai/responsible-ai-resources?activetab=pivot1%3aprimaryr4) 
+参考以下材料，了解更多关于负责任 AI 的内容以及如何构建更值得信赖的模型：
 
-- Microsoft’s FATE research group: [FATE: Fairness, Accountability, Transparency, and Ethics in AI - Microsoft Research](https://www.microsoft.com/research/theme/fate/) 
+- 微软的 RAI 仪表板工具，用于调试 ML 模型：[负责任 AI 工具资源](https://aka.ms/rai-dashboard)
 
-## Assignment
+- 探索负责任 AI 工具包：[Github](https://github.com/microsoft/responsible-ai-toolbox)
 
-[Explore RAI dashboard](assignment.md) 
+- 微软的 RAI 资源中心：[负责任 AI 资源 – Microsoft AI](https://www.microsoft.com/ai/responsible-ai-resources?activetab=pivot1%3aprimaryr4)
+
+- 微软的 FATE 研究组：[FATE：AI 中的公平性、问责性、透明性和伦理 - Microsoft Research](https://www.microsoft.com/research/theme/fate/)
+
+## 作业
+
+[探索 RAI 仪表板](assignment.md)
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保准确性，但请注意，自动翻译可能包含错误或不准确之处。应以原始语言的文档作为权威来源。对于关键信息，建议使用专业人工翻译。因使用本翻译而导致的任何误解或误读，我们概不负责。

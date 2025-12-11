@@ -1,13 +1,27 @@
-# A ML Scavenger Hunt
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "fdebfcd0a3f12c9e2b436ded1aa79885",
+  "translation_date": "2025-09-03T17:27:15+00:00",
+  "source_file": "9-Real-World/1-Applications/assignment.md",
+  "language_code": "zh"
+}
+-->
+# 一个机器学习寻宝游戏
 
-## Instructions
+## 说明
 
-In this lesson, you learned about many real-life use cases that were solved using classical ML. While the use of deep learning, new techniques and tools in AI, and leveraging neural networks has helped speed up the production of tools to help in these sectors, classic ML using the techniques in this curriculum still hold great value.
+在本课中，你学习了许多通过经典机器学习解决的真实案例。虽然深度学习、新技术和工具的应用，以及神经网络的使用加速了这些领域工具的开发，但使用本课程中的经典机器学习技术仍然具有重要价值。
 
-In this assignment, imagine that you are participating in a hackathon. Use what you learned in the curriculum to propose a solution using classic ML to solve a problem in one of the sectors discussed in this lesson. Create a presentation where you discuss how you will implement your idea. Bonus points if you can gather sample data and build a ML model to support your concept!
+在这个任务中，假设你正在参加一个黑客马拉松。利用你在课程中学到的知识，提出一个使用经典机器学习解决本课中讨论的某个领域问题的方案。创建一个演示文稿，讨论你将如何实现你的想法。如果你能收集样本数据并构建一个支持你概念的机器学习模型，还可以获得额外加分！
 
-## Rubric
+## 评分标准
 
-| Criteria | Exemplary                                                           | Adequate                                          | Needs Improvement      |
-| -------- | ------------------------------------------------------------------- | ------------------------------------------------- | ---------------------- |
-|          | A PowerPoint presentation is presented - bonus for building a model | A non-innovative, basic presentation is presented | The work is incomplete |
+| 标准     | 卓越表现                                                         | 基本达标                                      | 需要改进              |
+| -------- | ---------------------------------------------------------------- | --------------------------------------------- | --------------------- |
+|          | 提交了一个PowerPoint演示文稿 - 构建模型可获得额外加分            | 提交了一个非创新的基础演示文稿                | 工作不完整            |
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务[Co-op Translator](https://github.com/Azure/co-op-translator)进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。

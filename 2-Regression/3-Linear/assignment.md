@@ -1,11 +1,25 @@
-# Create a Regression Model
+<!--
+CO_OP_TRANSLATOR_METADATA:
+{
+  "original_hash": "cc471fa89c293bc735dd3a9a0fb79b1b",
+  "translation_date": "2025-09-03T16:25:06+00:00",
+  "source_file": "2-Regression/3-Linear/assignment.md",
+  "language_code": "zh"
+}
+-->
+# 创建回归模型
 
-## Instructions
+## 说明
 
-In this lesson you were shown how to build a model using both Linear and Polynomial Regression. Using this knowledge, find a dataset or use one of Scikit-learn's built-in sets to build a fresh model. Explain in your notebook why you chose the technique you did, and demonstrate your model's accuracy. If it is not accurate, explain why.
+在本课中，你学习了如何使用线性回归和多项式回归来构建模型。利用这些知识，找到一个数据集或使用 Scikit-learn 内置的数据集来构建一个新的模型。在你的笔记本中解释你选择该技术的原因，并展示你的模型的准确性。如果模型不够准确，请解释原因。
 
-## Rubric
+## 评分标准
 
-| Criteria | Exemplary                                                    | Adequate                   | Needs Improvement               |
+| 标准     | 卓越表现                                                    | 合格表现                   | 需要改进                       |
 | -------- | ------------------------------------------------------------ | -------------------------- | ------------------------------- |
-|          | presents a complete notebook with a well-documented solution | the solution is incomplete | the solution is flawed or buggy |
+|          | 提供一个完整的笔记本，并包含详细记录的解决方案               | 解决方案不完整             | 解决方案存在缺陷或错误          |
+
+---
+
+**免责声明**：  
+本文档使用AI翻译服务 [Co-op Translator](https://github.com/Azure/co-op-translator) 进行翻译。尽管我们努力确保翻译的准确性，但请注意，自动翻译可能包含错误或不准确之处。原始语言的文档应被视为权威来源。对于关键信息，建议使用专业人工翻译。我们不对因使用此翻译而产生的任何误解或误读承担责任。
